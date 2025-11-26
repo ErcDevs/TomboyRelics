@@ -87,7 +87,6 @@ const initSquare = async (maxRetries = 5) => {
 
       const payments = window.Square.payments(config.applicationId, config.locationId)
       card = await payments.card({
-        style: { '.input-container': { border: '1px solid #d1d5db' } }
       })
       await card.attach('#card-container')
       cardReady.value = true
