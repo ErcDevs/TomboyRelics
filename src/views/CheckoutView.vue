@@ -35,10 +35,11 @@ const router = useRouter()
 let card
 
 onMounted(async () => {
-  const payments = window.Square.payments('sq0idp-YOUR_APP_ID', 'L2YOUR_LOCATION_ID')
-  card = await payments.card()
-  await card.attach('#card-container')
-})
+  const config = window.SQUARE_CONFIG;
+  const payments = window.Square.payments(config.applicationId, config.locationId);
+  card = await payments.card();
+  await card.attach('#card-container');
+});
 
 async function pay() {
   const result = await card.tokenize()
