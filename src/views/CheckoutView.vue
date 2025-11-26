@@ -1,14 +1,17 @@
 <template>
   <div class="bg-gray-50 py-12">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold text-center text-mining-brown">Checkout</h1>
-      <div class="mt-8 max-w-2xl mx-auto">
-        <!-- Order Summary -->
-        <div v-if="cart.items.length === 0" class="text-center py-8 text-gray-500">
-          Your cart is empty. <router-link to="/" class="text-ore-gold underline">Continue shopping</router-link>
+      <h1 class="text-3xl font-bold text-center text-mining-brown mb-8">Checkout</h1>
+
+      <div class="max-w-2xl mx-auto">
+        <!-- Cart Empty -->
+        <div v-if="cart.items.length === 0" class="text-center py-16 text-gray-500">
+          Your cart is empty. <router-link to="/" class="text-ore-gold underline">Shop now</router-link>
         </div>
+
+        <!-- Order Summary -->
         <div v-else class="bg-white rounded-lg shadow p-6 mb-6">
-          <div v-for="item in cart.items" :key="item.id" class="flex justify-between py-4 border-b">
+          <div v-for="item in cart.items" :key="item.id" class="flex justify-between py-4 border-b last:border-0">
             <div>
               <h3 class="font-medium">{{ item.name }}</h3>
               <p class="text-sm text-gray-500">Qty: {{ item.quantity }}</p>
@@ -22,15 +25,17 @@
 
         <!-- Square Card Form -->
         <div class="bg-white rounded-lg shadow p-6">
-          <div id="card-container" class="border rounded p-3 mb-4"></div>
+          <div id="card-container" class="border-2 border-dashed border-gray-300 rounded-lg p-8 mb-6 min-h-32"></div>
+
           <button
             @click="pay"
-            :disabled="processing"
+            :disabled="processing || cart.items.length === 0"
             class="w-full bg-mining-brown hover:bg-mining-brown/90 disabled:opacity-50 text-white font-bold py-4 rounded-lg text-lg transition"
           >
             {{ processing ? 'Processing...' : `Pay $${cart.totalPrice.toFixed(2)}` }}
           </button>
-          <p v-if="error" class="text-red-600 text-center mt-4">{{ error }}</p>
+
+          <p v-if="error" class="text-red-600 text-center mt-4 font-medium">{{ error }}</p>
         </div>
       </div>
     </div>
@@ -50,58 +55,50 @@ let card = null
 
 onMounted(async () => {
   try {
-    // Load Square SDK
     if (!window.Square) {
-      console.error('Square SDK not loaded')
-      error.value = 'Payment system not available. Please refresh the page.'
+      error.value = 'Square SDK failed to load. Please refresh.'
       return
     }
 
-    // Use sandbox for testing, production for live
-    const payments = window.Square.payments('sq0idp-YOUR_SANDBOX_APP_ID', 'YOUR_SANDBOX_LOCATION_ID')  // Replace with real keys
+    // AUTO PICK SANDBOX OR PRODUCTION BASED ON URL
+    const isDev = window.location.hostname.includes('dev')
+    const config = isDev 
+      ? window.SQUARE_CONFIG.sandbox 
+      : window.SQUARE_CONFIG.production
 
-    card = await payments.card()
+    const payments = window.Square.payments(config.applicationId, config.locationId)
+    card = await payments.card({
+      style: {
+        '.input-container': { border: '1px solid #d1d5db' },
+      }
+    })
     await card.attach('#card-container')
-
-    console.log('Card attached successfully')  // Check browser console for this
+    console.log('Square card attached:', isDev ? 'SANDBOX' : 'PRODUCTION')
   } catch (err) {
-    console.error('Card attach error:', err)
+    console.error('Square init error:', err)
     error.value = 'Payment form failed to load. Please refresh.'
   }
 })
 
 async function pay() {
-  if (cart.items.length === 0) {
-    error.value = 'Cart is empty.'
-    return
-  }
-
-  if (!card) {
-    error.value = 'Payment form not ready. Please refresh.'
-    return
-  }
+  if (!card || cart.items.length === 0) return
 
   processing.value = true
   error.value = ''
 
   try {
     const result = await card.tokenize()
-
     if (result.status === 'OK') {
-      console.log('Token created:', result.token)  // Check console for token
-
-      // TODO: Send token to your backend (Cloudflare Worker) for charging
-      // For now, simulate success
+      console.log('Token created:', result.token)
       alert('Payment successful! Thank you for your order.')
       cart.clear()
       router.push('/')
     } else {
-      console.error('Tokenize error:', result.errors)
-      error.value = result.errors ? result.errors[0].message : 'Payment failed. Please try again.'
+      error.value = result.errors?.[0]?.message || 'Payment failed.'
     }
   } catch (err) {
-    console.error('Tokenize catch error:', err)
     error.value = 'Payment error. Please try again.'
+    console.error(err)
   } finally {
     processing.value = false
   }
