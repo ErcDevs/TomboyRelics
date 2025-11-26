@@ -1,0 +1,23 @@
+# Node / npm / caches
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Vite / Build
+dist/
+.vite/
+.node-storage/
+
+# Environment
+.env
+.env.*
+
+# OS & Editor junk
+.DS_Store
+.idea/
+.vscode/
+*.log
