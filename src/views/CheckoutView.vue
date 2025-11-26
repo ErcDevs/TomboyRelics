@@ -33,7 +33,7 @@
             {{ processing ? 'Processing...' : `Pay $${cart.totalPrice.toFixed(2)}` }}
           </button>
           <p v-if="error" class="text-red-600 text-center mt-4 font-medium">{{ error }}</p>
-          <p v-if="!cardReady" class="text-yellow-600 text-center mt-4">Loading payment form...</p>
+          <p v-if="!cardReady && !error" class="text-yellow-600 text-center mt-4">Loading payment form... (refresh if stuck)</p>
         </div>
       </div>
     </div>
@@ -52,71 +52,55 @@ const error = ref('')
 const cardReady = ref(false)
 let card = null
 
-// Retry function for attach
-const attachCard = async (maxRetries = 3) => {
+// Retry function to wait for SDK load and attach
+const initSquare = async (maxRetries = 5) => {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      if (!card) {
-        throw new Error('Card not initialized')
+      await nextTick()  // Wait for DOM
+
+      if (!window.Square) {
+        console.log(`SDK load attempt ${attempt} — waiting 1s...`)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        continue
       }
+
+      // Auto-pick sandbox or production
+      const isDev = window.location.hostname.includes('dev') || window.location.hostname.includes('localhost')
+      const config = isDev ? window.SQUARE_CONFIG.sandbox : window.SQUARE_CONFIG.production
+
+      if (!config.applicationId || !config.locationId) {
+        throw new Error('Missing Square config — check public/config.js')
+      }
+
+      console.log('Using environment:', isDev ? 'SANDBOX' : 'PRODUCTION')
+      console.log('App ID prefix:', config.applicationId.substring(0, 10) + '...')
+
+      const payments = window.Square.payments(config.applicationId, config.locationId)
+      card = await payments.card({
+        style: { '.input-container': { border: '1px solid #d1d5db' } }
+      })
       await card.attach('#card-container')
-      console.log('Card attached successfully on attempt', attempt)
       cardReady.value = true
+      console.log('Square card attached successfully!')
       return true
     } catch (err) {
-      console.log(`Attach attempt ${attempt} failed:`, err)
+      console.error(`SDK init attempt ${attempt} failed:`, err)
       if (attempt < maxRetries) {
-        await new Promise(resolve => setTimeout(resolve, 1000 * attempt))  // Exponential backoff
+        await new Promise(resolve => setTimeout(resolve, 1000 * attempt))
       }
     }
   }
-  throw new Error('Failed to attach card after retries')
+  error.value = 'Square SDK failed to load after retries. Please refresh or check console.'
+  return false
 }
 
 onMounted(async () => {
-  try {
-    // Wait for DOM to be ready
-    await nextTick()
-
-    if (!window.Square) {
-      throw new Error('Square SDK not loaded — check script in index.html')
-    }
-
-    // Log for debugging
-    console.log('Square SDK loaded, initializing...')
-
-    // Use sandbox for testing (on dev branch)
-    const isDev = window.location.hostname.includes('dev') || window.location.hostname.includes('localhost')
-    const config = isDev 
-      ? window.SQUARE_CONFIG.sandbox 
-      : window.SQUARE_CONFIG.production
-
-    if (!config.applicationId || !config.locationId) {
-      throw new Error('Missing Square config — check public/config.js')
-    }
-
-    console.log('Using environment:', isDev ? 'SANDBOX' : 'PRODUCTION')
-    console.log('App ID:', config.applicationId.substring(0, 10) + '...')
-    console.log('Location ID:', config.locationId.substring(0, 10) + '...')
-
-    const payments = window.Square.payments(config.applicationId, config.locationId)
-    card = await payments.card({
-      style: {
-        '.input-container': { border: '1px solid #d1d5db' },
-      }
-    })
-
-    // Attach with retry
-    await attachCard()
-  } catch (err) {
-    console.error('Square init error:', err)
-    error.value = `Payment form failed: ${err.message}. Please refresh.`
-  }
+  await initSquare()
 })
 
 async function pay() {
   if (!card || !cardReady || cart.items.length === 0) {
-    error.value = 'Payment form not ready or cart empty.'
+    error.value = 'Payment form not ready or cart empty. Please refresh.'
     return
   }
 
@@ -128,7 +112,7 @@ async function pay() {
 
     if (result.status === 'OK') {
       console.log('Token created:', result.token)
-      // TODO: Send to backend for processing
+      // TODO: Send token to backend for charging (Cloudflare Worker)
       alert('Payment successful! Thank you for your order.')
       cart.clear()
       router.push('/')
