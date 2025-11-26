@@ -33,7 +33,7 @@
             {{ processing ? 'Processing...' : `Pay $${cart.totalPrice.toFixed(2)}` }}
           </button>
           <p v-if="error" class="text-red-600 text-center mt-4 font-medium">{{ error }}</p>
-          <p v-if="!cardReady && !error" class="text-yellow-600 text-center mt-4">Loading payment form... (refresh if stuck)</p>
+          <p v-if="!cardReady && !error" class="text-yellow-600 text-center mt-4">Loading payment form... (check console for logs)</p>
         </div>
       </div>
     </div>
@@ -52,28 +52,38 @@ const error = ref('')
 const cardReady = ref(false)
 let card = null
 
-// Retry function to wait for SDK load and attach
 const initSquare = async (maxRetries = 5) => {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      await nextTick()  // Wait for DOM
+      await nextTick()
 
+      // Check if SDK loaded
       if (!window.Square) {
         console.log(`SDK load attempt ${attempt} — waiting 1s...`)
         await new Promise(resolve => setTimeout(resolve, 1000))
         continue
       }
 
-      // Auto-pick sandbox or production
+      // Check if config loaded
+      if (!window.SQUARE_CONFIG) {
+        console.log(`Config load attempt ${attempt} — waiting 1s...`)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        continue
+      }
+
+      console.log('SDK and config loaded — initializing...')
+
+      // Auto-pick environment
       const isDev = window.location.hostname.includes('dev') || window.location.hostname.includes('localhost')
       const config = isDev ? window.SQUARE_CONFIG.sandbox : window.SQUARE_CONFIG.production
 
       if (!config.applicationId || !config.locationId) {
-        throw new Error('Missing Square config — check public/config.js')
+        throw new Error('Missing config keys — check public/config.js')
       }
 
       console.log('Using environment:', isDev ? 'SANDBOX' : 'PRODUCTION')
       console.log('App ID prefix:', config.applicationId.substring(0, 10) + '...')
+      console.log('Location ID prefix:', config.locationId.substring(0, 10) + '...')
 
       const payments = window.Square.payments(config.applicationId, config.locationId)
       card = await payments.card({
@@ -81,16 +91,16 @@ const initSquare = async (maxRetries = 5) => {
       })
       await card.attach('#card-container')
       cardReady.value = true
-      console.log('Square card attached successfully!')
+      console.log('Card attached successfully!')
       return true
     } catch (err) {
-      console.error(`SDK init attempt ${attempt} failed:`, err)
+      console.error(`Init attempt ${attempt} failed:`, err)
       if (attempt < maxRetries) {
         await new Promise(resolve => setTimeout(resolve, 1000 * attempt))
       }
     }
   }
-  error.value = 'Square SDK failed to load after retries. Please refresh or check console.'
+  error.value = 'Square failed to load after retries. Please refresh and check console.'
   return false
 }
 
@@ -112,7 +122,6 @@ async function pay() {
 
     if (result.status === 'OK') {
       console.log('Token created:', result.token)
-      // TODO: Send token to backend for charging (Cloudflare Worker)
       alert('Payment successful! Thank you for your order.')
       cart.clear()
       router.push('/')
