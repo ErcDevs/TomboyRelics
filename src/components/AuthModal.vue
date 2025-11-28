@@ -10,7 +10,7 @@
           <div class="sm:flex sm:items-start">
             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
               <h3 class="text-lg font-semibold leading-6 text-gray-900" id="modal-title">
-                Create Your Account
+                Create Your Tomboy Relics Account
               </h3>
               <div class="mt-2">
                 <p class="text-sm text-gray-500">
@@ -24,7 +24,7 @@
         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
           <button
             @click="$emit('close')"
-            class="inline-flex w-full justify-center rounded-md bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 sm:ml-3 sm:w-auto sm:text-sm"
+            class="inline-flex w-full justify-center rounded-md bg-ore-gold px-4 py-2 text-base font-medium text-black shadow-sm hover:bg-ore-gold/80 sm:ml-3 sm:w-auto sm:text-sm"
           >
             Create Account
           </button>
@@ -41,7 +41,5 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue'
-
 defineEmits(['close'])
 </script>
