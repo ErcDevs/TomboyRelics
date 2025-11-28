@@ -1,10 +1,10 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <!-- Header with working Sign In button -->
-    <AppHeader @open-cart="handleOpenCart" @open-auth="handleOpenAuth" />
+    <!-- Header -->
+    <AppHeader @open-cart="cartOpen = true" @open-auth="showAuth = true" />
 
     <!-- Auth Modal -->
-    <AuthModal v-if="showAuth" @close="handleCloseAuth" />
+    <AuthModal v-if="showAuth" @close="showAuth = false" />
 
     <!-- Main content -->
     <main class="flex-1 bg-gray-50">
@@ -30,16 +30,11 @@ import CartDrawer from '@/components/CartDrawer.vue'
 const cartOpen = ref(false)
 const showAuth = ref(false)
 
-// EVENT HANDLERS
 const handleOpenCart = () => {
   cartOpen.value = true
 }
 
 const handleOpenAuth = () => {
   showAuth.value = true
-}
-
-const handleCloseAuth = () => {
-  showAuth.value = false
 }
 </script>
