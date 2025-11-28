@@ -28,19 +28,14 @@
           </div>
         </div>
 
-        <!-- Desktop: Sign In + Cart -->
+        <!-- Desktop: Clerk Auth + Cart -->
         <div class="hidden sm:flex items-center space-x-4">
-          <!-- SIGN IN BUTTON WITH DEBUG -->
-          <button
-            @click="$emit('open-auth'); console.log('SIGN IN CLICKED!')"
-            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mining-brown"
-          >
-            Sign In
-          </button>
+          <!-- CLERK USER BUTTON — AUTOMATIC SIGN IN / SIGN UP -->
+          <div ref="clerkDesktop" class="clerk-user-button"></div>
 
           <!-- Cart Button -->
           <button
-            @click="$emit('open-cart'); console.log('CART CLICKED!')"
+            @click="$emit('open-cart')"
             class="relative rounded-full bg-white dark:bg-gray-900 p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
           >
             <ShoppingCartIcon class="h-7 w-7" />
@@ -82,13 +77,8 @@
         >
           About
         </DisclosureButton>
-        <!-- Mobile Sign In -->
-        <button
-          @click="$emit('open-auth'); console.log('MOBILE SIGN IN CLICKED!')"
-          class="block w-full text-left border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50"
-        >
-          Sign In
-        </button>
+        <!-- Mobile Clerk Button -->
+        <div ref="clerkMobile" class="clerk-user-button px-3 py-2"></div>
       </div>
     </DisclosurePanel>
   </Disclosure>
@@ -98,11 +88,44 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/vue/24/outline'
 import { useCartStore } from '@/stores/cart'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
+import { Clerk } from '@clerk/clerk-js'
 
 const cart = useCartStore()
 const cartCount = computed(() => cart.totalItems)
 
-// CRITICAL: Define BOTH events
-defineEmits(['open-cart', 'open-auth'])
+// CLERK SETUP
+const clerkDesktop = ref(null)
+const clerkMobile = ref(null)
+
+onMounted(async () => {
+  try {
+    const clerk = new Clerk(import.meta.env.VITE_CLERK_PUBLISHABLE_KEY)
+    
+    await clerk.load({
+      appearance: {
+        elements: {
+          formButtonPrimary: 'bg-ore-gold hover:bg-ore-gold/90 text-black',
+          socialButtonsBlockButton: 'bg-mining-brown hover:bg-mining-brown/90 text-white'
+        }
+      }
+    })
+
+    // Mount desktop button
+    if (clerkDesktop.value) {
+      await clerk.mountUserButton(clerkDesktop.value)
+    }
+
+    // Mount mobile button
+    if (clerkMobile.value) {
+      await clerk.mountUserButton(clerkMobile.value)
+    }
+
+    console.log('✅ Clerk buttons mounted')
+  } catch (error) {
+    console.error('❌ Clerk failed:', error)
+  }
+})
+
+defineEmits(['open-cart'])
 </script>

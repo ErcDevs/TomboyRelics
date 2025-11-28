@@ -1,10 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col">
     <!-- Header -->
-    <AppHeader @open-cart="cartOpen = true" @open-auth="showAuth = true" />
-
-    <!-- Auth Modal -->
-    <AuthModal v-if="showAuth" @close="showAuth = false" />
+    <AppHeader @open-cart="cartOpen = true" />
 
     <!-- Main content -->
     <main class="flex-1 bg-gray-50">
@@ -24,9 +21,7 @@
 <script setup>
 import { ref } from 'vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
-import AuthModal from '@/components/AuthModal.vue'
 import CartDrawer from '@/components/CartDrawer.vue'
 
 const cartOpen = ref(false)
-const showAuth = ref(false)
 </script>
