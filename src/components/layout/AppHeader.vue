@@ -28,8 +28,17 @@
           </div>
         </div>
 
-        <!-- Cart Button -->
-        <div class="flex items-center">
+        <!-- Desktop: Account + Cart -->
+        <div class="hidden sm:flex items-center space-x-4">
+          <!-- SIGN IN BUTTON ← THIS IS NEW -->
+          <button
+            @click="$emit('open-auth')"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mining-brown"
+          >
+            Sign In
+          </button>
+
+          <!-- Cart Button -->
           <button
             @click="$emit('open-cart')"
             class="relative rounded-full bg-white dark:bg-gray-900 p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
@@ -73,6 +82,13 @@
         >
           About
         </DisclosureButton>
+        <!-- Mobile Sign In Button -->
+        <button
+          @click="$emit('open-auth')"
+          class="block w-full text-left border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50"
+        >
+          Sign In
+        </button>
       </div>
     </DisclosurePanel>
   </Disclosure>
@@ -87,5 +103,5 @@ import { computed } from 'vue'
 const cart = useCartStore()
 const cartCount = computed(() => cart.totalItems)
 
-defineEmits(['open-cart'])
+defineEmits(['open-cart', 'open-auth'])  // ← ADDED open-auth event
 </script>
