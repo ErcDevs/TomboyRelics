@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <!-- Header with Sign In button -->
-    <AppHeader @open-cart="cartOpen = true" @open-auth="showAuth = true" />
+    <!-- Header with working Sign In button -->
+    <AppHeader @open-cart="handleOpenCart" @open-auth="handleOpenAuth" />
 
     <!-- Auth Modal -->
     <AuthModal v-if="showAuth" @close="showAuth = false" />
@@ -29,4 +29,13 @@ import CartDrawer from '@/components/CartDrawer.vue'
 
 const cartOpen = ref(false)
 const showAuth = ref(false)
+
+// EVENT HANDLERS — THESE MAKE BUTTONS WORK
+const handleOpenCart = () => {
+  cartOpen.value = true
+}
+
+const handleOpenAuth = () => {
+  showAuth.value = true
+}
 </script>
