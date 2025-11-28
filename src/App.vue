@@ -29,12 +29,4 @@ import CartDrawer from '@/components/CartDrawer.vue'
 
 const cartOpen = ref(false)
 const showAuth = ref(false)
-
-const handleOpenCart = () => {
-  cartOpen.value = true
-}
-
-const handleOpenAuth = () => {
-  showAuth.value = true
-}
 </script>
