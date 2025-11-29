@@ -22,7 +22,7 @@
         </div>
 
         <!-- Form -->
-        <div class="px-6 pb-6 sm:px-6">
+        <div class="px-6 pb-6">
           <form @submit.prevent="createAccount">
             <div class="space-y-4">
               <div>
@@ -32,7 +32,7 @@
                   id="email"
                   v-model="form.email"
                   required
-                  class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-ore-gold focus:ring-ore-gold focus:ring-1"
+                  class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-ore-gold focus:ring-ore-gold"
                   placeholder="your@email.com"
                 />
               </div>
@@ -43,7 +43,7 @@
                   id="name"
                   v-model="form.name"
                   required
-                  class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-ore-gold focus:ring-ore-gold focus:ring-1"
+                  class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-ore-gold focus:ring-ore-gold"
                   placeholder="John Doe"
                 />
               </div>
@@ -53,7 +53,6 @@
 
         <div class="bg-gray-50 px-6 py-4 sm:flex sm:flex-row-reverse sm:px-6">
           <button
-            type="button"
             @click="createAccount"
             :disabled="creatingAccount"
             class="inline-flex w-full justify-center rounded-lg bg-ore-gold px-6 py-3 text-base font-semibold text-black shadow-sm hover:bg-ore-gold/90 disabled:opacity-50 sm:ml-3 sm:w-auto sm:text-sm"
@@ -61,7 +60,6 @@
             {{ creatingAccount ? 'Creating...' : 'Create Account' }}
           </button>
           <button
-            type="button"
             @click="close"
             class="mt-3 inline-flex w-full justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm"
           >
@@ -98,12 +96,10 @@ const createAccount = async () => {
   
   creatingAccount.value = true
   
-  // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1500))
   
   alert(`Account created for ${form.value.name}! Welcome to Tomboy Relics.`)
   
-  // Reset form
   form.value = { email: '', name: '' }
   creatingAccount.value = false
   emit('close')
