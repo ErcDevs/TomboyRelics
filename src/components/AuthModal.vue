@@ -5,16 +5,16 @@
       <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="close"></div>
 
       <!-- Modal panel -->
-      <div class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-        <div class="bg-white px-6 pb-4 pt-5 sm:p-6 sm:pb-4">
+      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
           <div class="sm:flex sm:items-start">
-            <div class="mt-3 w-full text-center sm:ml-4 sm:mt-0 sm:text-left">
-              <h3 class="text-xl font-semibold leading-6 text-gray-900" id="modal-title">
-                Create Your Account
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
+                Sign in to your account
               </h3>
               <div class="mt-2">
-                <p class="text-sm text-gray-600">
-                  Save your shipping address and track orders
+                <p class="text-sm text-gray-500">
+                  Save your address, track orders, and get exclusive relic updates.
                 </p>
               </div>
             </div>
@@ -22,46 +22,16 @@
         </div>
 
         <!-- Form -->
-        <div class="px-6 pb-6">
-          <form @submit.prevent="createAccount">
-            <div class="space-y-4">
-              <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  v-model="form.email"
-                  required
-                  class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-ore-gold focus:ring-ore-gold"
-                  placeholder="your@email.com"
-                />
-              </div>
-              <div>
-                <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  v-model="form.name"
-                  required
-                  class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-ore-gold focus:ring-ore-gold"
-                  placeholder="John Doe"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-
-        <div class="bg-gray-50 px-6 py-4 sm:flex sm:flex-row-reverse sm:px-6">
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
           <button
             @click="createAccount"
-            :disabled="creatingAccount"
-            class="inline-flex w-full justify-center rounded-lg bg-ore-gold px-6 py-3 text-base font-semibold text-black shadow-sm hover:bg-ore-gold/90 disabled:opacity-50 sm:ml-3 sm:w-auto sm:text-sm"
+            class="inline-flex w-full justify-center rounded-md bg-ore-gold px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-ore-gold/80 sm:ml-3 sm:w-auto"
           >
-            {{ creatingAccount ? 'Creating...' : 'Create Account' }}
+            Create Account
           </button>
           <button
             @click="close"
-            class="mt-3 inline-flex w-full justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm"
+            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
           >
             Cancel
           </button>
@@ -74,34 +44,15 @@
 <script setup>
 import { ref } from 'vue'
 
-const props = defineProps({
-  isOpen: Boolean
-})
-
 const emit = defineEmits(['close'])
-
-const form = ref({
-  email: '',
-  name: ''
-})
-
-const creatingAccount = ref(false)
+const isOpen = ref(true)
 
 const close = () => {
   emit('close')
 }
 
-const createAccount = async () => {
-  if (!form.value.email || !form.value.name) return
-  
-  creatingAccount.value = true
-  
-  await new Promise(resolve => setTimeout(resolve, 1500))
-  
-  alert(`Account created for ${form.value.name}! Welcome to Tomboy Relics.`)
-  
-  form.value = { email: '', name: '' }
-  creatingAccount.value = false
-  emit('close')
+const createAccount = () => {
+  alert('Account created! Welcome to Tomboy Relics.')
+  close()
 }
 </script>
