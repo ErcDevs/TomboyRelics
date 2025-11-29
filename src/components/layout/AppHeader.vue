@@ -28,12 +28,8 @@
           </div>
         </div>
 
-        <!-- Desktop: Clerk Auth + Cart -->
-        <div class="hidden sm:flex items-center space-x-4">
-          <!-- CLERK USER BUTTON — AUTOMATIC SIGN IN / SIGN UP -->
-          <div ref="clerkDesktop" class="clerk-user-button"></div>
-
-          <!-- Cart Button -->
+        <!-- Cart Button -->
+        <div class="flex items-center">
           <button
             @click="$emit('open-cart')"
             class="relative rounded-full bg-white dark:bg-gray-900 p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
@@ -77,8 +73,6 @@
         >
           About
         </DisclosureButton>
-        <!-- Mobile Clerk Button -->
-        <div ref="clerkMobile" class="clerk-user-button px-3 py-2"></div>
       </div>
     </DisclosurePanel>
   </Disclosure>
@@ -88,44 +82,10 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/vue/24/outline'
 import { useCartStore } from '@/stores/cart'
-import { computed, onMounted } from 'vue'
-import { Clerk } from '@clerk/clerk-js'
+import { computed } from 'vue'
 
 const cart = useCartStore()
 const cartCount = computed(() => cart.totalItems)
-
-// CLERK SETUP
-const clerkDesktop = ref(null)
-const clerkMobile = ref(null)
-
-onMounted(async () => {
-  try {
-    const clerk = new Clerk(import.meta.env.VITE_CLERK_PUBLISHABLE_KEY)
-    
-    await clerk.load({
-      appearance: {
-        elements: {
-          formButtonPrimary: 'bg-ore-gold hover:bg-ore-gold/90 text-black',
-          socialButtonsBlockButton: 'bg-mining-brown hover:bg-mining-brown/90 text-white'
-        }
-      }
-    })
-
-    // Mount desktop button
-    if (clerkDesktop.value) {
-      await clerk.mountUserButton(clerkDesktop.value)
-    }
-
-    // Mount mobile button
-    if (clerkMobile.value) {
-      await clerk.mountUserButton(clerkMobile.value)
-    }
-
-    console.log('✅ Clerk buttons mounted')
-  } catch (error) {
-    console.error('❌ Clerk failed:', error)
-  }
-})
 
 defineEmits(['open-cart'])
 </script>
