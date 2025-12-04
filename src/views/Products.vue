@@ -1,4 +1,4 @@
-<!-- src/views/Products.vue — FULL CURRENT + PROP ALIGNMENT FOR NAV -->
+<!-- src/views/Products.vue — YOUR REAL FILE + ONLY PROP PASSED AS relic -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -22,8 +22,8 @@
             <span class="text-white text-2xl font-bold tracking-wider">SOLD OUT</span>
           </div>
 
-          <!-- Relic Card — Pass as :product (matches your store) -->
-          <RelicCard :product="product" :class="{ 'opacity-50 pointer-events-none': product.sold }" />
+          <!-- ONLY CHANGE: :relic instead of :product -->
+          <RelicCard :relic="product" :class="{ 'opacity-50 pointer-events-none': product.sold }" />
         </div>
       </div>
 
@@ -38,7 +38,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useProductsStore } from '@/stores/products'  // Your existing store
+import { useProductsStore } from '@/stores/products'
 import RelicCard from '@/components/RelicCard.vue'
 
 const store = useProductsStore()
