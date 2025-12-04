@@ -1,8 +1,8 @@
-// src/router/index.js — FULL CURRENT FILE + ONLY THE MISSING DETAIL ROUTE
+// src/router/index.js — YOUR EXACT CURRENT FILE + ONLY THE MISSING ROUTE ADDED
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Products from '../views/Products.vue'
-import ProductDetail from '../views/ProductDetail.vue'   // ← now correctly points to your existing file
+import ProductDetail from '../views/ProductDetail.vue'   // ← ONLY LINE ADDED
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,14 +10,13 @@ const router = createRouter({
     { path: '/', name: 'Home', component: Home },
     { path: '/products', name: 'Products', component: Products },
 
-    // ← NEW: Uses your existing ProductDetail.vue
+    // ← ONLY NEW ROUTE — USES YOUR EXISTING ProductDetail.vue
     {
       path: '/products/:id',
       name: 'ProductDetail',
       component: ProductDetail,
     },
 
-    // Funnels eBay traffic → /products?fromEbay=123 (unchanged)
     {
       path: '/ebay/:id',
       redirect: (to) => ({
@@ -26,7 +25,6 @@ const router = createRouter({
       }),
     },
 
-    // Cart (unchanged)
     {
       path: '/cart',
       name: 'Cart',
