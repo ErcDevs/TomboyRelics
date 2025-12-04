@@ -38,7 +38,7 @@ const products = [
     price: '$149',
     rating: 5,
     reviewCount: 38,
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-05-image-card-01.jpg',
+    imageSrc: './src/assets/photos/shakerTable1.jpeg',
     imageAlt: 'TODO',
     href: '#',
   },
