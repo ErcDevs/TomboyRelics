@@ -1,43 +1,34 @@
-<!-- src/components/RelicCard.vue -->
+<!-- src/components/RelicCard.vue — FULL CURRENT FILE + CLICKABLE TO YOUR DETAIL PAGE -->
 <template>
-  <div class="group relative bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition-shadow">
-    <div class="aspect-square bg-gray-200">
-      <img
-        :src="relic.image"
-        :alt="relic.name"
-        class="h-full w-full object-cover group-hover:opacity-80 transition-opacity"
-      />
+  <!-- Click whole card → goes to your existing ProductDetail.vue -->
+  <router-link :to="`/products/${relic.id}`" class="block">
+    <div class="group relative bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+      <div class="aspect-square bg-gray-200">
+        <img
+          :src="relic.image"
+          :alt="relic.name"
+          class="h-full w-full object-cover group-hover:opacity-90 transition-opacity"
+        />
+        <!-- Sold badge overlay -->
+        <div v-if="relic.sold" class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center z-10">
+          <span class="text-white text-3xl font-bold tracking-wider">SOLD</span>
+        </div>
+      </div>
+
+      <div class="p-6 text-center">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ relic.name }}</h3>
+        <p class="text-3xl font-bold text-green-600">${{ relic.price }}</p>
+        <p class="mt-3 text-sm text-gray-500">Click for details →</p>
+      </div>
     </div>
-
-    <div class="p-6 text-center">
-      <h3 class="text-lg font-semibold text-gray-900">
-        {{ relic.name }}
-      </h3>
-
-      <p class="mt-2 text-sm text-gray-600">{{ relic.desc }}</p>
-
-      <p class="mt-4 text-2xl font-bold text-green-600">${{ relic.price }}</p>
-
-      <!-- Add to Cart ONLY — no more eBay link -->
-      <button
-        @click="addToCart"
-        class="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-medium"
-      >
-        Add to Cart
-      </button>
-
-      <!-- Optional small note so customers know it’s exclusive -->
-      <p class="mt-3 text-xs text-gray-500">Exclusive to tomboyrelics.com</p>
-    </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup>
-import { useRelicsStore } from '@/stores/relics'
-const props = defineProps({ relic: Object })
-const store = useRelicsStore()
-
-const addToCart = () => {
-  store.addToCart(props.relic)
-}
+const props = defineProps({
+  relic: {
+    type: Object,
+    required: true
+  }
+})
 </script>
