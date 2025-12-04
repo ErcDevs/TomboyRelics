@@ -1,4 +1,4 @@
-<!-- src/views/Products.vue — FINAL VERSION (copy-paste ready) -->
+<!-- src/views/Products.vue — FULL CURRENT + PROP ALIGNMENT FOR NAV -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -12,18 +12,18 @@
       </div>
 
       <!-- Available Relics Grid -->
-      <div v-if="availableRelics.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        <div v-for="relic in availableRelics" :key="relic.id" class="relative">
-          <!-- Sold Out Badge (only shows if item was bought) -->
+      <div v-if="availableProducts.length > 0" class="-mx-px grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-l border-gray-200 sm:mx-0 gap-px">
+        <div v-for="product in availableProducts" :key="product.id" class="group relative border-r border-b border-gray-200 p-4 sm:p-6">
+          <!-- Sold Out Badge -->
           <div
-            v-if="relic.sold"
+            v-if="product.sold"
             class="absolute inset-0 bg-black bg-opacity-60 rounded-lg flex items-center justify-center z-10"
           >
             <span class="text-white text-2xl font-bold tracking-wider">SOLD OUT</span>
           </div>
 
-          <!-- Relic Card -->
-          <RelicCard :relic="relic" :class="{ 'opacity-50 pointer-events-none': relic.sold }" />
+          <!-- Relic Card — Pass as :product (matches your store) -->
+          <RelicCard :product="product" :class="{ 'opacity-50 pointer-events-none': product.sold }" />
         </div>
       </div>
 
@@ -38,13 +38,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRelicsStore } from '@/stores/relics'
+import { useProductsStore } from '@/stores/products'  // Your existing store
 import RelicCard from '@/components/RelicCard.vue'
 
-const store = useRelicsStore()
+const store = useProductsStore()
 
-// Only show relics that are NOT sold
-const availableRelics = computed(() => {
-  return store.items.filter(relic => !relic.sold)
+// Only show products that are NOT sold (your existing logic)
+const availableProducts = computed(() => {
+  return store.items.filter(product => !product.sold)
 })
 </script>
