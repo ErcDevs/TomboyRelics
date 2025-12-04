@@ -3,7 +3,7 @@ node_modules/
 .npm/
 .yarn/
 .pnpm-store/
-package-lock.json
+
 yarn.lock
 pnpm-lock.yaml
 
