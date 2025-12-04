@@ -1,126 +1,37 @@
+<!-- src/App.vue -->
 <template>
-  <div class="bg-white">
-    <div class="mx-auto max-w-7xl overflow-hidden sm:px-6 lg:px-8">
-      <h2 class="sr-only">Products</h2>
+  <div class="min-h-screen bg-gray-50 py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold text-center text-gray-900 mb-12">
+        Tomboy Mine Relics
+      </h1>
 
-      <div class="-mx-px grid grid-cols-2 border-l border-gray-200 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
-        <div v-for="product in products" :key="product.id" class="group relative border-r border-b border-gray-200 p-4 sm:p-6">
-          <img :src="product.imageSrc" :alt="product.imageAlt" class="aspect-square rounded-lg bg-gray-200 object-cover group-hover:opacity-75" />
-          <div class="pt-10 pb-4 text-center">
-            <h3 class="text-sm font-medium text-gray-900">
-              <a :href="product.href">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                {{ product.name }}
-              </a>
-            </h3>
-            <div class="mt-3 flex flex-col items-center">
-              <p class="sr-only">{{ product.rating }} out of 5 stars</p>
-              <div class="flex items-center">
-                <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating" :class="[product.rating > rating ? 'text-yellow-400' : 'text-gray-200', 'size-5 shrink-0']" aria-hidden="true" />
-              </div>
-              <p class="mt-1 text-sm text-gray-500">{{ product.reviewCount }} reviews</p>
-            </div>
-            <p class="mt-4 text-base font-medium text-gray-900">{{ product.price }}</p>
-          </div>
-        </div>
+      <!-- Relic Grid -->
+      <div class="-mx-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <RelicCard
+          v-for="relic in relics"
+          :key="relic.id"
+          :relic="relic"
+        />
+      </div>
+
+      <!-- Simple cart summary (you can move this to a Cart.vue later) -->
+      <div v-if="cart.length" class="fixed bottom-4 right-4 bg-white shadow-2xl rounded-lg p-6 border">
+        <p class="font-semibold">Cart ({{ cart.length }}) • ${{ total }}</p>
+        <button class="mt-3 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+          Checkout (Square coming)
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { StarIcon } from '@heroicons/vue/20/solid'
+import { useRelicsStore } from '@/stores/relics'
+import RelicCard from '@/components/RelicCard.vue'
 
-const products = [
-  {
-    id: 1,
-    name: 'Organize Basic Set (Walnut)',
-    price: '$149',
-    rating: 5,
-    reviewCount: 38,
-    imageSrc: './src/assets/photos/shakerTable1.jpeg',
-    imageAlt: 'TODO',
-    href: '#',
-  },
-  {
-    id: 2,
-    name: 'Organize Pen Holder',
-    price: '$15',
-    rating: 5,
-    reviewCount: 18,
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-05-image-card-02.jpg',
-    imageAlt: 'TODO',
-    href: '#',
-  },
-  {
-    id: 3,
-    name: 'Organize Sticky Note Holder',
-    price: '$15',
-    rating: 5,
-    reviewCount: 14,
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-05-image-card-03.jpg',
-    imageAlt: 'TODO',
-    href: '#',
-  },
-  {
-    id: 4,
-    name: 'Organize Phone Holder',
-    price: '$15',
-    rating: 4,
-    reviewCount: 21,
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-05-image-card-04.jpg',
-    imageAlt: 'TODO',
-    href: '#',
-  },
-  {
-    id: 5,
-    name: 'Organize Small Tray',
-    price: '$15',
-    rating: 4,
-    reviewCount: 22,
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-05-image-card-05.jpg',
-    imageAlt: 'TODO',
-    href: '#',
-  },
-  {
-    id: 6,
-    name: 'Organize Basic Set (Maple)',
-    price: '$149',
-    rating: 5,
-    reviewCount: 64,
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-05-image-card-06.jpg',
-    imageAlt: 'TODO',
-    href: '#',
-  },
-  {
-    id: 7,
-    name: 'Out and About Bottle',
-    price: '$25',
-    rating: 4,
-    reviewCount: 12,
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-05-image-card-07.jpg',
-    imageAlt: 'TODO',
-    href: '#',
-  },
-  {
-    id: 8,
-    name: 'Daily Notebook Refill Pack',
-    price: '$14',
-    rating: 4,
-    reviewCount: 41,
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-05-image-card-08.jpg',
-    imageAlt: 'TODO',
-    href: '#',
-  },
-  {
-    id: 9,
-    name: 'Leather Key Ring (Black)',
-    price: '$32',
-    rating: 5,
-    reviewCount: 24,
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-05-image-card-09.jpg',
-    imageAlt: 'TODO',
-    href: '#',
-  },
-]
+const store = useRelicsStore()
+const relics = store.items
+const cart = store.cart
+const total = store.getTotal
 </script>
