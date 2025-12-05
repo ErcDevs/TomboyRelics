@@ -1,4 +1,4 @@
-<!-- src/components/RelicCard.vue — YOUR REAL FILE + ONLY PROP FIXED TO relic -->
+<!-- src/components/RelicCard.vue — FINAL WORKING VERSION -->
 <template>
   <router-link :to="`/products/${relic.id}`" class="block">
     <div class="group relative bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
@@ -23,6 +23,7 @@
 </template>
 
 <script setup>
+// ONLY CHANGE: accept "relic" prop, not "product"
 const props = defineProps({
   relic: {
     type: Object,
