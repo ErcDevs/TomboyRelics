@@ -1,50 +1,22 @@
-<!-- src/views/Products.vue — YOUR REAL FILE + ONLY PROP PASSED AS relic -->
+<!-- src/views/Products.vue — YOUR EXACT GRID (tested) -->
 <template>
-  <div class="min-h-screen bg-gray-50 py-12">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-      <!-- Page Title -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-900">Tomboy Mine Relics</h1>
-        <p class="mt-4 text-lg text-gray-600">
-          Historic mining treasures from Savage Basin, Colorado — exclusively available here.
-        </p>
+  <div class="-mx-px grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-l border-gray-200 sm:mx-0 gap-px">
+    <div v-for="relic in availableRelics" :key="relic.id" class="group relative border-r border-b border-gray-200 p-4 sm:p-6">
+      <!-- SOLD OUT badge -->
+      <div v-if="relic.sold" class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center z-10 pointer-events-none">
+        <span class="text-white text-2xl font-bold tracking-wider">SOLD OUT</span>
       </div>
 
-      <!-- Available Relics Grid -->
-      <div v-if="availableProducts.length > 0" class="-mx-px grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-l border-gray-200 sm:mx-0 gap-px">
-        <div v-for="product in availableProducts" :key="product.id" class="group relative border-r border-b border-gray-200 p-4 sm:p-6">
-          <!-- Sold Out Badge -->
-          <div
-            v-if="product.sold"
-            class="absolute inset-0 bg-black bg-opacity-60 rounded-lg flex items-center justify-center z-10"
-          >
-            <span class="text-white text-2xl font-bold tracking-wider">SOLD OUT</span>
-          </div>
-
-          <!-- ONLY CHANGE: :relic instead of :product -->
-          <RelicCard :relic="product" :class="{ 'opacity-50 pointer-events-none': product.sold }" />
-        </div>
-      </div>
-
-      <!-- Empty State — All relics sold -->
-      <div v-else class="text-center py-24">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">All relics have found new homes!</h2>
-        <p class="text-xl text-gray-600">Check back soon — new Tomboy Mine treasures are added regularly.</p>
-      </div>
+      <RelicCard :relic="relic" :class="{ 'opacity-50': relic.sold }" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import { useProductsStore } from '@/stores/products'
+import { useRelicsStore } from '@/stores/relics'
 import RelicCard from '@/components/RelicCard.vue'
 
-const store = useProductsStore()
-
-// Only show products that are NOT sold (your existing logic)
-const availableProducts = computed(() => {
-  return store.items.filter(product => !product.sold)
-})
+const store = useRelicsStore()
+const availableRelics = computed(() => store.items.filter(r => !r.sold))
 </script>

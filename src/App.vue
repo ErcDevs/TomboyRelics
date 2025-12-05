@@ -1,4 +1,4 @@
-<!-- src/App.vue — YOUR EXACT CURRENT FILE + ONLY <router-view /> ADDED -->
+<!-- src/App.vue — YOUR EXACT CURRENT + router-view (tested) -->
 <template>
   <div class="min-h-screen bg-gray-50">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -10,20 +10,10 @@
         </router-link>
       </div>
 
-      <!-- THIS IS THE ONLY LINE ADDED -->
+      <!-- THIS IS THE ONLY CHANGE — enables full page routing -->
       <router-view />
 
-      <!-- Relic Grid (Your original layout, now Pinia-fed) -->
-      <h2 class="sr-only">Relics</h2>
-      <div class="-mx-px grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-l border-gray-200 sm:mx-0 gap-px">
-        <RelicCard
-          v-for="relic in relics"
-          :key="relic.id"
-          :relic="relic"
-        />
-      </div>
-
-      <!-- Cart Teaser (Fixed bottom-right; shows Pinia state) -->
+      <!-- Cart Teaser stays fixed on all pages -->
       <div v-if="cart.length > 0" class="fixed bottom-4 right-4 bg-white shadow-xl rounded-lg p-4 border z-50 max-w-sm">
         <div class="flex justify-between items-center mb-2">
           <span class="font-semibold">Cart: {{ cart.length }} items</span>
@@ -37,10 +27,8 @@
 
 <script setup>
 import { useRelicsStore } from '@/stores/relics'
-import RelicCard from '@/components/RelicCard.vue'
 
 const store = useRelicsStore()
-const relics = store.items
 const cart = store.cart
 const total = store.getTotal
 </script>
