@@ -1,110 +1,42 @@
-// src/stores/relics.js
+// src/stores/relics.js — FINAL WITH MULTIPLE IMAGES
 import { defineStore } from 'pinia'
 
 export const useRelicsStore = defineStore('relics', {
   state: () => ({
     items: [
+      // Example — add your real relics with extraImages
       {
         id: 1,
-        name: 'High-Grade Zinc Ore Bar',
+        name: 'Authentic Assay Cupel',
         price: 45,
-        image: '/assets/zinc-bar.jpg',
-        desc: 'Savage Basin extract, 1890s purity',
-        ebay: 'https://ebay.com/your-zinc-listing',
+        image: '/relicImages/gridThumbs/1main.jpeg',
+        desc: 'Original fired Cupel from the Tomboy Assayers office!  Cupel has been fired and contains the original oxidized collector metals from the cupelation process.  Heavy sample! ',
         sold: false,
         category: 'relics',
-        reservedUntil: null,     // timestamp when reservation expires (null = available)
-        reservedBy: null,         // optional: session ID or "someone"
+        reservedUntil: null,
+        reservedBy: null,
+        extraImages: [
+          '/relicImages/productImages/1.1.jpg',
+          '/relicImages/productImages/1.2.jpg',
+          '/relicImages/productImages/1.3.jpg'
+        ]
       },
-      {
-        id: 2,
-        name: "Beaver Pelt Miner's Hat",
-        price: 120,
-        image: '/assets/beaver-hat.png',
-        desc: 'Tomboy original, weather-worn relic',
-        ebay: 'https://ebay.com/your-hat-listing',
-        sold: false,
-        category: 'relics',
-        reservedUntil: null,     // timestamp when reservation expires (null = available)
-        reservedBy: null,         // optional: session ID or "someone"
-      },
-      {
-        id: 3,
-        name: 'Desilvering Kettle',
-        price: 80,
-        image: '/assets/kettle.jpg',
-        desc: 'Historic ore processor from the mine',
-        ebay: 'https://ebay.com/your-kettle-listing',
-        sold: false,
-        category: 'relics',
-        reservedUntil: null,     // timestamp when reservation expires (null = available)
-        reservedBy: null,         // optional: session ID or "someone"
-      },
-      {
-        id: 4,
-        name: 'Desilvering Kettle',
-        price: 80,
-        image: '/assets/kettle.jpg',
-        desc: 'Historic ore processor from the mine',
-        ebay: 'https://ebay.com/your-kettle-listing',
-        sold: false,
-        category: 'relics',
-        reservedUntil: null,     // timestamp when reservation expires (null = available)
-        reservedBy: null,         // optional: session ID or "someone"
-      },
-      {
-        id: 5,
-        name: 'Desilvering Kettle',
-        price: 80,
-        image: '/assets/kettle.jpg',
-        desc: 'Historic ore processor from the mine',
-        ebay: 'https://ebay.com/your-kettle-listing',
-        sold: false,
-        category: 'relics',
-        reservedUntil: null,     // timestamp when reservation expires (null = available)
-        reservedBy: null,         // optional: session ID or "someone"
-      },
-      {
-        id: 6,
-        name: 'Desilvering Kettle',
-        price: 80,
-        image: '/assets/kettle.jpg',
-        desc: 'Historic ore processor from the mine',
-        ebay: 'https://ebay.com/your-kettle-listing',
-        sold: false,
-        category: 'relics',
-        reservedUntil: null,     // timestamp when reservation expires (null = available)
-        reservedBy: null,         // optional: session ID or "someone"
-      },
-      // ← Add more relics here as you photograph/list them on eBay
+      // Add all your relics like this...
     ],
-    cart: [], // ← will hold full relic objects when added
+    cart: []
   }),
-
   getters: {
-    // Reactive total — updates automatically in templates
-    total: (state) =>
-      state.cart.reduce((sum, item) => sum + item.price, 0),
-
-    // Handy for cart badge
-    cartCount: (state) => state.cart.length,
-
-    // Keep your original filter if you ever want a "under $100" page
-    filteredByPrice: (state) => (maxPrice) =>
-      state.items.filter((item) => item.price <= maxPrice),
+    total: (state) => state.cart.reduce((sum, item) => sum + item.price, 0)
   },
-
   actions: {
-    addToCart(relic) {
-      this.cart.push({ ...relic }) // spread to avoid reference issues
+    addToCart(item) {
+      this.cart.push({ ...item })
     },
-
-    removeFromCart(relicId) {
-      this.cart = this.cart.filter((item) => item.id !== relicId)
+    removeFromCart(index) {
+      this.cart.splice(index, 1)
     },
-
     clearCart() {
       this.cart = []
-    },
-  },
+    }
+  }
 })
