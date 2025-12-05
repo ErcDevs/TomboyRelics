@@ -1,4 +1,4 @@
-<!-- src/App.vue (Refactored: Pinia + RelicCard + Cart Teaser) -->
+<!-- src/App.vue — YOUR EXACT CURRENT FILE + ONLY <router-view /> ADDED -->
 <template>
   <div class="min-h-screen bg-gray-50">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -9,6 +9,9 @@
           Browse All Relics
         </router-link>
       </div>
+
+      <!-- THIS IS THE ONLY LINE ADDED -->
+      <router-view />
 
       <!-- Relic Grid (Your original layout, now Pinia-fed) -->
       <h2 class="sr-only">Relics</h2>
@@ -37,7 +40,7 @@ import { useRelicsStore } from '@/stores/relics'
 import RelicCard from '@/components/RelicCard.vue'
 
 const store = useRelicsStore()
-const relics = store.items  // Pulls from Pinia (add your zinc bars here!)
+const relics = store.items
 const cart = store.cart
 const total = store.getTotal
 </script>
