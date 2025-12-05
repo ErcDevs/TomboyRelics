@@ -1,4 +1,4 @@
-<!-- src/App.vue — FINAL WORKING VERSION -->
+<!-- src/App.vue — FINAL: No more /products warnings -->
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Navigation -->

@@ -1,11 +1,14 @@
-<!-- src/views/ShopOre.vue — ORE PRODUCT GRID -->
+<!-- src/views/ShopOre.vue — FINAL WORKING -->
 <template>
-  <div class="py-12">
-    <div class="mx-auto max-w-7xl px-6">
+  <div class="min-h-screen bg-gray-50 py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between mb-12">
-        <h1 class="text-4xl font-bold text-gray-900">Tomboy High-Grade Ore</h1>
-        <router-link to="/shop" class="text-blue-600 hover:underline">← Back to Categories</router-link>
+        <h1 class="text-4xl font-bold text-gray-900">High-Grade Tomboy Ore</h1>
+        <router-link to="/shop" class="text-blue-600 hover:underline text-lg">
+          ← Back to Categories
+        </router-link>
       </div>
+
       <div class="-mx-px grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-l border-gray-200 sm:mx-0 gap-px">
         <div v-for="ore in availableOre" :key="ore.id" class="group relative border-r border-b border-gray-200 p-4 sm:p-6">
           <div v-if="ore.sold" class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center z-10 pointer-events-none">
@@ -13,6 +16,10 @@
           </div>
           <RelicCard :relic="ore" :class="{ 'opacity-50': ore.sold }" />
         </div>
+      </div>
+
+      <div v-if="availableOre.length === 0" class="text-center py-24">
+        <p class="text-2xl text-gray-600">No ore specimens available at this time. Check back soon!</p>
       </div>
     </div>
   </div>
