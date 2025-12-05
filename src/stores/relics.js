@@ -21,6 +21,22 @@ export const useRelicsStore = defineStore('relics', {
           '/relicImages/productImages/1.3.jpeg'
         ]
       },
+      {
+        id: 2,
+        name: 'Desilvering Kettle',
+        price: 436000,
+        image: '/relicImages/gridThumbs/3main.jpeg',
+        desc: 'HUGE discovery on November 1st 2025!!  The original desilvering kettle was unearthed making it the only known intact desilvering kettle from the Tomboy smelter! This is the original delivering kettle from the mine and is a museum specimen.  The kettle was unearthed with the silver and gold plates still intact, which are currently being assayed!',
+        sold: false,
+        category: 'relics',
+        reservedUntil: null,
+        reservedBy: null,
+        extraImages: [
+          '/relicImages/productImages/3.1.jpeg',
+          '/relicImages/productImages/3.2.jpeg',
+          
+        ]
+      },
       // Add all your relics like this...
     ],
     cart: []
