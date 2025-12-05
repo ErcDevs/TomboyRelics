@@ -16,9 +16,9 @@ export const useRelicsStore = defineStore('relics', {
         reservedUntil: null,
         reservedBy: null,
         extraImages: [
-          '/relicImages/productImages/1.1.jpg',
-          '/relicImages/productImages/1.2.jpg',
-          '/relicImages/productImages/1.3.jpg'
+          '/relicImages/productImages/1.1.jpeg',
+          '/relicImages/productImages/1.2.jpeg',
+          '/relicImages/productImages/1.3.jpeg'
         ]
       },
       // Add all your relics like this...

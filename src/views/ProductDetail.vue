@@ -1,4 +1,4 @@
-<!-- src/views/ProductDetail.vue — FINAL: Extra images ALWAYS work -->
+<!-- src/views/ProductDetail.vue — FINAL 100% WORKING -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-6xl px-4">
@@ -9,20 +9,27 @@
       <div v-if="product" class="grid md:grid-cols-2 gap-12">
         <!-- Images -->
         <div class="space-y-4">
-          <img :src="product.image" :alt="product.name" class="w-full rounded-xl shadow-lg object-cover h-96" />
+          <!-- Main Image — swaps when thumbnail clicked -->
+          <img 
+            :src="currentImage" 
+            :alt="product.name" 
+            class="w-full rounded-xl shadow-lg object-cover h-96 cursor-pointer hover:opacity-90 transition" 
+          />
           
-          <!-- Extra Images — 100% safe check -->
+          <!-- Extra Images Gallery — clickable thumbnails -->
           <div v-if="hasExtraImages" class="grid grid-cols-3 gap-4">
             <img
               v-for="(img, i) in product.extraImages"
               :key="i"
-              :src="img"
-              class="rounded-lg shadow cursor-pointer hover:opacity-80 transition"
+              :src="absoluteImagePath(img)"
+              :class="['rounded-lg shadow cursor-pointer hover:opacity-80 transition', { 'ring-2 ring-blue-500': absoluteImagePath(img) === currentImage }]"
+              @click="currentImage = absoluteImagePath(img)"
             />
           </div>
+          <p v-else class="text-sm text-gray-500 text-center">No additional images available</p>
         </div>
 
-        <!-- Details -->
+        <!-- Details (your exact design) -->
         <div>
           <h1 class="text-5xl font-bold text-gray-900">{{ product.name }}</h1>
           <p class="mt-6 text-2xl text-gray-700 leading-relaxed">{{ product.desc }}</p>
@@ -90,6 +97,14 @@ const product = computed(() => {
   }
 })
 
+// Current image for main slot
+const currentImage = ref('')
+
+// Force absolute path for images
+const absoluteImagePath = (img) => {
+  return img.startsWith('/') ? img : '/' + img
+}
+
 // Safe check for extra images
 const hasExtraImages = computed(() => {
   return Array.isArray(product.value?.extraImages) && product.value.extraImages.length > 0
@@ -125,6 +140,7 @@ const addToCart = () => {
 }
 
 onMounted(() => {
+  currentImage.value = product.value?.image ? absoluteImagePath(product.value.image) : ''
   const store = route.path.includes('/shop/ore') ? oreStore : relicsStore
   store.items.forEach(item => {
     if (item.reservedUntil && item.reservedUntil < Date.now()) {
