@@ -37,7 +37,7 @@
           </router-link>
         </div>
         <p class="text-2xl font-bold text-green-600">${{ store.total }}</p>
-        <p class="text-xs text-gray-500 mt-3">Click to hide • Auto-hides in 10s</p>
+        <p class="text-xs text-gray-500 mt-3">Click to hide</p>
       </div>
     </transition>
   </div>

@@ -1,4 +1,4 @@
-<!-- src/views/Cart.vue — FINAL WORKING VERSION -->
+<!-- src/views/Cart.vue — FINAL 100% WORKING -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-4xl px-4">
@@ -17,8 +17,8 @@
       <!-- Cart Items -->
       <div v-else class="space-y-6">
         <div
-          v-for="item in cart"
-          :key="item.id"
+          v-for="(item, index) in cart"
+          :key="index"
           class="bg-white p-6 rounded-lg border flex justify-between items-center shadow-sm"
         >
           <div class="flex items-center space-x-6">
@@ -29,7 +29,7 @@
             </div>
           </div>
           <button
-            @click="store.removeFromCart(item.id)"
+            @click="removeFromCart(index)"
             class="text-red-600 hover:text-red-800 font-medium transition"
           >
             Remove
@@ -61,18 +61,19 @@
 
 <script setup>
 import { useRelicsStore } from '@/stores/relics'
-import { ref } from 'vue'
 
 const store = useRelicsStore()
 const cart = store.cart
 
+const removeFromCart = (index) => {
+  store.cart.splice(index, 1)  // ← Removes only this exact item
+}
+
 const handleCheckout = () => {
-  // Mark all cart items as sold
   store.cart.forEach(item => {
     const inventoryItem = store.items.find(i => i.id === item.id)
     if (inventoryItem) inventoryItem.sold = true
   })
-
   store.clearCart()
   alert('Thank you! Your relics are reserved. We’ll contact you for payment.')
 }
