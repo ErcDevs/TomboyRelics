@@ -1,15 +1,17 @@
-// src/router/index.js — FINAL
+// src/router/index.js — FINAL WITH NEW PAGES
 import { createRouter, createWebHistory } from 'vue-router'
+import Home from '../views/Home.vue'
 import Products from '../views/Products.vue'
 import ProductDetail from '../views/ProductDetail.vue'
+import History from '../views/History.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: '/products' },   // Home is now the grid in App.vue
+    { path: '/', name: 'Home', component: Home },
     { path: '/products', name: 'Products', component: Products },
     { path: '/products/:id', name: 'ProductDetail', component: ProductDetail },
-    { path: '/ebay/:id', redirect: (to) => ({ path: '/products', query: { fromEbay: to.params.id } }) },
+    { path: '/history', name: 'History', component: History },
     { path: '/cart', name: 'Cart', component: () => import('../views/Cart.vue') },
   ],
 })
