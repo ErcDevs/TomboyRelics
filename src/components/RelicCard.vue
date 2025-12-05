@@ -1,6 +1,9 @@
-<!-- src/components/RelicCard.vue — FINAL WORKING VERSION -->
+<!-- src/components/RelicCard.vue — FINAL WORKING -->
 <template>
-  <router-link :to="`/products/${relic.id}`" class="block">
+  <router-link 
+    :to="relic.category === 'ore' ? `/shop/ore/${relic.id}` : `/shop/relics/${relic.id}`" 
+    class="block"
+  >
     <div class="group relative bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
       <div class="aspect-square bg-gray-200">
         <img
@@ -23,7 +26,6 @@
 </template>
 
 <script setup>
-// ONLY CHANGE: accept "relic" prop, not "product"
 const props = defineProps({
   relic: {
     type: Object,

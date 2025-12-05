@@ -1,17 +1,21 @@
-// src/router/index.js — FINAL WITH NEW PAGES
+// src/router/index.js — UPDATED WITH CATEGORIES
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Products from '../views/Products.vue'
+import Shop from '../views/Shop.vue'
+import ShopRelics from '../views/ShopRelics.vue'
+import ShopOre from '../views/ShopOre.vue'
 import ProductDetail from '../views/ProductDetail.vue'
-import History from '../views/History.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/', name: 'Home', component: Home },
-    { path: '/products', name: 'Products', component: Products },
-    { path: '/products/:id', name: 'ProductDetail', component: ProductDetail },
-    { path: '/history', name: 'History', component: History },
+    { path: '/shop', name: 'Shop', component: Shop },
+    { path: '/shop/relics', name: 'ShopRelics', component: ShopRelics },
+    { path: '/shop/ore', name: 'ShopOre', component: ShopOre },
+    { path: '/shop/relics/:id', name: 'RelicDetail', component: ProductDetail },
+    { path: '/shop/ore/:id', name: 'OreDetail', component: ProductDetail },
+    { path: '/history', name: 'History', component: () => import('../views/History.vue') },
     { path: '/cart', name: 'Cart', component: () => import('../views/Cart.vue') },
   ],
 })

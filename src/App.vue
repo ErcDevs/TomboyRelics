@@ -1,14 +1,14 @@
-<!-- src/App.vue — FINAL CART TEASER (tested 100%) -->
+<!-- src/App.vue — FINAL WORKING NAVIGATION -->
 <template>
   <div class="min-h-screen bg-gray-50">
-    <!-- Navigation (unchanged) -->
+    <!-- Navigation -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <router-link to="/" class="text-2xl font-bold text-gray-900">Tomboy Mine Relics</router-link>
           <nav class="flex space-x-8 text-lg">
             <router-link to="/" class="text-gray-700 hover:text-gray-900">Home</router-link>
-            <router-link to="/products" class="text-gray-700 hover:text-gray-900">Shop</router-link>
+            <router-link to="/shop" class="text-gray-700 hover:text-gray-900">Shop</router-link>
             <router-link to="/history" class="text-gray-700 hover:text-gray-900">History</router-link>
             <router-link to="/cart" class="relative text-gray-700 hover:text-gray-900">
               Cart
@@ -23,7 +23,7 @@
 
     <router-view />
 
-    <!-- SMART CART TEASER — ALL FEATURES YOU ASKED FOR -->
+    <!-- Cart Teaser -->
     <transition name="fade">
       <div
         v-if="showTeaser && cart.length > 0"
@@ -45,22 +45,24 @@
 
 <script setup>
 import { useRelicsStore } from '@/stores/relics'
+import { useOreStore } from '@/stores/ore'
 import { ref, watch, onMounted } from 'vue'
 
-const store = useRelicsStore()
-const cart = store.cart
+// Combine both stores for cart
+const relicsStore = useRelicsStore()
+const oreStore = useOreStore()
+const cart = [...relicsStore.cart, ...oreStore.cart]
+const total = relicsStore.total + oreStore.total
+
 const showTeaser = ref(false)
 let hideTimer = null
 
-// Show teaser when cart changes (add or remove)
 watch(
-  () => store.cart.length,
+  () => cart.length,
   (newCount) => {
     if (newCount > 0) {
       showTeaser.value = true
-      // Clear old timer
       if (hideTimer) clearTimeout(hideTimer)
-      // Auto-hide after 10 seconds
       hideTimer = setTimeout(() => {
         showTeaser.value = false
       }, 10000)
@@ -71,24 +73,17 @@ watch(
   { immediate: true }
 )
 
-// Manual hide
 const hideTeaser = () => {
   showTeaser.value = false
   if (hideTimer) clearTimeout(hideTimer)
 }
 
 onMounted(() => {
-  if (store.cart.length > 0) showTeaser.value = true
+  if (cart.length > 0) showTeaser.value = true
 })
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
 </style>
