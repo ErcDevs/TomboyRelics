@@ -1,7 +1,7 @@
 <!-- src/components/RelicCard.vue — FINAL WORKING -->
 <template>
-  <router-link 
-    :to="relic.category === 'ore' ? `/shop/ore/${relic.id}` : `/shop/relics/${relic.id}`" 
+  <router-link
+    :to="relic.category === 'ore' ? `/shop/ore/${relic.id}` : `/shop/relics/${relic.id}`"
     class="block"
   >
     <div class="group relative bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">

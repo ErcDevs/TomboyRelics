@@ -12,6 +12,7 @@ export const useRelicsStore = defineStore('relics', {
         desc: 'Savage Basin extract, 1890s purity',
         ebay: 'https://ebay.com/your-zinc-listing',
         sold: false,
+        category: 'relics',
       },
       {
         id: 2,
@@ -21,6 +22,7 @@ export const useRelicsStore = defineStore('relics', {
         desc: 'Tomboy original, weather-worn relic',
         ebay: 'https://ebay.com/your-hat-listing',
         sold: false,
+        category: 'relics',
       },
       {
         id: 3,
@@ -30,6 +32,7 @@ export const useRelicsStore = defineStore('relics', {
         desc: 'Historic ore processor from the mine',
         ebay: 'https://ebay.com/your-kettle-listing',
         sold: false,
+        category: 'relics',
       },
       {
         id: 4,
@@ -39,6 +42,7 @@ export const useRelicsStore = defineStore('relics', {
         desc: 'Historic ore processor from the mine',
         ebay: 'https://ebay.com/your-kettle-listing',
         sold: false,
+        category: 'relics',
       },
       {
         id: 5,
@@ -48,6 +52,7 @@ export const useRelicsStore = defineStore('relics', {
         desc: 'Historic ore processor from the mine',
         ebay: 'https://ebay.com/your-kettle-listing',
         sold: false,
+        category: 'relics',
       },
       {
         id: 6,
@@ -57,6 +62,7 @@ export const useRelicsStore = defineStore('relics', {
         desc: 'Historic ore processor from the mine',
         ebay: 'https://ebay.com/your-kettle-listing',
         sold: false,
+        category: 'relics',
       },
       // ← Add more relics here as you photograph/list them on eBay
     ],

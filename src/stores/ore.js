@@ -12,7 +12,8 @@ export const useOreStore = defineStore('ore', {
         image: '/ore-1.jpg',
         desc: 'Hand-selected specimen from the richest vein in Savage Basin. Visible gold flecks.',
         sold: false,
-        extraImages: ['/ore-1a.jpg', '/ore-1b.jpg', '/ore-1c.jpg']
+        extraImages: ['/ore-1a.jpg', '/ore-1b.jpg', '/ore-1c.jpg'],
+        category: 'ore',
       },
       // Add more ore items...
     ],
