@@ -1,15 +1,23 @@
+// src/router/index.js — UPDATED WITH CATEGORIES
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-
-const routes = [
-  { path: '/', name: 'home', component: HomeView },
-  { path: '/product/:id', name: 'product', component: () => import('../views/ProductDetail.vue') },
-  { path: '/checkout', name: 'checkout', component: () => import('../views/CheckoutView.vue') },
-]
+import Home from '../views/Home.vue'
+import Shop from '../views/Shop.vue'
+import ShopRelics from '../views/ShopRelics.vue'
+import ShopOre from '../views/ShopOre.vue'
+import ProductDetail from '../views/ProductDetail.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    { path: '/', name: 'Home', component: Home },
+    { path: '/shop', name: 'Shop', component: Shop },
+    { path: '/shop/relics', name: 'ShopRelics', component: ShopRelics },
+    { path: '/shop/ore', name: 'ShopOre', component: ShopOre },
+    { path: '/shop/relics/:id', name: 'RelicDetail', component: ProductDetail },
+    { path: '/shop/ore/:id', name: 'OreDetail', component: ProductDetail },
+    { path: '/history', name: 'History', component: () => import('../views/History.vue') },
+    { path: '/cart', name: 'Cart', component: () => import('../views/Cart.vue') },
+  ],
 })
 
 export default router

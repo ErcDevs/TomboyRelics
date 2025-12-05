@@ -14,6 +14,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@clerk/clerk-js": "^5.111.0",
+    "@clerk/vue": "^1.17.0",
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
     "pinia": "^3.0.3",

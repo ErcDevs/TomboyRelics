@@ -1,25 +1,43 @@
 <template>
   <div class="bg-gray-50 py-12">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold text-center text-mining-brown">Checkout</h1>
-      <div class="mt-8 max-w-2xl mx-auto">
-        <div v-for="item in cart.items" :key="item.id" class="flex justify-between py-4 border-b">
-          <div>
-            <h3 class="font-medium">{{ item.name }}</h3>
-            <p class="text-sm text-gray-500">Qty: {{ item.quantity }}</p>
+      <h1 class="text-3xl font-bold text-center text-mining-brown mb-8">Checkout</h1>
+
+      <div class="max-w-2xl mx-auto">
+        <!-- Empty Cart -->
+        <div v-if="cart.items.length === 0" class="text-center py-16 text-gray-500">
+          Your cart is empty. <router-link to="/" class="text-ore-gold underline">Shop now</router-link>
+        </div>
+
+        <!-- Order Summary -->
+        <div v-else class="bg-white rounded-lg shadow p-6 mb-6">
+          <div v-for="item in cart.items" :key="item.id" class="flex justify-between py-4 border-b last:border-0">
+            <div>
+              <h3 class="font-medium">{{ item.name }}</h3>
+              <p class="text-sm text-gray-500">Qty: {{ item.quantity }}</p>
+            </div>
+            <p class="font-semibold">${{ (item.price * item.quantity).toFixed(2) }}</p>
           </div>
-          <p class="font-semibold">${{ (item.price * item.quantity).toFixed(2) }}</p>
+          <div class="mt-6 text-right text-2xl font-bold text-ore-gold">
+            Total: ${{ cart.totalPrice.toFixed(2) }}
+          </div>
         </div>
-        <div class="mt-6 text-right text-2xl font-bold text-ore-gold">
-          Total: ${{ cart.totalPrice.toFixed(2) }}
+
+        <!-- Square Payment Form -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <div id="card-container" class="mb-6"></div>
+
+          <button
+            @click="pay"
+            :disabled="processing || cart.items.length === 0 || !cardReady"
+            class="w-full bg-mining-brown hover:bg-mining-brown/90 disabled:opacity-50 text-white font-bold py-4 rounded-lg text-lg transition"
+          >
+            {{ processing ? 'Processing...' : `Pay $${cart.totalPrice.toFixed(2)}` }}
+          </button>
+
+          <p v-if="error" class="text-red-600 text-center mt-4 font-medium">{{ error }}</p>
+          <p v-if="!cardReady && !error" class="text-yellow-600 text-center mt-4">Loading secure payment form...</p>
         </div>
-        <div id="card-container" class="mt-8 p-4 border rounded-lg"></div>
-        <button
-          @click="pay"
-          class="mt-4 w-full bg-mining-brown text-white py-3 rounded-lg hover:bg-mining-brown/90"
-        >
-          Pay Now
-        </button>
       </div>
     </div>
   </div>
@@ -32,20 +50,71 @@ import { useRouter } from 'vue-router'
 
 const cart = useCartStore()
 const router = useRouter()
-let card
+const processing = ref(false)
+const error = ref('')
+const cardReady = ref(false)
+let card = null
 
-onMounted(async () => {
-  const payments = window.Square.payments('sq0idp-YOUR_APP_ID', 'L2YOUR_LOCATION_ID')
-  card = await payments.card()
-  await card.attach('#card-container')
-})
+const initSquare = async () => {
+  if (!window.Square) {
+    error.value = 'Square SDK failed to load. Please refresh.'
+    return
+  }
 
-async function pay() {
-  const result = await card.tokenize()
-  if (result.status === 'OK') {
-    alert('Payment successful!')
-    cart.clear()
-    router.push('/')
+  if (!window.SQUARE_CONFIG) {
+    error.value = 'Payment config missing. Please refresh.'
+    return
+  }
+
+  const isDev = window.location.hostname.includes('dev') || window.location.hostname.includes('localhost')
+  const config = isDev ? window.SQUARE_CONFIG.sandbox : window.SQUARE_CONFIG.production
+
+  console.log('Initializing Square in', isDev ? 'SANDBOX' : 'PRODUCTION', 'mode')
+
+  try {
+    const payments = window.Square.payments(config.applicationId, config.locationId)
+
+    // THIS IS THE KEY: NO STYLE OBJECT — Square blocks 'border'
+    card = await payments.card()  // ← JUST THIS LINE
+    await card.attach('#card-container')
+
+    cardReady.value = true
+    console.log('Square card form loaded and ready!')
+  } catch (err) {
+    console.error('Square card init failed:', err)
+    error.value = 'Payment form failed to load. Please refresh.'
   }
 }
+
+const pay = async () => {
+  if (!card || !cardReady) {
+    error.value = 'Payment form not ready.'
+    return
+  }
+
+  processing.value = true
+  error.value = ''
+
+  try {
+    const result = await card.tokenize()
+
+    if (result.status === 'OK') {
+      console.log('Payment token:', result.token)
+      alert('Payment successful! Thank you for your order.')
+      cart.clear()
+      router.push('/')
+    } else {
+      error.value = result.errors?.[0]?.message || 'Payment failed.'
+    }
+  } catch (err) {
+    error.value = 'Payment error. Please try again.'
+    console.error(err)
+  } finally {
+    processing.value = false
+  }
+}
+
+onMounted(() => {
+  initSquare()
+})
 </script>

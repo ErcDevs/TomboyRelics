@@ -5,4 +5,9 @@
 @layer components {
   .relic-card { @apply bg-white shadow-md rounded-lg p-4 m-4 border border-gray-200 hover:shadow-lg transition-shadow; }
   .ore-highlight { @apply bg-gradient-to-r from-yellow-200 to-amber-300 text-black font-semibold; }
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> dev
