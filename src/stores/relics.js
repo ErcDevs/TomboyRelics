@@ -13,6 +13,8 @@ export const useRelicsStore = defineStore('relics', {
         ebay: 'https://ebay.com/your-zinc-listing',
         sold: false,
         category: 'relics',
+        reservedUntil: null,     // timestamp when reservation expires (null = available)
+        reservedBy: null,         // optional: session ID or "someone"
       },
       {
         id: 2,
@@ -23,6 +25,8 @@ export const useRelicsStore = defineStore('relics', {
         ebay: 'https://ebay.com/your-hat-listing',
         sold: false,
         category: 'relics',
+        reservedUntil: null,     // timestamp when reservation expires (null = available)
+        reservedBy: null,         // optional: session ID or "someone"
       },
       {
         id: 3,
@@ -33,6 +37,8 @@ export const useRelicsStore = defineStore('relics', {
         ebay: 'https://ebay.com/your-kettle-listing',
         sold: false,
         category: 'relics',
+        reservedUntil: null,     // timestamp when reservation expires (null = available)
+        reservedBy: null,         // optional: session ID or "someone"
       },
       {
         id: 4,
@@ -43,6 +49,8 @@ export const useRelicsStore = defineStore('relics', {
         ebay: 'https://ebay.com/your-kettle-listing',
         sold: false,
         category: 'relics',
+        reservedUntil: null,     // timestamp when reservation expires (null = available)
+        reservedBy: null,         // optional: session ID or "someone"
       },
       {
         id: 5,
@@ -53,6 +61,8 @@ export const useRelicsStore = defineStore('relics', {
         ebay: 'https://ebay.com/your-kettle-listing',
         sold: false,
         category: 'relics',
+        reservedUntil: null,     // timestamp when reservation expires (null = available)
+        reservedBy: null,         // optional: session ID or "someone"
       },
       {
         id: 6,
@@ -63,6 +73,8 @@ export const useRelicsStore = defineStore('relics', {
         ebay: 'https://ebay.com/your-kettle-listing',
         sold: false,
         category: 'relics',
+        reservedUntil: null,     // timestamp when reservation expires (null = available)
+        reservedBy: null,         // optional: session ID or "someone"
       },
       // ← Add more relics here as you photograph/list them on eBay
     ],

@@ -1,4 +1,4 @@
-<!-- src/components/RelicCard.vue — FINAL WORKING -->
+<!-- src/components/RelicCard.vue — FINAL WITH RESERVATION STATUS -->
 <template>
   <router-link
     :to="relic.category === 'ore' ? `/shop/ore/${relic.id}` : `/shop/relics/${relic.id}`"
@@ -11,8 +11,13 @@
           :alt="relic.name"
           class="h-full w-full object-cover group-hover:opacity-90 transition-opacity"
         />
+        <!-- SOLD badge -->
         <div v-if="relic.sold" class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center z-10">
           <span class="text-white text-3xl font-bold tracking-wider">SOLD</span>
+        </div>
+        <!-- RESERVED badge -->
+        <div v-else-if="relic.reservedUntil" class="absolute inset-0 bg-yellow-600 bg-opacity-80 flex items-center justify-center z-10">
+          <span class="text-white text-2xl font-bold">RESERVED</span>
         </div>
       </div>
 

@@ -14,6 +14,8 @@ export const useOreStore = defineStore('ore', {
         sold: false,
         extraImages: ['/ore-1a.jpg', '/ore-1b.jpg', '/ore-1c.jpg'],
         category: 'ore',
+        reservedUntil: null,     // timestamp when reservation expires (null = available)
+        reservedBy: null         // optional: session ID or "someone"
       },
       // Add more ore items...
     ],

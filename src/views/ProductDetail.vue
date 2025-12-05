@@ -1,4 +1,4 @@
-<!-- src/views/ProductDetail.vue — FINAL PERFECT VERSION (your design + working for both relics and ore) -->
+<!-- src/views/ProductDetail.vue — FINAL WITH RESERVATION + TOASTS -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-6xl px-4">
@@ -21,11 +21,26 @@
           <p class="mt-6 text-2xl text-gray-700 leading-relaxed">{{ product.desc }}</p>
           <p class="mt-8 text-6xl font-bold text-green-600">${{ product.price }}</p>
 
+          <!-- SOLD -->
           <div v-if="product.sold" class="mt-8 text-center py-12">
             <p class="text-5xl font-bold text-red-600">SOLD OUT</p>
           </div>
-          <button v-else @click="addToCart" class="mt-8 w-full bg-blue-600 text-white text-2xl font-bold py-6 rounded-xl hover:opacity-90">
-            Add to Cart
+          <!-- RESERVED BY SOMEONE ELSE -->
+          <div v-else-if="product.reservedUntil && !isMyReservation" class="mt-8 text-center py-12 bg-yellow-100 rounded-lg">
+            <p class="text-3xl font-bold text-yellow-800">Currently Reserved</p>
+            <p class="text-xl text-gray-700 mt-4">
+              This item is in another customer's cart.<br>
+              Available again in {{ minutesLeft }} minutes.
+            </p>
+          </div>
+          <!-- AVAILABLE OR MY RESERVATION -->
+          <button 
+            v-else 
+            @click="addToCart" 
+            :disabled="product.reservedUntil && !isMyReservation"
+            class="mt-8 w-full bg-blue-600 text-white text-2xl font-bold py-6 rounded-xl hover:opacity-90 disabled:opacity-50"
+          >
+            {{ product.reservedUntil ? 'Already in your cart (reserved)' : 'Add to Cart' }}
           </button>
 
           <div class="mt-12">
@@ -38,16 +53,17 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <div v-else class="text-center py-32">
-        <p class="text-2xl text-gray-600">Product not found.</p>
-      </div>
+    <!-- Toast notifications -->
+    <div v-if="toast.message" class="fixed top-4 left-1/2 -translate-x-1/2 bg-black text-white px-8 py-4 rounded-lg shadow-2xl z-50">
+      {{ toast.message }}
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useRelicsStore } from '@/stores/relics'
 import { useOreStore } from '@/stores/ore'
@@ -56,10 +72,10 @@ const route = useRoute()
 const relicsStore = useRelicsStore()
 const oreStore = useOreStore()
 
-// Find product from correct store based on route
+const toast = ref({ message: '' })
+
 const product = computed(() => {
   const id = Number(route.params.id)
-  
   if (route.path.includes('/shop/ore')) {
     return oreStore.items.find(i => i.id === id)
   } else {
@@ -67,14 +83,47 @@ const product = computed(() => {
   }
 })
 
-// Add to correct store
+const isMyReservation = computed(() => {
+  return product.value?.reservedBy === sessionId
+})
+
+const minutesLeft = computed(() => {
+  if (!product.value?.reservedUntil) return 0
+  const diff = (product.value.reservedUntil - Date.now()) / 60000
+  return Math.max(0, Math.ceil(diff))
+})
+
+// Simple session ID (persists per browser tab)
+const sessionId = ref(crypto.randomUUID())
+
 const addToCart = () => {
-  if (!product.value) return
-  
-  if (route.path.includes('/shop/ore')) {
-    oreStore.addToCart({ ...product.value })
-  } else {
-    relicsStore.addToCart({ ...product.value })
+  if (!product.value || product.value.sold) return
+
+  const store = route.path.includes('/shop/ore') ? oreStore : relicsStore
+
+  if (product.value.reservedUntil && !isMyReservation.value) {
+    toast.value = { message: `This item is reserved by another customer for ${minutesLeft.value} more minutes.` }
+    setTimeout(() => toast.value = { message: '' }, 5000)
+    return
   }
+
+  // Reserve for 10 minutes
+  product.value.reservedUntil = Date.now() + 10 * 60 * 1000
+  product.value.reservedBy = sessionId.value
+
+  store.addToCart({ ...product.value })
+  toast.value = { message: 'Added to cart! Reserved for you for 10 minutes.' }
+  setTimeout(() => toast.value = { message: '' }, 5000)
 }
+
+// Auto-release reservations on page load
+onMounted(() => {
+  const store = route.path.includes('/shop/ore') ? oreStore : relicsStore
+  store.items.forEach(item => {
+    if (item.reservedUntil && item.reservedUntil < Date.now()) {
+      item.reservedUntil = null
+      item.reservedBy = null
+    }
+  })
+})
 </script>
