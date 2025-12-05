@@ -1,4 +1,4 @@
-<!-- src/views/ProductDetail.vue — FINAL WITH RESERVATION + TOASTS -->
+<!-- src/views/ProductDetail.vue — FINAL: Extra images ALWAYS work -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-6xl px-4">
@@ -10,8 +10,15 @@
         <!-- Images -->
         <div class="space-y-4">
           <img :src="product.image" :alt="product.name" class="w-full rounded-xl shadow-lg object-cover h-96" />
-          <div class="grid grid-cols-3 gap-4">
-            <img v-for="(img, i) in product.extraImages" :key="i" :src="img" class="rounded-lg shadow cursor-pointer hover:opacity-80" />
+          
+          <!-- Extra Images — 100% safe check -->
+          <div v-if="hasExtraImages" class="grid grid-cols-3 gap-4">
+            <img
+              v-for="(img, i) in product.extraImages"
+              :key="i"
+              :src="img"
+              class="rounded-lg shadow cursor-pointer hover:opacity-80 transition"
+            />
           </div>
         </div>
 
@@ -34,9 +41,9 @@
             </p>
           </div>
           <!-- AVAILABLE OR MY RESERVATION -->
-          <button 
-            v-else 
-            @click="addToCart" 
+          <button
+            v-else
+            @click="addToCart"
             :disabled="product.reservedUntil && !isMyReservation"
             class="mt-8 w-full bg-blue-600 text-white text-2xl font-bold py-6 rounded-xl hover:opacity-90 disabled:opacity-50"
           >
@@ -55,7 +62,7 @@
       </div>
     </div>
 
-    <!-- Toast notifications -->
+    <!-- Toast -->
     <div v-if="toast.message" class="fixed top-4 left-1/2 -translate-x-1/2 bg-black text-white px-8 py-4 rounded-lg shadow-2xl z-50">
       {{ toast.message }}
     </div>
@@ -83,9 +90,12 @@ const product = computed(() => {
   }
 })
 
-const isMyReservation = computed(() => {
-  return product.value?.reservedBy === sessionId
+// Safe check for extra images
+const hasExtraImages = computed(() => {
+  return Array.isArray(product.value?.extraImages) && product.value.extraImages.length > 0
 })
+
+const isMyReservation = computed(() => product.value?.reservedBy === sessionId.value)
 
 const minutesLeft = computed(() => {
   if (!product.value?.reservedUntil) return 0
@@ -93,7 +103,6 @@ const minutesLeft = computed(() => {
   return Math.max(0, Math.ceil(diff))
 })
 
-// Simple session ID (persists per browser tab)
 const sessionId = ref(crypto.randomUUID())
 
 const addToCart = () => {
@@ -107,7 +116,6 @@ const addToCart = () => {
     return
   }
 
-  // Reserve for 10 minutes
   product.value.reservedUntil = Date.now() + 10 * 60 * 1000
   product.value.reservedBy = sessionId.value
 
@@ -116,7 +124,6 @@ const addToCart = () => {
   setTimeout(() => toast.value = { message: '' }, 5000)
 }
 
-// Auto-release reservations on page load
 onMounted(() => {
   const store = route.path.includes('/shop/ore') ? oreStore : relicsStore
   store.items.forEach(item => {
