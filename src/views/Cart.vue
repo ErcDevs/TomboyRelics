@@ -1,4 +1,4 @@
-<!-- src/views/Cart.vue — FINAL: Combined cart from relics + ore -->
+<!-- src/views/Cart.vue — FINAL: Remove releases reservation -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-4xl px-4">
@@ -67,7 +67,6 @@ import { computed } from 'vue'
 const relicsStore = useRelicsStore()
 const oreStore = useOreStore()
 
-// Combine both carts
 const allCartItems = computed(() => [
   ...relicsStore.cart.map(item => ({ ...item, source: 'relics' })),
   ...oreStore.cart.map(item => ({ ...item, source: 'ore' }))
@@ -76,12 +75,23 @@ const allCartItems = computed(() => [
 const totalPrice = computed(() => relicsStore.total + oreStore.total)
 
 const removeFromCart = (item) => {
+  // Remove from correct store
   if (item.source === 'ore') {
     const index = oreStore.cart.findIndex(i => i.id === item.id)
     if (index > -1) oreStore.cart.splice(index, 1)
   } else {
     const index = relicsStore.cart.findIndex(i => i.id === item.id)
     if (index > -1) relicsStore.cart.splice(index, 1)
+  }
+
+  // INSTANTLY RELEASE RESERVATION
+  const inventoryItem = item.source === 'ore' 
+    ? oreStore.items.find(i => i.id === item.id)
+    : relicsStore.items.find(i => i.id === item.id)
+  
+  if (inventoryItem) {
+    inventoryItem.reservedUntil = null
+    inventoryItem.reservedBy = null
   }
 }
 
