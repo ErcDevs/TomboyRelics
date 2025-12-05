@@ -1,4 +1,4 @@
-<!-- src/views/ProductDetail.vue — FINAL WORKING -->
+<!-- src/views/ProductDetail.vue — FINAL PERFECT VERSION (your design + working for both relics and ore) -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-6xl px-4">
@@ -38,6 +38,10 @@
           </div>
         </div>
       </div>
+
+      <div v-else class="text-center py-32">
+        <p class="text-2xl text-gray-600">Product not found.</p>
+      </div>
     </div>
   </div>
 </template>
@@ -52,22 +56,25 @@ const route = useRoute()
 const relicsStore = useRelicsStore()
 const oreStore = useOreStore()
 
+// Find product from correct store based on route
 const product = computed(() => {
   const id = Number(route.params.id)
-  const category = route.path.includes('/shop/ore') ? 'ore' : 'relics'
   
-  if (category === 'ore') {
+  if (route.path.includes('/shop/ore')) {
     return oreStore.items.find(i => i.id === id)
   } else {
     return relicsStore.items.find(i => i.id === id)
   }
 })
 
+// Add to correct store
 const addToCart = () => {
+  if (!product.value) return
+  
   if (route.path.includes('/shop/ore')) {
-    oreStore.addToCart(product.value)
+    oreStore.addToCart({ ...product.value })
   } else {
-    relicsStore.addToCart(product.value)
+    relicsStore.addToCart({ ...product.value })
   }
 }
 </script>

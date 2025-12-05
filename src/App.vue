@@ -1,4 +1,4 @@
-<!-- src/App.vue — FINAL: No more /products warnings -->
+<!-- src/App.vue — FINAL: Combined cart from both stores -->
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Navigation -->
@@ -23,7 +23,7 @@
 
     <router-view />
 
-    <!-- Cart Teaser -->
+    <!-- Cart Teaser — COMBINED FROM BOTH STORES -->
     <transition name="fade">
       <div
         v-if="showTeaser && totalItems > 0"
@@ -51,6 +51,7 @@ import { computed, ref, watch, onMounted } from 'vue'
 const relicsStore = useRelicsStore()
 const oreStore = useOreStore()
 
+// COMBINED CART FROM BOTH STORES
 const totalItems = computed(() => relicsStore.cart.length + oreStore.cart.length)
 const totalPrice = computed(() => relicsStore.total + oreStore.total)
 

@@ -1,15 +1,15 @@
-<!-- src/views/Cart.vue — FINAL 100% WORKING -->
+<!-- src/views/Cart.vue — FINAL: Combined cart from relics + ore -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-4xl px-4">
       <h1 class="text-3xl font-bold text-gray-900 mb-8">Your Cart</h1>
 
       <!-- Empty Cart -->
-      <div v-if="cart.length === 0" class="text-center py-20">
+      <div v-if="allCartItems.length === 0" class="text-center py-20">
         <p class="text-xl text-gray-600">
           Your cart is empty — 
-          <router-link to="/products" class="text-blue-600 hover:underline font-medium">
-            browse Tomboy Mine relics →
+          <router-link to="/shop" class="text-blue-600 hover:underline font-medium">
+            browse Tomboy Mine treasures →
           </router-link>
         </p>
       </div>
@@ -17,8 +17,8 @@
       <!-- Cart Items -->
       <div v-else class="space-y-6">
         <div
-          v-for="(item, index) in cart"
-          :key="index"
+          v-for="item in allCartItems"
+          :key="item.id + '-' + item.source"
           class="bg-white p-6 rounded-lg border flex justify-between items-center shadow-sm"
         >
           <div class="flex items-center space-x-6">
@@ -29,7 +29,7 @@
             </div>
           </div>
           <button
-            @click="removeFromCart(index)"
+            @click="removeFromCart(item)"
             class="text-red-600 hover:text-red-800 font-medium transition"
           >
             Remove
@@ -40,7 +40,7 @@
         <div class="bg-white p-8 rounded-lg border mt-8 shadow-md">
           <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold">Order Total</h2>
-            <p class="text-3xl font-bold text-green-600">${{ store.total }}</p>
+            <p class="text-3xl font-bold text-green-600">${{ totalPrice }}</p>
           </div>
 
           <button
@@ -61,20 +61,43 @@
 
 <script setup>
 import { useRelicsStore } from '@/stores/relics'
+import { useOreStore } from '@/stores/ore'
+import { computed } from 'vue'
 
-const store = useRelicsStore()
-const cart = store.cart
+const relicsStore = useRelicsStore()
+const oreStore = useOreStore()
 
-const removeFromCart = (index) => {
-  store.cart.splice(index, 1)  // ← Removes only this exact item
+// Combine both carts
+const allCartItems = computed(() => [
+  ...relicsStore.cart.map(item => ({ ...item, source: 'relics' })),
+  ...oreStore.cart.map(item => ({ ...item, source: 'ore' }))
+])
+
+const totalPrice = computed(() => relicsStore.total + oreStore.total)
+
+const removeFromCart = (item) => {
+  if (item.source === 'ore') {
+    const index = oreStore.cart.findIndex(i => i.id === item.id)
+    if (index > -1) oreStore.cart.splice(index, 1)
+  } else {
+    const index = relicsStore.cart.findIndex(i => i.id === item.id)
+    if (index > -1) relicsStore.cart.splice(index, 1)
+  }
 }
 
 const handleCheckout = () => {
-  store.cart.forEach(item => {
-    const inventoryItem = store.items.find(i => i.id === item.id)
+  // Mark all items as sold
+  relicsStore.cart.forEach(item => {
+    const inventoryItem = relicsStore.items.find(i => i.id === item.id)
     if (inventoryItem) inventoryItem.sold = true
   })
-  store.clearCart()
+  oreStore.cart.forEach(item => {
+    const inventoryItem = oreStore.items.find(i => i.id === item.id)
+    if (inventoryItem) inventoryItem.sold = true
+  })
+  
+  relicsStore.clearCart()
+  oreStore.clearCart()
   alert('Thank you! Your relics are reserved. We’ll contact you for payment.')
 }
 </script>
