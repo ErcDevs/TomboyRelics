@@ -8,7 +8,7 @@ export const useRelicsStore = defineStore('relics', {
       {
         id: 1,
         name: 'Authentic Assay Cupel',
-        price: 45,
+        price: 35,
         image: '/relicImages/gridThumbs/1main.jpeg',
         desc: 'Original fired Cupel from the Tomboy Assayers office!  Cupel has been fired and contains the original oxidized collector metals from the cupelation process.  Heavy sample! ',
         sold: false,
@@ -26,7 +26,7 @@ export const useRelicsStore = defineStore('relics', {
         name: 'Desilvering Kettle',
         price: 436000,
         image: '/relicImages/gridThumbs/3main.jpeg',
-        desc: 'HUGE discovery on November 1st 2025!!  The original desilvering kettle was unearthed making it the only known intact desilvering kettle from the Tomboy smelter! This is the original delivering kettle from the mine and is a museum specimen.  The kettle was unearthed with the silver and gold plates still intact, which are currently being assayed!',
+        desc: 'HUGE discovery on November 1st 2025!!  The original desilvering kettle was unearthed making it the only known intact desilvering kettle from the Tomboy smelter! This is the original delivering kettle from the mine and is a museum specimen.  The kettle was unearthed with the silver and gold plates still intact, which are currently being assayed!  Kettle still has 50 1 oz dimples intact',
         sold: false,
         category: 'relics',
         reservedUntil: null,

@@ -8,10 +8,10 @@ export const useOreStore = defineStore('ore', {
      
       {
         id: 1,
-        name: 'Tomboy Mine High-Grade Peacock Ore Specimen',
-        price: 175,
+        name: 'Tomboy Mine High-Grade Bornite Ore Specimen',
+        price: 210,
         image: '/oreImages/gridThumbs/1main.jpeg',
-        desc: 'Hand-selected specimen from the richest vein in Savage Basin. Very rare ultra pure calchopyrite specimen.',
+        desc: 'Hand-selected specimen from one of the richest veins in Savage Basin. Also known as "Peacock ore" this is a very rare ultra pure calchopyrite specimen.',
         sold: false,
         extraImages: ['/oreImages/productImages/1.1.jpeg', '/oreImages/productImages/1.2.jpeg'],  // ← FIXED: added .jpeg
         category: 'ore',
@@ -20,8 +20,8 @@ export const useOreStore = defineStore('ore', {
       },
       {
         id: 2,
-        name: 'Tomboy Mine High-Grade Silver Ore Specimen',
-        price: 175,
+        name: 'Tomboy Mine High-Grade Quartz Vein Silver Ore Specimen',
+        price: 28,
         image: '/oreImages/gridThumbs/2main.jpeg',
         desc: 'Hand-selected specimen, rich in silver, galena, and calchopyrite.',
         sold: false,
@@ -33,7 +33,7 @@ export const useOreStore = defineStore('ore', {
       {
         id: 3,
         name: 'Tomboy Mine High-Grade Hard Rock Gold Ore Specimen',
-        price: 175,
+        price: 18,
         image: '/oreImages/gridThumbs/3main.jpeg',
         desc: 'Hand-selected specimen with visible gold flecks in a micro vein of calchopyrite.',
         sold: false,
