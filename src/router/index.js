@@ -21,6 +21,7 @@ const router = createRouter({
     { path: '/ore-reference', name: 'OreReference', component: OreReference },  // ← NEW PAGE
     { path: '/cart', name: 'Cart', component: () => import('../views/Cart.vue') },
     {path: '/my-secret-pricing-tool-1987',name: 'OrePricingTool',component: () => import('@/views/OrePricingTool.vue')},
+    {path: '/my-secret-ebay-tool-1987',name: 'EBayListingTool',component: () => import('@/views/EBayListingTool.vue')},
   ],
 })
 

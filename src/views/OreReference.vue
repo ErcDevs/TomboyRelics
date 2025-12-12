@@ -5,7 +5,7 @@
       <div class="text-center mb-12">
         <h1 class="text-4xl font-bold text-gray-900">Tomboy Mine Ore Reference</h1>
         <p class="mt-4 text-lg text-gray-600">
-          The Tomboy Mine (1894–1928) was Colorado's third richest gold mine, famously purchased by the Rothschild family in 1897 for $2 million, which enabled its massive expansion and made it a symbol of European investment in American mining. It produced 3.3 million ounces of gold and 265 million ounces of silver, along with substantial base metals, making it a cornerstone of Telluride's boom. Ores were polymetallic quartz veins with free-milling gold (0.1–2 oz/ton) and silver (1–50 oz/ton), hosted in sulfides like chalcopyrite, galena, pyrite, pyrrhotite, arsenopyrite, sphalerite, marcasite, tetrahedrite, and enargite, plus tellurides such as calaverite and sylvanite. Below is a table of total production values at December 09, 2025 spot prices, followed by key ore types with typical assay values per ton and collector price ranges.
+          The Tomboy Mine (1894–1928) was Colorado's third richest gold mine, famously purchased by the Rothschild family in 1897 for $2 million, which enabled its massive expansion and made it a symbol of European investment in American mining. It produced 3.3 million ounces of gold and 265 million ounces of silver, along with substantial base metals, making it a cornerstone of Telluride's boom. Ores were polymetallic quartz veins with free-milling gold (0.1–2 oz/ton) and silver (1–50 oz/ton), hosted in sulfides like chalcopyrite, galena, pyrite, pyrrhotite, arsenopyrite, sphalerite, marcasite, tetrahedrite, and enargite, plus tellurides such as calaverite and sylvanite. Below is a table of total production values at December 2025 spot prices, followed by key ore types with typical assay values per ton and collector price ranges.
         </p>
 
         <!-- Production Totals Table -->
@@ -82,7 +82,7 @@
             class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition"
           >
           <div>
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">Quartz Vein Ore — The Richest</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Quartz Vein Ore</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-6">
               White to clear quartz veins laced with visible gold — the primary ore for Tomboy's legendary free-milling gold. Often running 1–3+ oz/ton Au, this was the mine's jackpot ore. Contains chalcopyrite, pyrite, and tellurides like calaverite. The most sought-after Tomboy specimen.
             </p>
