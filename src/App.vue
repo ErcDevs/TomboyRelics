@@ -1,4 +1,4 @@
-<!-- src/App.vue — FINAL: Combined cart from both stores -->
+<!-- src/App.vue — FINAL WITH ORE REFERENCE TAB -->
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Navigation -->
@@ -10,6 +10,7 @@
             <router-link to="/" class="text-gray-700 hover:text-gray-900">Home</router-link>
             <router-link to="/shop" class="text-gray-700 hover:text-gray-900">Shop</router-link>
             <router-link to="/history" class="text-gray-700 hover:text-gray-900">History</router-link>
+            <router-link to="/ore-reference" class="text-gray-700 hover:text-gray-900">Ore Reference</router-link>  <!-- ← NEW TAB -->
             <router-link to="/cart" class="relative text-gray-700 hover:text-gray-900">
               Cart
               <span v-if="totalItems > 0" class="absolute -top-2 -right-4 bg-red-600 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
@@ -23,7 +24,7 @@
 
     <router-view />
 
-    <!-- Cart Teaser — COMBINED FROM BOTH STORES -->
+    <!-- Cart Teaser -->
     <transition name="fade">
       <div
         v-if="showTeaser && totalItems > 0"
@@ -51,7 +52,6 @@ import { computed, ref, watch, onMounted } from 'vue'
 const relicsStore = useRelicsStore()
 const oreStore = useOreStore()
 
-// COMBINED CART FROM BOTH STORES
 const totalItems = computed(() => relicsStore.cart.length + oreStore.cart.length)
 const totalPrice = computed(() => relicsStore.total + oreStore.total)
 
