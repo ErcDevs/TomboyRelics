@@ -1,5 +1,5 @@
 <!-- src/views/Cart.vue — FINAL: Remove releases reservation -->
- <!-- deploy test update -->
+ <!-- deploy to force cache purge -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
     <div class="mx-auto max-w-4xl px-4">
