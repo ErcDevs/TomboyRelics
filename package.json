@@ -18,10 +18,12 @@
     "@clerk/vue": "^1.17.0",
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
+    "@square/web-sdk": "^2.1.0",
     "medium-zoom": "^1.1.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.22",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.3",
+    "square": "^39.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.37.0",

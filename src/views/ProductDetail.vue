@@ -1,77 +1,76 @@
-<!-- src/views/ProductDetail.vue — FINAL 100% WORKING -->
+<!-- src/views/ProductDetail.vue — FIXED RESERVATION + NO DUPLICATES -->
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
-    <div class="mx-auto max-w-6xl px-4">
-      <router-link to="/shop" class="text-blue-600 hover:underline mb-8 inline-block">
-        ← Back to Categories
+    <div class="mx-auto max-w-7xl px-6">
+      <!-- Back button -->
+      <router-link 
+        :to="product.category === 'ore' ? '/shop/ore' : '/shop/relics'" 
+        class="inline-block mb-8 text-blue-600 hover:underline font-medium"
+      >
+        ← Back to {{ product.category === 'ore' ? 'Ore' : 'Relics' }}
       </router-link>
 
-      <div v-if="product" class="grid md:grid-cols-2 gap-12">
-        <!-- Images -->
-        <div class="space-y-4">
-          <!-- Main Image — swaps when thumbnail clicked -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Image Gallery -->
+        <div>
           <img 
             :src="currentImage" 
             :alt="product.name" 
-            class="w-full rounded-xl shadow-lg object-cover h-96 cursor-pointer hover:opacity-90 transition" 
+            class="w-full rounded-lg shadow-lg object-cover"
+            @click="zoomImage(currentImage)"
           />
-          
-          <!-- Extra Images Gallery — clickable thumbnails -->
-          <div v-if="hasExtraImages" class="grid grid-cols-3 gap-4">
-            <img
-              v-for="(img, i) in product.extraImages"
+          <div v-if="hasExtraImages" class="grid grid-cols-4 gap-4 mt-6">
+            <img 
+              v-for="(img, i) in product.extraImages" 
               :key="i"
-              :src="absoluteImagePath(img)"
-              :class="['rounded-lg shadow cursor-pointer hover:opacity-80 transition', { 'ring-2 ring-blue-500': absoluteImagePath(img) === currentImage }]"
-              @click="currentImage = absoluteImagePath(img)"
+              :src="img" 
+              :alt="`${product.name} extra ${i+1}`"
+              class="rounded-lg cursor-pointer border-4 transition"
+              :class="currentImage === img ? 'border-blue-600' : 'border-transparent'"
+              @click="currentImage = img"
             />
           </div>
-          <p v-else class="text-sm text-gray-500 text-center">No additional images available</p>
         </div>
 
-        <!-- Details (your exact design) -->
+        <!-- Details -->
         <div>
-          <h1 class="text-5xl font-bold text-gray-900">{{ product.name }}</h1>
-          <p class="mt-6 text-2xl text-gray-700 leading-relaxed">{{ product.desc }}</p>
-          <p class="mt-8 text-6xl font-bold text-green-600">${{ product.price }}</p>
+          <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ product.name }}</h1>
+          
+          <!-- SOLD Banner -->
+          <div v-if="product.sold" class="mb-6">
+            <span class="inline-block bg-red-600 text-white px-6 py-3 rounded-full text-xl font-bold">
+              SOLD
+            </span>
+          </div>
 
-          <!-- SOLD -->
-          <div v-if="product.sold" class="mt-8 text-center py-12">
-            <p class="text-5xl font-bold text-red-600">SOLD OUT</p>
+          <!-- RESERVED Banner -->
+          <div v-if="isReservedByOther" class="mb-6">
+            <span class="inline-block bg-orange-600 text-white px-6 py-3 rounded-full text-xl font-bold">
+              RESERVED — {{ minutesLeft }} min left
+            </span>
           </div>
-          <!-- RESERVED BY SOMEONE ELSE -->
-          <div v-else-if="product.reservedUntil && !isMyReservation" class="mt-8 text-center py-12 bg-yellow-100 rounded-lg">
-            <p class="text-3xl font-bold text-yellow-800">Currently Reserved</p>
-            <p class="text-xl text-gray-700 mt-4">
-              This item is in another customer's cart.<br>
-              Available again in {{ minutesLeft }} minutes.
-            </p>
-          </div>
-          <!-- AVAILABLE OR MY RESERVATION -->
+
+          <p class="text-3xl font-bold text-green-600 mb-8">${{ product.price }}</p>
+
+          <div class="prose prose-lg mb-8" v-html="formattedDesc"></div>
+
+          <!-- Add to Cart Button — FIXED -->
           <button
-            v-else
             @click="addToCart"
-            :disabled="product.reservedUntil && !isMyReservation"
-            class="mt-8 w-full bg-blue-600 text-white text-2xl font-bold py-6 rounded-xl hover:opacity-90 disabled:opacity-50"
+            :disabled="!canAddToCart"
+            class="w-full py-5 text-2xl font-bold rounded-lg transition shadow-lg"
+            :class="canAddToCart 
+              ? 'bg-green-600 hover:bg-green-700 text-white cursor-pointer' 
+              : 'bg-gray-400 text-gray-700 cursor-not-allowed'"
           >
-            {{ product.reservedUntil ? 'Already in your cart (reserved)' : 'Add to Cart' }}
+            {{ buttonText }}
           </button>
 
-          <div class="mt-12">
-            <h3 class="text-xl font-semibold">Details</h3>
-            <ul class="mt-4 space-y-2 text-gray-600">
-              <li>• Authentic Tomboy Mine artifact</li>
-              <li>• From Savage Basin, Colorado</li>
-              <li>• One-of-a-kind historic relic</li>
-            </ul>
-          </div>
+          <p v-if="addMessage" class="mt-4 text-center text-lg font-medium" :class="addMessage.includes('added') ? 'text-green-600' : 'text-red-600'">
+            {{ addMessage }}
+          </p>
         </div>
       </div>
-    </div>
-
-    <!-- Toast -->
-    <div v-if="toast.message" class="fixed top-4 left-1/2 -translate-x-1/2 bg-black text-white px-8 py-4 rounded-lg shadow-2xl z-50">
-      {{ toast.message }}
     </div>
   </div>
 </template>
@@ -86,67 +85,110 @@ const route = useRoute()
 const relicsStore = useRelicsStore()
 const oreStore = useOreStore()
 
-const toast = ref({ message: '' })
+const sessionId = ref(crypto.randomUUID())
+const currentImage = ref('')
+const addMessage = ref('')
 
+// Determine which store + product
 const product = computed(() => {
   const id = Number(route.params.id)
-  if (route.path.includes('/shop/ore')) {
-    return oreStore.items.find(i => i.id === id)
+  const isOre = route.path.includes('/ore/')
+  
+  if (isOre) {
+    return oreStore.items.find(i => i.id === id) || {}
   } else {
-    return relicsStore.items.find(i => i.id === id)
+    return relicsStore.items.find(i => i.id === id) || {}
   }
 })
 
-// Current image for main slot
-const currentImage = ref('')
-
-// Force absolute path for images
-const absoluteImagePath = (img) => {
-  return img.startsWith('/') ? img : '/' + img
+// Helper: absolute image path
+const absoluteImagePath = (path) => {
+  return path.startsWith('http') ? path : import.meta.env.BASE_URL + path.replace(/^\//, '')
 }
 
-// Safe check for extra images
-const hasExtraImages = computed(() => {
-  return Array.isArray(product.value?.extraImages) && product.value.extraImages.length > 0
-})
-
-const isMyReservation = computed(() => product.value?.reservedBy === sessionId.value)
-
-const minutesLeft = computed(() => {
-  if (!product.value?.reservedUntil) return 0
-  const diff = (product.value.reservedUntil - Date.now()) / 60000
-  return Math.max(0, Math.ceil(diff))
-})
-
-const sessionId = ref(crypto.randomUUID())
-
-const addToCart = () => {
-  if (!product.value || product.value.sold) return
-
-  const store = route.path.includes('/shop/ore') ? oreStore : relicsStore
-
-  if (product.value.reservedUntil && !isMyReservation.value) {
-    toast.value = { message: `This item is reserved by another customer for ${minutesLeft.value} more minutes.` }
-    setTimeout(() => toast.value = { message: '' }, 5000)
-    return
-  }
-
-  product.value.reservedUntil = Date.now() + 10 * 60 * 1000
-  product.value.reservedBy = sessionId.value
-
-  store.addToCart({ ...product.value })
-  toast.value = { message: 'Added to cart! Reserved for you for 10 minutes.' }
-  setTimeout(() => toast.value = { message: '' }, 5000)
-}
-
+// Set initial image
 onMounted(() => {
-  currentImage.value = product.value?.image ? absoluteImagePath(product.value.image) : ''
-  const store = route.path.includes('/shop/ore') ? oreStore : relicsStore
+  if (product.value.image) {
+    currentImage.value = absoluteImagePath(product.value.image)
+  }
+
+  // Clean up any expired reservations on load
+  const now = Date.now()
+  const store = route.path.includes('/ore/') ? oreStore : relicsStore
   store.items.forEach(item => {
-    if (item.reservedUntil && item.reservedUntil < Date.now()) {
+    if (item.reservedUntil && item.reservedUntil < now) {
       item.reservedUntil = null
       item.reservedBy = null
     }
   })
 })
+
+// Extra images logic
+const hasExtraImages = computed(() => 
+  product.value.extraImages && product.value.extraImages.length > 0
+)
+
+// Format description newlines
+const formattedDesc = computed(() => 
+  product.value.desc?.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>') || ''
+)
+
+// Reservation checks
+const isReservedByOther = computed(() => {
+  return product.value.reservedUntil && 
+         product.value.reservedBy !== sessionId.value && 
+         product.value.reservedUntil > Date.now()
+})
+
+const minutesLeft = computed(() => {
+  if (!product.value.reservedUntil) return 0
+  const diff = product.value.reservedUntil - Date.now()
+  return Math.max(0, Math.ceil(diff / 60000))
+})
+
+// Check if already in cart
+const isInCart = computed(() => {
+  return relicsStore.cart.some(i => i.id === product.value.id) ||
+         oreStore.cart.some(i => i.id === product.value.id)
+})
+
+// FINAL: Can add to cart?
+const canAddToCart = computed(() => {
+  return !product.value.sold && 
+         !isReservedByOther.value && 
+         !isInCart.value
+})
+
+const buttonText = computed(() => {
+  if (product.value.sold) return 'Sold Out'
+  if (isReservedByOther.value) return 'Reserved by Another Customer'
+  if (isInCart.value) return 'Already in Cart'
+  return 'Add to Cart'
+})
+
+// ADD TO CART — FULLY FIXED
+const addToCart = () => {
+  if (!canAddToCart.value) return
+
+  const store = route.path.includes('/ore/') ? oreStore : relicsStore
+  
+  // Reserve for 10 minutes
+  product.value.reservedUntil = Date.now() + 10 * 60 * 1000
+  product.value.reservedBy = sessionId.value
+
+  // Add to correct store cart
+  if (route.path.includes('/ore/')) {
+    oreStore.addToCart({ ...product.value })
+  } else {
+    relicsStore.addToCart({ ...product.value })
+  }
+
+  addMessage.value = 'Added to cart! Reserved for 10 minutes.'
+  setTimeout(() => addMessage.value = '', 3000)
+}
+
+// Optional: zoom (you already have medium-zoom or can add)
+const zoomImage = (src) => {
+  // your zoom logic
+}
 </script>

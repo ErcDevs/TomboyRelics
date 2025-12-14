@@ -15,6 +15,7 @@ export const useRelicsStore = defineStore('relics', {
         "category": "relics",
         "reservedUntil": null,
         "reservedBy": null,
+        "soldAt": null,  // ADDED: Timestamp when marked sold – for 2-day visibility
         "extraImages": [
         "/relicImages/productImages/1.1.jpeg",
         "/relicImages/productImages/1.2.jpeg",
@@ -30,6 +31,7 @@ export const useRelicsStore = defineStore('relics', {
         "category": "relics",
         "reservedUntil": null,
         "reservedBy": null,
+        "soldAt": null,  // ADDED: Timestamp when marked sold – for 2-day visibility
         "extraImages": [
         "/relicImages/productImages/3.1.jpeg",
         "/relicImages/productImages/3.2.jpeg",
@@ -45,6 +47,7 @@ export const useRelicsStore = defineStore('relics', {
         "category": "relics",
         "reservedUntil": null,
         "reservedBy": null,
+        "soldAt": null,  // ADDED: Timestamp when marked sold – for 2-day visibility
         "extraImages": [
         "/relicImages/productImages/4.1.jpeg",
         "/relicImages/productImages/4.2.jpeg",
@@ -78,6 +81,7 @@ export const useRelicsStore = defineStore('relics', {
         "category": "relics",
         "reservedUntil": null,
         "reservedBy": null,
+        "soldAt": null,  // ADDED: Timestamp when marked sold – for 2-day visibility
         "extraImages": [
         "/relicImages/productImages/5.1.jpeg",
         "/relicImages/productImages/5.2.jpeg"

@@ -43,11 +43,28 @@
             <p class="text-3xl font-bold text-green-600">${{ totalPrice }}</p>
           </div>
 
+          <!-- Signed-in notice -->
+          <SignedIn>
+            <p class="text-sm text-gray-600 mb-4">Shipping to your account address (editable below)</p>
+          </SignedIn>
+
+          <!-- Buyer Info Form (auto-filled if signed in) -->
+          <div class="space-y-4 mb-6">
+            <input v-model="buyer.name" placeholder="Full Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 outline-none" />
+            <input v-model="buyer.email" type="email" placeholder="Email Address" required class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 outline-none" />
+            <textarea v-model="buyer.address" placeholder="Shipping Address (include city, state, ZIP, country)" required class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 outline-none h-24"></textarea>
+          </div>
+
+          <!-- Square Card Form Container -->
+          <div id="payment-form" class="mb-6 border rounded-lg p-4 bg-gray-50"></div>
+          <div id="payment-errors" class="text-red-600 text-sm mb-4 min-h-[24px]"></div>
+
           <button
             @click="handleCheckout"
-            class="w-full bg-green-600 text-white text-lg font-semibold py-4 rounded-lg hover:bg-green-700 transition shadow-lg"
+            :disabled="processing"
+            class="w-full bg-green-600 text-white text-lg font-semibold py-4 rounded-lg hover:bg-green-700 transition shadow-lg disabled:opacity-50"
           >
-            Checkout with Square (Coming Soon)
+            {{ processing ? 'Processing Payment...' : 'Pay with Square Securely' }}
           </button>
 
           <p class="text-sm text-gray-500 text-center mt-4">
@@ -62,10 +79,12 @@
 <script setup>
 import { useRelicsStore } from '@/stores/relics'
 import { useOreStore } from '@/stores/ore'
-import { computed } from 'vue'
+import { computed, ref, onMounted, watch } from 'vue'
+import { useUser, SignedIn } from '@clerk/vue'
 
 const relicsStore = useRelicsStore()
 const oreStore = useOreStore()
+const { user, isLoaded } = useUser()
 
 const allCartItems = computed(() => [
   ...relicsStore.cart.map(item => ({ ...item, source: 'relics' })),
@@ -95,19 +114,109 @@ const removeFromCart = (item) => {
   }
 }
 
-const handleCheckout = () => {
-  // Mark all items as sold
-  relicsStore.cart.forEach(item => {
-    const inventoryItem = relicsStore.items.find(i => i.id === item.id)
-    if (inventoryItem) inventoryItem.sold = true
-  })
-  oreStore.cart.forEach(item => {
-    const inventoryItem = oreStore.items.find(i => i.id === item.id)
-    if (inventoryItem) inventoryItem.sold = true
-  })
-  
-  relicsStore.clearCart()
-  oreStore.clearCart()
-  alert('Thank you! Your relics are reserved. We’ll contact you for payment.')
+// Square integration below — keeps old handleCheckout as fallback
+const processing = ref(false)
+let card = null
+
+// Buyer info ref
+const buyer = ref({ name: '', email: '', address: '' })
+
+// Auto-fill from Clerk user when loaded/signed-in
+watch(() => user.value, (currentUser) => {
+  if (currentUser && isLoaded.value) {
+    buyer.value.name = currentUser.fullName || (currentUser.firstName ? currentUser.firstName + ' ' + (currentUser.lastName || '') : '')
+    buyer.value.email = currentUser.primaryEmailAddress?.emailAddress || ''
+    buyer.value.address = ''  // Custom address not in Clerk yet – manual for now
+  }
+}, { immediate: true })
+
+onMounted(async () => {
+  if (allCartItems.value.length === 0) return
+
+  // Dynamically load Square SDK (auto sandbox/prod via env)
+  const script = document.createElement('script')
+  script.src = import.meta.env.VITE_SQUARE_SDK_URL
+  script.async = true
+  script.onload = initializeSquare
+  document.head.appendChild(script)
+})
+
+async function initializeSquare() {
+  try {
+    const payments = window.Square.payments(import.meta.env.VITE_SQUARE_APPLICATION_ID, import.meta.env.VITE_SQUARE_LOCATION_ID)
+    card = await payments.card()
+    await card.attach('#payment-form')
+  } catch (err) {
+    document.getElementById('payment-errors').textContent = 'Failed to load payment form. Please refresh.'
+  }
+}
+
+const handleCheckout = async () => {
+  if (!card) {
+    // Fallback to old behavior if Square not loaded
+    relicsStore.cart.forEach(item => {
+      const inventoryItem = relicsStore.items.find(i => i.id === item.id)
+      if (inventoryItem) inventoryItem.sold = true
+    })
+    oreStore.cart.forEach(item => {
+      const inventoryItem = oreStore.items.find(i => i.id === item.id)
+      if (inventoryItem) inventoryItem.sold = true
+    })
+    
+    relicsStore.clearCart()
+    oreStore.clearCart()
+    alert('Thank you! Your relics are reserved. We’ll contact you for payment.')
+    return
+  }
+
+  // Basic buyer validation
+  if (!buyer.value.name || !buyer.value.email || !buyer.value.address) {
+    document.getElementById('payment-errors').textContent = 'Please fill out your name, email, and shipping address.'
+    return
+  }
+
+  processing.value = true
+  document.getElementById('payment-errors').textContent = ''
+
+  try {
+    const result = await card.tokenize()
+    if (result.status !== 'OK') {
+      throw new Error('Card entry incomplete. Please check fields.')
+    }
+
+    const response = await fetch('/api/pay', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sourceId: result.token,
+        amountMoney: { amount: Math.round(totalPrice.value * 100), currency: 'USD' },
+        idempotencyKey: crypto.randomUUID(),
+        buyerEmailAddress: buyer.value.email
+      })
+    })
+
+    if (response.ok) {
+      // SUCCESS: Mark sold, clear carts
+      relicsStore.cart.forEach(item => {
+        const inventoryItem = relicsStore.items.find(i => i.id === item.id)
+        if (inventoryItem) inventoryItem.sold = true
+      })
+      oreStore.cart.forEach(item => {
+        const inventoryItem = oreStore.items.find(i => i.id === item.id)
+        if (inventoryItem) inventoryItem.sold = true
+      })
+      
+      relicsStore.clearCart()
+      oreStore.clearCart()
+      alert('Payment successful! Thank you for purchasing authentic Tomboy Mine relics. We’ll ship soon.')
+    } else {
+      const err = await response.json()
+      document.getElementById('payment-errors').textContent = err.error || 'Payment failed. Please try again.'
+    }
+  } catch (err) {
+    document.getElementById('payment-errors').textContent = err.message || 'An error occurred.'
+  } finally {
+    processing.value = false
+  }
 }
 </script>

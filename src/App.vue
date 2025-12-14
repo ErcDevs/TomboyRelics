@@ -18,6 +18,18 @@
               </span>
             </router-link>
           </nav>
+
+          <!-- ADDED: Clerk Auth UI (right of nav) -->
+          <div class="flex items-center ml-8">
+            <SignedOut>
+              <SignInButton mode="modal" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition font-medium">
+                Sign In / Create Account
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
         </div>
       </div>
     </header>
@@ -48,6 +60,7 @@
 import { useRelicsStore } from '@/stores/relics'
 import { useOreStore } from '@/stores/ore'
 import { computed, ref, watch, onMounted } from 'vue'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/vue'  // ADDED: Clerk components
 
 const relicsStore = useRelicsStore()
 const oreStore = useOreStore()
