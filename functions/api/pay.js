@@ -1,17 +1,24 @@
-// functions/api/pay.js — Proxy to your Square Worker for real sandbox payments
-export const onRequestPost = async (context) => {
-  const { PAYMENTS_WORKER } = context.env;  // From your binding
+// functions/api/pay.js — Fixed for 405 + real sandbox payments
+export const onRequest = async (context) => {
+  const { request, env } = context;
+  const { PAYMENTS_WORKER } = env;
 
-  // Forward the POST request to the bound Worker (real charge)
-  return PAYMENTS_WORKER.fetch(context.request);
-};
+  // Handle CORS preflight OPTIONS
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
+  }
 
-export const onRequestOptions = () => {
-  return new Response(null, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
+  // Forward POST to your Worker (real charge)
+  if (request.method === 'POST') {
+    return PAYMENTS_WORKER.fetch(request);
+  }
+
+  // Anything else (GET etc.) 405
+  return new Response('Method Not Allowed', { status: 405 });
 };
