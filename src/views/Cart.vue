@@ -181,11 +181,17 @@ const handleCheckout = async () => {
 
   try {
     const result = await card.tokenize()
+    console.log(result)
     if (result.status !== 'OK') {
       throw new Error('Card entry incomplete. Please check fields.')
     }
-
-    const response = await fetch('/api/pay', {
+      console.log(JSON.stringify({
+        sourceId: result.token,
+        amountMoney: { amount: Math.round(totalPrice.value * 100), currency: 'USD' },
+        idempotencyKey: crypto.randomUUID(),
+        buyerEmailAddress: buyer.value.email
+      }))
+    const response = await fetch('functions/api/pay', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
