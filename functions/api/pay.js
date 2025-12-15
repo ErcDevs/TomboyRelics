@@ -1,9 +1,9 @@
-// functions/api/pay.js — Fixed for 405 + real sandbox payments
+// functions/api/pay.js — Fixed 405 for Square preflight + real sandbox payments
 export const onRequest = async (context) => {
   const { request, env } = context;
   const { PAYMENTS_WORKER } = env;
 
-  // Handle CORS preflight OPTIONS
+  // Handle CORS preflight OPTIONS (Square SDK sends this first)
   if (request.method === 'OPTIONS') {
     return new Response(null, {
       headers: {
@@ -14,11 +14,11 @@ export const onRequest = async (context) => {
     });
   }
 
-  // Forward POST to your Worker (real charge)
+  // Forward POST to your Worker (real sandbox charge)
   if (request.method === 'POST') {
     return PAYMENTS_WORKER.fetch(request);
   }
 
-  // Anything else (GET etc.) 405
+  // Anything else = 405
   return new Response('Method Not Allowed', { status: 405 });
 };
