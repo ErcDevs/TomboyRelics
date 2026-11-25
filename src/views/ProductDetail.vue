@@ -1,152 +1,60 @@
-<!-- src/views/ProductDetail.vue — FINAL 100% WORKING -->
 <template>
-  <div class="min-h-screen bg-gray-50 py-12">
-    <div class="mx-auto max-w-6xl px-4">
-      <router-link to="/shop" class="text-blue-600 hover:underline mb-8 inline-block">
-        ← Back to Categories
-      </router-link>
+  <div class="mx-auto max-w-6xl px-4 py-10">
+    <router-link to="/shop" class="text-sm text-amber-700 hover:underline">← All specimens</router-link>
 
-      <div v-if="product" class="grid md:grid-cols-2 gap-12">
-        <!-- Images -->
-        <div class="space-y-4">
-          <!-- Main Image — swaps when thumbnail clicked -->
-          <img 
-            :src="currentImage" 
-            :alt="product.name" 
-            class="w-full rounded-xl shadow-lg object-cover h-96 cursor-pointer hover:opacity-90 transition" 
-          />
-          
-          <!-- Extra Images Gallery — clickable thumbnails -->
-          <div v-if="hasExtraImages" class="grid grid-cols-3 gap-4">
-            <img
-              v-for="(img, i) in product.extraImages"
-              :key="i"
-              :src="absoluteImagePath(img)"
-              :class="['rounded-lg shadow cursor-pointer hover:opacity-80 transition', { 'ring-2 ring-blue-500': absoluteImagePath(img) === currentImage }]"
-              @click="currentImage = absoluteImagePath(img)"
-            />
-          </div>
-          <p v-else class="text-sm text-gray-500 text-center">No additional images available</p>
+    <div v-if="ore" class="mt-6 grid gap-10 md:grid-cols-2">
+      <div>
+        <img :src="current" :alt="ore.name" class="w-full aspect-square object-cover rounded-lg shadow bg-stone-200" />
+        <div class="mt-3 grid grid-cols-5 gap-2">
+          <button v-for="img in gallery" :key="img" @click="current = img"
+            :class="['rounded overflow-hidden border-2', img === current ? 'border-amber-500' : 'border-transparent']">
+            <img :src="img" :alt="ore.name" class="aspect-square w-full object-cover" loading="lazy" />
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <h1 class="font-serif text-3xl sm:text-4xl text-stone-900">{{ ore.name }}</h1>
+        <p class="mt-2 text-stone-500">{{ ore.subtitle }}</p>
+        <p class="mt-6 text-3xl font-bold text-amber-700">{{ money(ore.price) }}</p>
+
+        <div class="mt-6">
+          <p v-if="sold" class="text-xl font-bold text-red-700">Sold</p>
+          <router-link v-else-if="cart.has(ore.id)" to="/cart" class="block text-center w-full bg-stone-800 text-white font-semibold py-4 rounded-lg hover:bg-stone-700">In your cart – View cart</router-link>
+          <button v-else @click="cart.add(ore.id)" class="w-full bg-amber-500 text-stone-900 font-semibold py-4 rounded-lg hover:bg-amber-400">Add to cart</button>
+          <p class="mt-2 text-xs text-stone-500">One-of-a-kind. Plus {{ money(SITE.shippingFlat) }} insured shipping per order.</p>
         </div>
 
-        <!-- Details (your exact design) -->
-        <div>
-          <h1 class="text-5xl font-bold text-gray-900">{{ product.name }}</h1>
-          <p class="mt-6 text-2xl text-gray-700 leading-relaxed">{{ product.desc }}</p>
-          <p class="mt-8 text-6xl font-bold text-green-600">${{ product.price }}</p>
+        <dl class="mt-8 grid grid-cols-3 gap-y-2 text-sm border-t border-stone-200 pt-6">
+          <template v-if="ore.weight"><dt class="text-stone-500">Weight</dt><dd class="col-span-2">{{ ore.weight }}</dd></template>
+          <template v-if="ore.size"><dt class="text-stone-500">Size</dt><dd class="col-span-2">approx. {{ ore.size }}</dd></template>
+          <dt class="text-stone-500">Minerals</dt><dd class="col-span-2">{{ ore.minerals.join(', ') }}</dd>
+          <dt class="text-stone-500">Locality</dt><dd class="col-span-2">Tomboy claim, Savage Basin, San Miguel Co., Colorado</dd>
+        </dl>
 
-          <!-- SOLD -->
-          <div v-if="product.sold" class="mt-8 text-center py-12">
-            <p class="text-5xl font-bold text-red-600">SOLD OUT</p>
-          </div>
-          <!-- RESERVED BY SOMEONE ELSE -->
-          <div v-else-if="product.reservedUntil && !isMyReservation" class="mt-8 text-center py-12 bg-yellow-100 rounded-lg">
-            <p class="text-3xl font-bold text-yellow-800">Currently Reserved</p>
-            <p class="text-xl text-gray-700 mt-4">
-              This item is in another customer's cart.<br>
-              Available again in {{ minutesLeft }} minutes.
-            </p>
-          </div>
-          <!-- AVAILABLE OR MY RESERVATION -->
-          <button
-            v-else
-            @click="addToCart"
-            :disabled="product.reservedUntil && !isMyReservation"
-            class="mt-8 w-full bg-blue-600 text-white text-2xl font-bold py-6 rounded-xl hover:opacity-90 disabled:opacity-50"
-          >
-            {{ product.reservedUntil ? 'Already in your cart (reserved)' : 'Add to Cart' }}
-          </button>
-
-          <div class="mt-12">
-            <h3 class="text-xl font-semibold">Details</h3>
-            <ul class="mt-4 space-y-2 text-gray-600">
-              <li>• Authentic Tomboy Mine artifact</li>
-              <li>• From Savage Basin, Colorado</li>
-              <li>• One-of-a-kind historic relic</li>
-            </ul>
-          </div>
+        <div class="mt-8 space-y-4 text-stone-700 leading-relaxed">
+          <p v-for="(para, i) in ore.desc.split('\n\n')" :key="i">{{ para }}</p>
         </div>
       </div>
     </div>
 
-    <!-- Toast -->
-    <div v-if="toast.message" class="fixed top-4 left-1/2 -translate-x-1/2 bg-black text-white px-8 py-4 rounded-lg shadow-2xl z-50">
-      {{ toast.message }}
-    </div>
+    <p v-else class="mt-16 text-center text-xl text-stone-500">That specimen isn't available. <router-link to="/shop" class="text-amber-700 underline">See the shop</router-link></p>
   </div>
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useRelicsStore } from '@/stores/relics'
-import { useOreStore } from '@/stores/ore'
+import { findOre } from '@/data/ore'
+import { SITE } from '@/data/site'
+import { useCartStore } from '@/stores/cart'
+import { money } from '@/utils/money'
 
 const route = useRoute()
-const relicsStore = useRelicsStore()
-const oreStore = useOreStore()
-
-const toast = ref({ message: '' })
-
-const product = computed(() => {
-  const id = Number(route.params.id)
-  if (route.path.includes('/shop/ore')) {
-    return oreStore.items.find(i => i.id === id)
-  } else {
-    return relicsStore.items.find(i => i.id === id)
-  }
-})
-
-// Current image for main slot
-const currentImage = ref('')
-
-// Force absolute path for images
-const absoluteImagePath = (img) => {
-  return img.startsWith('/') ? img : '/' + img
-}
-
-// Safe check for extra images
-const hasExtraImages = computed(() => {
-  return Array.isArray(product.value?.extraImages) && product.value.extraImages.length > 0
-})
-
-const isMyReservation = computed(() => product.value?.reservedBy === sessionId.value)
-
-const minutesLeft = computed(() => {
-  if (!product.value?.reservedUntil) return 0
-  const diff = (product.value.reservedUntil - Date.now()) / 60000
-  return Math.max(0, Math.ceil(diff))
-})
-
-const sessionId = ref(crypto.randomUUID())
-
-const addToCart = () => {
-  if (!product.value || product.value.sold) return
-
-  const store = route.path.includes('/shop/ore') ? oreStore : relicsStore
-
-  if (product.value.reservedUntil && !isMyReservation.value) {
-    toast.value = { message: `This item is reserved by another customer for ${minutesLeft.value} more minutes.` }
-    setTimeout(() => toast.value = { message: '' }, 5000)
-    return
-  }
-
-  product.value.reservedUntil = Date.now() + 10 * 60 * 1000
-  product.value.reservedBy = sessionId.value
-
-  store.addToCart({ ...product.value })
-  toast.value = { message: 'Added to cart! Reserved for you for 10 minutes.' }
-  setTimeout(() => toast.value = { message: '' }, 5000)
-}
-
-onMounted(() => {
-  currentImage.value = product.value?.image ? absoluteImagePath(product.value.image) : ''
-  const store = route.path.includes('/shop/ore') ? oreStore : relicsStore
-  store.items.forEach(item => {
-    if (item.reservedUntil && item.reservedUntil < Date.now()) {
-      item.reservedUntil = null
-      item.reservedBy = null
-    }
-  })
-})
+const cart = useCartStore()
+const ore = computed(() => findOre(route.params.id))
+const sold = computed(() => ore.value && cart.isSold(ore.value.id))
+const gallery = computed(() => (ore.value ? [ore.value.image, ...ore.value.images] : []))
+const current = ref('')
+watch(ore, (o) => (current.value = o?.image || ''), { immediate: true })
 </script>

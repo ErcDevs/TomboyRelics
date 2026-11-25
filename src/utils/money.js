@@ -1,0 +1,2 @@
+const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+export const money = (n) => fmt.format(n).replace(/\.00$/, '')

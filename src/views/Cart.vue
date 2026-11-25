@@ -1,113 +1,72 @@
-<!-- src/views/Cart.vue — FINAL: Remove releases reservation -->
 <template>
-  <div class="min-h-screen bg-gray-50 py-12">
-    <div class="mx-auto max-w-4xl px-4">
-      <h1 class="text-3xl font-bold text-gray-900 mb-8">Your Cart</h1>
+  <div class="mx-auto max-w-3xl px-4 py-12">
+    <h1 class="font-serif text-4xl text-stone-900">Your Cart</h1>
 
-      <!-- Empty Cart -->
-      <div v-if="allCartItems.length === 0" class="text-center py-20">
-        <p class="text-xl text-gray-600">
-          Your cart is empty — 
-          <router-link to="/shop" class="text-blue-600 hover:underline font-medium">
-            browse Tomboy Mine treasures →
-          </router-link>
-        </p>
-      </div>
+    <p v-if="!cart.items.length" class="mt-10 text-lg text-stone-600">
+      Your cart is empty. <router-link to="/shop" class="text-amber-700 underline">Browse specimens →</router-link>
+    </p>
 
-      <!-- Cart Items -->
-      <div v-else class="space-y-6">
-        <div
-          v-for="item in allCartItems"
-          :key="item.id + '-' + item.source"
-          class="bg-white p-6 rounded-lg border flex justify-between items-center shadow-sm"
-        >
-          <div class="flex items-center space-x-6">
-            <img :src="item.image" :alt="item.name" class="w-24 h-24 object-cover rounded-lg" />
-            <div>
-              <h3 class="text-lg font-semibold text-gray-900">{{ item.name }}</h3>
-              <p class="text-xl font-bold text-green-600 mt-2">${{ item.price }}</p>
-            </div>
+    <div v-else class="mt-8">
+      <ul class="divide-y divide-stone-200 bg-white rounded-lg border border-stone-200">
+        <li v-for="item in cart.items" :key="item.id" class="flex items-center gap-4 p-4">
+          <router-link :to="`/shop/ore/${item.id}`"><img :src="item.image" :alt="item.name" class="h-20 w-20 rounded object-cover" /></router-link>
+          <div class="flex-1">
+            <router-link :to="`/shop/ore/${item.id}`" class="font-semibold text-stone-900 hover:underline">{{ item.name }}</router-link>
+            <p class="text-sm text-stone-500">{{ item.subtitle }}</p>
           </div>
-          <button
-            @click="removeFromCart(item)"
-            class="text-red-600 hover:text-red-800 font-medium transition"
-          >
-            Remove
-          </button>
-        </div>
+          <p class="font-semibold">{{ money(item.price) }}</p>
+          <button @click="cart.remove(item.id)" class="ml-2 text-sm text-stone-500 hover:text-red-700">Remove</button>
+        </li>
+      </ul>
 
-        <!-- Checkout Section -->
-        <div class="bg-white p-8 rounded-lg border mt-8 shadow-md">
-          <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold">Order Total</h2>
-            <p class="text-3xl font-bold text-green-600">${{ totalPrice }}</p>
-          </div>
+      <div class="mt-6 bg-white rounded-lg border border-stone-200 p-6 space-y-2">
+        <div class="flex justify-between"><span>Subtotal</span><span>{{ money(cart.subtotal) }}</span></div>
+        <div class="flex justify-between text-stone-600"><span>Shipping ({{ SITE.shippingLabel }})</span><span>{{ money(SITE.shippingFlat) }}</span></div>
+        <div class="flex justify-between text-xl font-bold pt-2 border-t border-stone-200"><span>Total</span><span>{{ money(cart.subtotal + SITE.shippingFlat) }}</span></div>
 
-          <button
-            @click="handleCheckout"
-            class="w-full bg-green-600 text-white text-lg font-semibold py-4 rounded-lg hover:bg-green-700 transition shadow-lg"
-          >
-            Checkout with Square (Coming Soon)
-          </button>
-
-          <p class="text-sm text-gray-500 text-center mt-4">
-            Secure payment • Exclusive to tomboyrelics.com
-          </p>
-        </div>
+        <button @click="checkout" :disabled="busy" class="mt-4 w-full bg-amber-500 text-stone-900 font-semibold py-4 rounded-lg hover:bg-amber-400 disabled:opacity-60">
+          {{ busy ? 'Opening secure checkout…' : 'Checkout' }}
+        </button>
+        <p v-if="error" class="text-red-700 text-center">{{ error }}</p>
+        <p class="text-xs text-stone-500 text-center">You'll pay on Square's secure checkout page and enter your shipping address there.</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useRelicsStore } from '@/stores/relics'
-import { useOreStore } from '@/stores/ore'
-import { computed } from 'vue'
+import { ref } from 'vue'
+import { useCartStore } from '@/stores/cart'
+import { SITE } from '@/data/site'
+import { money } from '@/utils/money'
 
-const relicsStore = useRelicsStore()
-const oreStore = useOreStore()
+const cart = useCartStore()
+const busy = ref(false)
+const error = ref('')
 
-const allCartItems = computed(() => [
-  ...relicsStore.cart.map(item => ({ ...item, source: 'relics' })),
-  ...oreStore.cart.map(item => ({ ...item, source: 'ore' }))
-])
-
-const totalPrice = computed(() => relicsStore.total + oreStore.total)
-
-const removeFromCart = (item) => {
-  // Remove from correct store
-  if (item.source === 'ore') {
-    const index = oreStore.cart.findIndex(i => i.id === item.id)
-    if (index > -1) oreStore.cart.splice(index, 1)
-  } else {
-    const index = relicsStore.cart.findIndex(i => i.id === item.id)
-    if (index > -1) relicsStore.cart.splice(index, 1)
+async function checkout() {
+  busy.value = true
+  error.value = ''
+  try {
+    const r = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ids: cart.ids }),
+    })
+    const data = await r.json().catch(() => ({}))
+    if (r.ok && data.url) {
+      window.location.href = data.url
+      return
+    }
+    if (data.sold) {
+      cart.soldIds = data.sold
+      cart.ids = cart.ids.filter((i) => !data.sold.includes(i))
+      cart.save()
+    }
+    error.value = data.error || 'Checkout is unavailable right now. Please try again shortly.'
+  } catch {
+    error.value = 'Checkout is unavailable right now. Please try again shortly.'
   }
-
-  // INSTANTLY RELEASE RESERVATION
-  const inventoryItem = item.source === 'ore' 
-    ? oreStore.items.find(i => i.id === item.id)
-    : relicsStore.items.find(i => i.id === item.id)
-  
-  if (inventoryItem) {
-    inventoryItem.reservedUntil = null
-    inventoryItem.reservedBy = null
-  }
-}
-
-const handleCheckout = () => {
-  // Mark all items as sold
-  relicsStore.cart.forEach(item => {
-    const inventoryItem = relicsStore.items.find(i => i.id === item.id)
-    if (inventoryItem) inventoryItem.sold = true
-  })
-  oreStore.cart.forEach(item => {
-    const inventoryItem = oreStore.items.find(i => i.id === item.id)
-    if (inventoryItem) inventoryItem.sold = true
-  })
-  
-  relicsStore.clearCart()
-  oreStore.clearCart()
-  alert('Thank you! Your relics are reserved. We’ll contact you for payment.')
+  busy.value = false
 }
 </script>

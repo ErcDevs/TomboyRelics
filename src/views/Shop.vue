@@ -1,35 +1,22 @@
-<!-- src/views/Shop.vue — FINAL: Updated category images -->
 <template>
-  <div class="min-h-screen bg-gray-50 py-20">
-    <div class="mx-auto max-w-7xl px-6 text-center">
-      <h1 class="text-5xl font-bold text-gray-900 mb-4">Shop Tomboy Mine</h1>
-      <p class="text-xl text-gray-600 mb-16">Authentic relics and ore from the third richest gold mine in Colorado</p>
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <h1 class="font-serif text-4xl text-stone-900">Tomboy Ore Specimens</h1>
+    <p class="mt-3 text-stone-600 max-w-2xl">
+      Every piece is one-of-a-kind, hand-selected from the active Tomboy claim in Savage Basin, and photographed and weighed before listing.
+      Flat {{ money(SITE.shippingFlat) }} insured shipping per order.
+    </p>
 
-      <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-        <!-- Relics Category -->
-        <router-link to="/shop/relics" class="group">
-          <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <!-- ← YOUR NEW RELICS IMAGE -->
-            <div class="h-96 bg-cover bg-center" style="background-image: url('/relics-category.jpg')"></div>
-            <div class="p-10">
-              <h2 class="text-4xl font-bold text-gray-900 mb-4">Authentic Tomboy Relics</h2>
-              <p class="text-lg text-gray-600">Historic mining tools, equipment, and artifacts from 1894–1928</p>
-            </div>
-          </div>
-        </router-link>
-
-        <!-- Ore Category -->
-        <router-link to="/shop/ore" class="group">
-          <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <!-- ← YOUR NEW ORE IMAGE -->
-            <div class="h-96 bg-cover bg-center" style="background-image: url('/ore-category.jpg')"></div>
-            <div class="p-10">
-              <h2 class="text-4xl font-bold text-gray-900 mb-4">High-Grade Tomboy Ore</h2>
-              <p class="text-lg text-gray-600">Hand-selected gold-bearing ore specimens with visible gold</p>
-            </div>
-          </div>
-        </router-link>
-      </div>
+    <div v-if="cart.available.length" class="mt-10 grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <OreCard v-for="o in cart.available" :key="o.id" :ore="o" />
     </div>
+    <p v-else class="mt-16 text-center text-xl text-stone-500">Everything has sold. New specimens are added regularly, so check back soon.</p>
   </div>
 </template>
+
+<script setup>
+import OreCard from '@/components/OreCard.vue'
+import { useCartStore } from '@/stores/cart'
+import { SITE } from '@/data/site'
+import { money } from '@/utils/money'
+const cart = useCartStore()
+</script>

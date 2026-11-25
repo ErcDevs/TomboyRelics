@@ -1,52 +1,48 @@
-<!-- src/views/Home.vue — NEW HERO + HISTORY + CAROUSEL -->
 <template>
   <div>
-    <!-- Hero Image -->
-    <div class="relative h-96 md:h-screen bg-cover bg-center" style="background-image: url('/hero-tomboy-mine.jpg')">
-      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-        <div class="text-center text-white px-6">
-          <h1 class="text-5xl md:text-7xl font-bold mb-4">Tomboy Mine</h1>
-          <p class="text-2xl md:text-4xl">Third Richest Gold Mine in Colorado History</p>
+    <section class="relative h-[70vh] min-h-[420px] bg-cover bg-center" style="background-image: url('/hero-tomboy-mine.jpg')">
+      <div class="absolute inset-0 bg-stone-950/55 flex items-center justify-center">
+        <div class="text-center text-white px-6 max-w-3xl">
+          <p class="uppercase tracking-[0.3em] text-amber-300 text-sm">Savage Basin · Telluride, Colorado</p>
+          <h1 class="font-serif text-5xl md:text-7xl mt-4">The Tomboy Mine</h1>
+          <p class="mt-4 text-lg md:text-2xl text-stone-200">Gold, silver and copper ore from one of the great mines of the Telluride district, at 11,500 feet.</p>
+          <router-link to="/shop" class="mt-8 inline-block bg-amber-500 text-stone-900 font-semibold px-8 py-4 rounded-lg hover:bg-amber-400">Shop ore specimens</router-link>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- History Section -->
-    <div class="py-20 bg-white">
-      <div class="mx-auto max-w-4xl px-6 text-center">
-        <h2 class="text-4xl font-bold text-gray-900 mb-8">A Legendary Colorado Treasure</h2>
-        <p class="text-lg text-gray-700 leading-relaxed">
-          High above Telluride in the Savage Basin, the Tomboy Mine operated from 1894 to 1928 and produced over $8 million in gold — 
-          making it the third richest gold mine in Colorado. Its relics are authentic pieces of American mining history.
-        </p>
-        <router-link to="/history" class="mt-8 inline-block bg-blue-600 text-white px-8 py-4 rounded-lg text-xl hover:bg-blue-700">
-          Explore the Full History →
-        </router-link>
+    <section class="mx-auto max-w-6xl px-4 py-16">
+      <div class="flex items-end justify-between">
+        <h2 class="font-serif text-3xl text-stone-900">Featured specimens</h2>
+        <router-link to="/shop" class="text-amber-700 hover:underline">View all →</router-link>
       </div>
-    </div>
+      <div class="mt-8 grid gap-6 grid-cols-2 lg:grid-cols-4">
+        <OreCard v-for="o in featured" :key="o.id" :ore="o" />
+      </div>
+    </section>
 
-    <!-- Featured Products Carousel -->
-    <div class="py-16 bg-gray-50">
-      <div class="mx-auto max-w-7xl px-6">
-        <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Featured Relics</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <RelicCard v-for="relic in featured" :key="relic.id" :relic="relic" />
-        </div>
-        <div class="text-center mt-12">
-          <router-link to="/products" class="text-xl text-blue-600 hover:underline font-semibold">
-            View All Relics →
-          </router-link>
-        </div>
+    <section class="bg-white border-y border-stone-200">
+      <div class="mx-auto max-w-6xl px-4 py-14 grid gap-10 md:grid-cols-3 text-center">
+        <div><p class="font-semibold text-stone-900">From the active Tomboy claim</p><p class="mt-2 text-stone-600">Each piece is hand-selected on the claim in Savage Basin by the claim holder.</p></div>
+        <div><p class="font-semibold text-stone-900">Weighed and photographed</p><p class="mt-2 text-stone-600">Weight, size and close-up photos of the actual specimen you'll receive.</p></div>
+        <div><p class="font-semibold text-stone-900">Secure checkout, insured shipping</p><p class="mt-2 text-stone-600">Pay through Square. Ships USPS Priority, insured, within 3 business days.</p></div>
       </div>
-    </div>
+    </section>
+
+    <section class="mx-auto max-w-3xl px-4 py-16 text-center">
+      <h2 class="font-serif text-3xl text-stone-900">A Telluride legend</h2>
+      <p class="mt-4 text-lg text-stone-700 leading-relaxed">
+        The Tomboy began producing gold in earnest in 1894. Three years later it sold to London investors for $2 million, and it ranked with the Smuggler-Union and Liberty Bell as one of the three great mines of the Telluride district until it closed in 1928.
+      </p>
+      <router-link to="/history" class="mt-6 inline-block text-amber-700 hover:underline">Read the history →</router-link>
+    </section>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import { useRelicsStore } from '@/stores/relics'
-import RelicCard from '@/components/RelicCard.vue'
-
-const store = useRelicsStore()
-const featured = computed(() => store.items.filter(r => !r.sold).slice(0, 8))
+import OreCard from '@/components/OreCard.vue'
+import { useCartStore } from '@/stores/cart'
+const cart = useCartStore()
+const featured = computed(() => [...cart.available].sort((a, b) => b.price - a.price).slice(0, 4))
 </script>
