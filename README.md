@@ -16,9 +16,9 @@ WORKFLOW:
 ## Store setup (Square checkout)
 
 Products live in `src/data/ore.js`; shipping and contact settings in `src/data/site.js`.
-Checkout runs through Cloudflare Pages Functions in `functions/api/` which create a
+Checkout runs through Cloudflare Pages Functions in `functions/store-api/` which create a
 Square-hosted checkout page. Prices are read on the server, so they can't be edited in the browser.
-Paid items are detected from Square orders (`/api/sold`) and drop out of the shop automatically.
+Paid items are detected from Square orders (`/store-api/sold`) and drop out of the shop automatically.
 
 Set these in Cloudflare → Workers & Pages → tomboyrelics → Settings → Variables and Secrets
 (set Production and Preview separately):

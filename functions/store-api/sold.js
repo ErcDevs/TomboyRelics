@@ -1,4 +1,4 @@
-// GET /api/sold → { soldQty: { id: quantity } } — items already paid for in Square.
+// GET /store-api/sold → { soldQty: { id: quantity } } — items already paid for in Square.
 import { paidQuantities, json } from './_square.js'
 
 export async function onRequestGet({ env }) {

@@ -1,4 +1,4 @@
-// POST /api/checkout  { qty: { "1": 1, "4": 3 } }  →  { url }
+// POST /store-api/checkout  { qty: { "1": 1, "4": 3 } }  →  { url }
 // Builds a Square-hosted checkout page for the items in the cart. Prices come
 // from src/data/ore.js on the server, never from the browser.
 import { ORE } from '../../src/data/ore.js'

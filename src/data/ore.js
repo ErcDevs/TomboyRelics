@@ -1,13 +1,13 @@
 // src/data/ore.js
 // Single source of truth for ore listings. Used by the website AND by the
-// checkout function (functions/api/checkout.js), so prices can't be tampered
+// checkout function (functions/store-api/checkout.js), so prices can't be tampered
 // with in the browser.
 //
 // To add an item: copy a block, give it the next id, set price in dollars.
 // One-of-a-kind specimens have no `stock`. For items sold in multiples
 // (like bags of concentrate) set `stock` to how many you have.
 // To mark an item sold by hand: set sold: true. (Paid Square orders are also
-// detected automatically by /api/sold, so you usually don't need to.)
+// detected automatically by /store-api/sold, so you usually don't need to.)
 
 export const ORE = [
   {

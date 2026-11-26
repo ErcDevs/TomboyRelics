@@ -51,7 +51,7 @@ async function checkout() {
   busy.value = true
   error.value = ''
   try {
-    const r = await fetch('/api/checkout', {
+    const r = await fetch('/store-api/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ qty: cart.qty }),

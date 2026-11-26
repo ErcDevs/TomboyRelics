@@ -64,7 +64,7 @@ export const useCartStore = defineStore('cart', {
     },
     async loadSold() {
       try {
-        const r = await fetch('/api/sold')
+        const r = await fetch('/store-api/sold')
         if (!r.ok) return
         const data = await r.json()
         this.applySold(data.soldQty)
