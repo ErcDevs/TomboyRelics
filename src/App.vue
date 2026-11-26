@@ -35,12 +35,13 @@
           <router-link to="/shop" class="block hover:text-copper-300">Shop</router-link>
           <router-link to="/history" class="block hover:text-copper-300">History</router-link>
           <router-link to="/ore-reference" class="block hover:text-copper-300">Ore Reference</router-link>
-          <router-link to="/shipping-returns" class="block hover:text-copper-300">Shipping, Returns &amp; Contact</router-link>
+          <router-link to="/shipping-returns" class="block hover:text-copper-300">Shipping &amp; Returns</router-link>
+          <router-link to="/contact" class="block hover:text-copper-300">Contact</router-link>
         </div>
         <div>
           <p>Secure checkout by Square.</p>
           <p class="mt-1">Ships to US addresses only.</p>
-          <a v-if="SITE.contactEmail" :href="`mailto:${SITE.contactEmail}`" class="mt-1 block hover:text-copper-300">{{ SITE.contactEmail }}</a>
+          <router-link v-if="SITE.contactEmail" to="/contact" class="mt-1 block hover:text-copper-300">{{ SITE.contactEmail }}</router-link>
         </div>
       </div>
       <p class="text-center text-xs text-stone-400 pb-6">© {{ new Date().getFullYear() }} Tomboy Relics</p>
@@ -59,7 +60,7 @@ const links = [
   { to: '/shop', label: 'Shop' },
   { to: '/history', label: 'History' },
   { to: '/ore-reference', label: 'Ore Reference' },
-  { to: '/shipping-returns', label: 'Contact' },
+  { to: '/contact', label: 'Contact' },
 ]
 onMounted(() => useCartStore().loadSold())
 </script>

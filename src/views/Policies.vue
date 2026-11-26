@@ -19,7 +19,7 @@
 
     <section>
       <h2 class="text-2xl font-semibold text-stone-100">Contact</h2>
-      <p class="mt-3" v-if="SITE.contactEmail">Email <a :href="`mailto:${SITE.contactEmail}`" class="text-copper-300 underline">{{ SITE.contactEmail }}</a>. We usually reply within two business days.</p>
+      <p class="mt-3" v-if="SITE.contactEmail">Use the <router-link to="/contact" class="text-copper-300 underline">contact form</router-link> or email <a :href="`mailto:${SITE.contactEmail}`" class="text-copper-300 underline">{{ SITE.contactEmail }}</a>. We usually reply within two business days.</p>
       <p class="mt-3" v-else>Reply to your Square receipt email and it will reach us.</p>
     </section>
   </div>

@@ -12,6 +12,7 @@ const routes = [
   { path: '/history', name: 'History', component: () => import('../views/History.vue'), meta: { title: 'History of the Tomboy Mine' } },
   { path: '/ore-reference', name: 'OreReference', component: () => import('../views/OreReference.vue'), meta: { title: 'Tomboy Ore Reference' } },
   { path: '/shipping-returns', name: 'Policies', component: () => import('../views/Policies.vue'), meta: { title: 'Shipping, Returns & Contact' } },
+  { path: '/contact', name: 'Contact', component: () => import('../views/Contact.vue'), meta: { title: 'Contact' } },
   { path: '/cart', name: 'Cart', component: () => import('../views/Cart.vue'), meta: { title: 'Your Cart' } },
   { path: '/thank-you', name: 'ThankYou', component: () => import('../views/ThankYou.vue'), meta: { title: 'Thank You' } },
   // Old URLs
