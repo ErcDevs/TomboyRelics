@@ -13,7 +13,7 @@
       <p>
         The vein was located as the Belmont claim in 1880 and the Tomboy claim in 1886, but it was thought to be of little value until the early 1890s.
         The Tomboy Gold Mining Company had it working profitably by April 1895. That year the mine produced nearly $600,000, and nearly $800,000 in 1896.
-        In 1897 the Tomboy was sold for $2 million to London investors, and by about 1900 it was producing roughly $90,000 a month and had produced
+        In 1897 the Tomboy was bought for $2 million by the Exploration Company of London, a mining firm backed by the Rothschild banking family, and by about 1900 it was producing roughly $90,000 a month and had produced
         $4 to $5 million in total (at $20 gold). It became one of the three great producers of the Telluride district, alongside the Smuggler-Union
         and the Liberty Bell, and its peak ran from the 1890s through World War I.
       </p>
@@ -31,7 +31,7 @@
     <img src="/gallery-1.jpg" alt="Historic Tomboy photograph" class="mt-10 w-full rounded-lg shadow" />
 
     <p class="mt-10 text-sm text-stone-400">
-      Sources: F. L. Ransome, USGS Bulletin 182, <em>Economic Geology of the Silverton Quadrangle</em> (1901), pp. 206–211; SAH Archipedia, "Tomboy Mine"; Western Mining History, "Tomboy, Colorado".
+      Sources: F. L. Ransome, USGS Bulletin 182, <em>Economic Geology of the Silverton Quadrangle</em> (1901), pp. 206–211; SAH Archipedia, "Tomboy Mine"; Denver Gazette, "Colorado's Richest Ghost Town" (2017); Western Mining History, "Tomboy, Colorado".
     </p>
     <router-link to="/shop" class="mt-6 inline-block text-copper-300 hover:underline">Shop Tomboy ore →</router-link>
   </div>

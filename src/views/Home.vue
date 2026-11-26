@@ -32,7 +32,7 @@
     <section class="mx-auto max-w-3xl px-4 py-16 text-center">
       <h2 class="font-serif text-3xl text-stone-100">A Telluride legend</h2>
       <p class="mt-4 text-lg text-stone-300 leading-relaxed">
-        The Tomboy began producing gold in earnest in 1894. Three years later it sold to London investors for $2 million, and it ranked with the Smuggler-Union and Liberty Bell as one of the three great mines of the Telluride district until it closed in 1928.
+        The Tomboy began producing gold in earnest in 1894. In 1897 it was bought for $2 million by London's Exploration Company, backed by the Rothschild banking family, and it ranked with the Smuggler-Union and Liberty Bell as one of the three great mines of the Telluride district until it closed in 1928.
       </p>
       <router-link to="/history" class="mt-6 inline-block text-copper-300 hover:underline">Read the history →</router-link>
     </section>
