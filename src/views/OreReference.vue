@@ -5,8 +5,8 @@
         <h1 class="text-4xl font-bold text-stone-900">Tomboy Mine Ore Reference</h1>
         <p class="mt-4 text-lg text-stone-600 max-w-3xl mx-auto">
           The Tomboy's ore came from polymetallic quartz veins carrying gold, silver, copper, lead and zinc. Gold occurred both as free-milling native gold
-          and locked up in sulfides and tellurides. Below are the main ore types we find on the Tomboy claim and the minerals in each.
-          Identifications are visual, not lab assays.
+          and as fine grains locked up in sulfides. The veins cut augite-andesite lava and San Juan Formation breccia, with quartz as the main gangue and light-green fluorite unusually common at the Tomboy.
+          Below are the main ore and rock types we find on the Tomboy claim. Identifications are visual, not lab assays.
         </p>
       </div>
 
@@ -23,7 +23,7 @@
           <div>
             <h2 class="text-3xl font-bold text-stone-900 mb-4">Quartz Vein Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-              White to clear quartz veins laced with visible gold — the primary ore for Tomboy's legendary free-milling gold. Contains chalcopyrite, pyrite, and tellurides like calaverite. The most sought-after Tomboy specimen.
+              White to clear quartz veins with visible native gold and brassy sulfides. Free-milling gold like this was recovered in the Tomboy's stamp mill, and it is the most sought-after type of Tomboy specimen.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -38,11 +38,10 @@
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
                   <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Primary vein host</td></tr>
-                  <tr><td class="px-4 py-2">Native Gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Free-milling gold</td></tr>
-                  <tr><td class="px-4 py-2">Calaverite</td><td class="px-4 py-2">AuTe₂</td><td class="px-4 py-2">Gold telluride</td></tr>
-                  <tr><td class="px-4 py-2">Sylvanite</td><td class="px-4 py-2">(Au,Ag)₂Te₄</td><td class="px-4 py-2">Gold-silver telluride</td></tr>
-                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Gold carrier</td></tr>
-                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">"Fool's gold" matrix</td></tr>
+                  <tr><td class="px-4 py-2">Native gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Free-milling gold</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide, often with gold</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common vein sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Silver-bearing lead sulfide</td></tr>
                 </tbody>
               </table>
             </div>
@@ -60,7 +59,7 @@
           <div>
             <h2 class="text-3xl font-bold text-stone-900 mb-4">Oxidized Gossan Sulfide Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-              Classic Tomboy gossan — a porous limonite cap formed over rich sulfide ore. Beneath the yellow-brown oxidation lies a dark matrix of chalcopyrite, pyrrhotite, galena, and quartz, with visible gold specks and secondary copper minerals (malachite). This is the surface expression of the mine’s deepest, richest veins.
+              Gossan is the rusty, porous cap that forms where sulfide ore weathers near the surface. The yellow-brown limonite comes from oxidized pyrite and chalcopyrite; fresher sulfides, quartz and green copper staining (malachite) can show underneath, sometimes with specks of gold left behind by the weathering.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -74,14 +73,13 @@
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
-                  <tr><td class="px-4 py-2">Limonite Gossan</td><td class="px-4 py-2">FeO(OH)·nH₂O</td><td class="px-4 py-2">Surface oxidation cap</td></tr>
-                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Primary gold & copper carrier</td></tr>
-                  <tr><td class="px-4 py-2">Pyrrhotite</td><td class="px-4 py-2">Fe₁₋ₓS</td><td class="px-4 py-2">Most abundant sulfide</td></tr>
-                  <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Silver-rich lead sulfide</td></tr>
-                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">"Fool's gold" matrix</td></tr>
-                  <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein host rock</td></tr>
+                  <tr><td class="px-4 py-2">Limonite</td><td class="px-4 py-2">FeO(OH)·nH₂O</td><td class="px-4 py-2">Rusty oxidation cap</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common vein sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Silver-bearing lead sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein host</td></tr>
                   <tr><td class="px-4 py-2">Malachite</td><td class="px-4 py-2">Cu₂CO₃(OH)₂</td><td class="px-4 py-2">Green secondary copper</td></tr>
-                  <tr><td class="px-4 py-2">Visible Gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Free-milling flecks</td></tr>
+                  <tr><td class="px-4 py-2">Native gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Free gold left in the cap</td></tr>
                 </tbody>
               </table>
             </div>
@@ -97,9 +95,9 @@
             class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition"
           >
           <div>
-            <h2 class="text-3xl font-bold text-stone-900 mb-4">Black Hardrock Galena Ore</h2>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">High-Grade Galena Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-            Deep-level, jet-black ore dominated by massive galena (lead sulfide) in a quartz-pyrrhotite matrix. This is Tomboy's classic silver-rich ore from the lower levels — the "black rock" that made the mine famous for its high silver values. Often shows brilliant metallic luster when freshly broken, with minor chalcopyrite and sphalerite. A true collector's piece from the heart of the deposit.
+              High-grade galena ore: heavy, steel-gray to black lead sulfide in a quartz vein. Galena was the Tomboy's main silver carrier, and it shows a bright metallic luster and cubic cleavage when freshly broken.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -113,13 +111,11 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
-                <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Primary silver carrier</td></tr>
-                <tr><td class="px-4 py-2">Pyrrhotite</td><td class="px-4 py-2">Fe₁₋ₓS</td><td class="px-4 py-2">Most abundant sulfide, gold host</td></tr>
-                <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein matrix</td></tr>
-                <tr><td class="px-4 py-2">Sphalerite</td><td class="px-4 py-2">ZnS</td><td class="px-4 py-2">Zinc sulfide, minor silver</td></tr>
-                <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper & trace gold</td></tr>
-                <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Minor "fool's gold"</td></tr>
-                <tr><td class="px-4 py-2">Native Silver</td><td class="px-4 py-2">Ag</td><td class="px-4 py-2">Rare wires in galena</td></tr>
+                  <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Lead sulfide, main silver carrier</td></tr>
+                  <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein matrix</td></tr>
+                  <tr><td class="px-4 py-2">Sphalerite</td><td class="px-4 py-2">ZnS</td><td class="px-4 py-2">Zinc sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common vein sulfide</td></tr>
                 </tbody>
             </table>
             </div>
@@ -135,9 +131,9 @@
             class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition"
           >
           <div>
-            <h2 class="text-3xl font-bold text-stone-900 mb-4">Bornite on Quartz Ore</h2>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Bornite and Chalcopyrite (Peacock Ore)</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-            Iridescent bornite (peacock ore) crystals coating fractured quartz — a rare and beautiful copper ore from Tomboy's hydrothermal veins. The peacock colors come from tarnished bornite (Cu₅FeS₄), a primary copper carrier that often hosted gold and silver at the mine. The quartz matrix shows the vein structure where bornite crystallized. This is one of the ores that gave Tomboy its polymetallic reputation.
+              Brassy chalcopyrite and bornite with vivid blue, purple and gold tarnish, the colors that give "peacock ore" its name. Copper-rich pockets like this were a minor part of the Tomboy's mostly gold-silver veins, which makes colorful pieces uncommon.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -151,12 +147,10 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
-                <tr><td class="px-4 py-2">Bornite</td><td class="px-4 py-2">Cu₅FeS₄</td><td class="px-4 py-2">Iridescent copper ore, gold host</td></tr>
-                <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein host matrix</td></tr>
-                <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Associated copper sulfide</td></tr>
-                <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common vein filling</td></tr>
-                <tr><td class="px-4 py-2">Native Gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Free-milling in bornite</td></tr>
-                <tr><td class="px-4 py-2">Calaverite</td><td class="px-4 py-2">AuTe₂</td><td class="px-4 py-2">Telluride gold</td></tr>
+                  <tr><td class="px-4 py-2">Bornite</td><td class="px-4 py-2">Cu₅FeS₄</td><td class="px-4 py-2">Iridescent copper sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Brassy copper sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein matrix</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common vein sulfide</td></tr>
                 </tbody>
             </table>
             </div>
@@ -172,9 +166,9 @@
             class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition"
           >
           <div>
-            <h2 class="text-3xl font-bold text-stone-900 mb-4">Hard Rock Sulfide Ore</h2>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Altered Andesite Host Rock</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-            Dense, dark host rock from Tomboy's deeper levels — the classic "hard rock" matrix loaded with sulfides. This is the ore that required heavy stamping and roasting to liberate its gold and silver. Packed with pyrrhotite (dominant), chalcopyrite, pyrite, arsenopyrite, and minor galena/sphalerite. The brassy flecks are chalcopyrite and pyrite; the steel-gray is pyrrhotite. A true workhorse ore from the heart of the mine.
+              The Tomboy veins cut through augite-andesite lava sitting on San Juan Formation volcanic breccia. Next to the veins, hot fluids altered the andesite to this greenish-gray rock, often crossed by thin white quartz veinlets with fine sulfides (mostly pyrite and chalcopyrite). The same host rock is common across the San Juans, from Savage Basin to Yankee Boy Basin.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -188,13 +182,11 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
-                <tr><td class="px-4 py-2">Pyrrhotite</td><td class="px-4 py-2">Fe₁₋ₓS</td><td class="px-4 py-2">Most abundant sulfide, gold host</td></tr>
-                <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Brassy gold/copper carrier</td></tr>
-                <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">"Fool's gold", common matrix</td></tr>
-                <tr><td class="px-4 py-2">Arsenopyrite</td><td class="px-4 py-2">FeAsS</td><td class="px-4 py-2">Refractory gold carrier</td></tr>
-                <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Silver-rich lead sulfide</td></tr>
-                <tr><td class="px-4 py-2">Sphalerite</td><td class="px-4 py-2">ZnS</td><td class="px-4 py-2">Zinc sulfide, minor</td></tr>
-                <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein matrix</td></tr>
+                  <tr><td class="px-4 py-2">Altered andesite</td><td class="px-4 py-2">—</td><td class="px-4 py-2">Volcanic host rock</td></tr>
+                  <tr><td class="px-4 py-2">Chlorite / epidote</td><td class="px-4 py-2">—</td><td class="px-4 py-2">Green alteration minerals</td></tr>
+                  <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">White veinlets</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Fine disseminated sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Fine brassy sulfide</td></tr>
                 </tbody>
             </table>
             </div>
@@ -212,7 +204,7 @@
           <div>
             <h2 class="text-3xl font-bold text-stone-900 mb-4">Quartz Matrix Sulfide Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-            Beautiful quartz matrix laced with massive sulfide mineralization — the classic Tomboy "spotted" ore. Formed when rich sulfide veins (originally yellowish-black from chalcopyrite and pyrrhotite) were partially oxidized and cemented by later quartz. The dark patches are relict chalcopyrite, pyrrhotite, and arsenopyrite, while the white is pure quartz. This is the ore that made Tomboy famous for its complex, high-grade polymetallic veins.
+              Quartz vein material with patches of sulfides and blue-green copper staining. The darker patches are mainly chalcopyrite and pyrite; the green and blue are secondary copper minerals that formed as the chalcopyrite weathered.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -226,13 +218,12 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
-                <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Late-stage vein cement</td></tr>
-                <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Primary gold & copper carrier</td></tr>
-                <tr><td class="px-4 py-2">Pyrrhotite</td><td class="px-4 py-2">Fe₁₋ₓS</td><td class="px-4 py-2">Most abundant sulfide, gold host</td></tr>
-                <tr><td class="px-4 py-2">Arsenopyrite</td><td class="px-4 py-2">FeAsS</td><td class="px-4 py-2">Refractory gold carrier</td></tr>
-                <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common matrix mineral</td></tr>
-                <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Silver-rich lead sulfide</td></tr>
-                <tr><td class="px-4 py-2">Sphalerite</td><td class="px-4 py-2">ZnS</td><td class="px-4 py-2">Zinc sulfide, minor silver</td></tr>
+                  <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein matrix</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common vein sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Silver-bearing lead sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Sphalerite</td><td class="px-4 py-2">ZnS</td><td class="px-4 py-2">Zinc sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Malachite / azurite</td><td class="px-4 py-2">—</td><td class="px-4 py-2">Green and blue copper staining</td></tr>
                 </tbody>
             </table>
             </div>
@@ -250,7 +241,7 @@
           <div>
             <h2 class="text-3xl font-bold text-stone-900 mb-4">Native Gold in Oxidized Black Sulfide Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-            Exceptional Tomboy specimen showing a bright native gold vein cutting through heavily oxidized black sulfide ore. The gold remained brilliant despite surface weathering — proof of Tomboy's famous free-milling gold. The dark matrix is pyrrhotite-rich with chalcopyrite and arsenopyrite, capped by limonite gossan. One of the most dramatic and valuable ore types from the mine.
+              A bright vein of native gold cutting through dark, weathered sulfide ore. Gold doesn't tarnish, so it stays bright while the sulfides around it darken and rust. Visible gold veins like this are the most valuable Tomboy hand specimens.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -264,12 +255,11 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
-                <tr><td class="px-4 py-2">Native Gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Visible free-milling gold vein</td></tr>
-                <tr><td class="px-4 py-2">Pyrrhotite</td><td class="px-4 py-2">Fe₁₋ₓS</td><td class="px-4 py-2">Dominant black sulfide matrix</td></tr>
-                <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Gold & copper carrier</td></tr>
-                <tr><td class="px-4 py-2">Arsenopyrite</td><td class="px-4 py-2">FeAsS</td><td class="px-4 py-2">Refractory gold host</td></tr>
-                <tr><td class="px-4 py-2">Limonite Gossan</td><td class="px-4 py-2">FeO(OH)·nH₂O</td><td class="px-4 py-2">Surface oxidation cap</td></tr>
-                <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Minor vein matrix</td></tr>
+                  <tr><td class="px-4 py-2">Native gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Visible gold vein</td></tr>
+                  <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Dark lead sulfide matrix</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common vein sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Limonite</td><td class="px-4 py-2">FeO(OH)·nH₂O</td><td class="px-4 py-2">Rusty weathering</td></tr>
                 </tbody>
             </table>
             </div>
@@ -285,9 +275,9 @@
             class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition"
           >
           <div>
-            <h2 class="text-3xl font-bold text-stone-900 mb-4">Brecciated Quartz with Sulfide Inclusions</h2>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Vein Rock with Green Coatings</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-            Heavily fractured quartz vein material packed with dark sulfide inclusions — a textbook example of Tomboy's high-grade quartz-hosted ore. The fractures allowed rich sulfide mineralization (chalcopyrite, pyrrhotite, arsenopyrite) to infiltrate the quartz, creating a "brecciated" texture loaded with free-milling and telluride gold. This is the ore that made Tomboy one of Colorado's richest mines — the fractures are literally filled with gold-bearing sulfides.
+              Fractured vein rock with green coatings. The green may be light-green fluorite, which the Colorado Geological Survey notes occurs abundantly at the Tomboy and is rare elsewhere in the district, or a green copper or alteration mineral. A quick test: fluorite scratches easily with a steel knife, while quartz does not.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -301,13 +291,10 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
-                <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Primary fractured host rock</td></tr>
-                <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Gold & copper in fractures</td></tr>
-                <tr><td class="px-4 py-2">Pyrrhotite</td><td class="px-4 py-2">Fe₁₋ₓS</td><td class="px-4 py-2">Dark sulfide matrix</td></tr>
-                <tr><td class="px-4 py-2">Arsenopyrite</td><td class="px-4 py-2">FeAsS</td><td class="px-4 py-2">Refractory gold carrier</td></tr>
-                <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common in fractures</td></tr>
-                <tr><td class="px-4 py-2">Visible Gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Free-milling in cracks</td></tr>
-                <tr><td class="px-4 py-2">Calaverite</td><td class="px-4 py-2">AuTe₂</td><td class="px-4 py-2">Telluride gold</td></tr>
+                  <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein host</td></tr>
+                  <tr><td class="px-4 py-2">Fluorite (possible)</td><td class="px-4 py-2">CaF₂</td><td class="px-4 py-2">Light-green, common at the Tomboy</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common vein sulfide</td></tr>
                 </tbody>
             </table>
             </div>
@@ -323,9 +310,9 @@
             class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition"
           >
           <div>
-            <h2 class="text-3xl font-bold text-stone-900 mb-4">Pyrite-Quartz Vein Ore with Chalcopyrite Inclusions</h2>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Pyrite-Quartz Vein Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-            Fractured white quartz vein material studded with brassy pyrite crystals and subtle chalcopyrite flecks — the classic "fool's gold" ore from Tomboy's upper levels. The cubic pyrite often masked free-milling gold and tellurides, making this ore a prospector's dream (and nightmare). The dull luster and heavy weight (82g for 2 inches) confirm it's loaded with sulfides.
+              White quartz vein material studded with brassy pyrite and flecks of chalcopyrite. Pyrite ("fool's gold") often carried fine gold in Telluride-district veins, so this unassuming ore was mined and milled along with the richer quartz.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -339,12 +326,9 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
-                <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Fractured vein host</td></tr>
-                <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Brassy "fool's gold" crystals, gold carrier</td></tr>
-                <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Yellow metallic flecks, copper & gold</td></tr>
-                <tr><td class="px-4 py-2">Native Gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Free-milling in pyrite cracks</td></tr>
-                <tr><td class="px-4 py-2">Calaverite</td><td class="px-4 py-2">AuTe₂</td><td class="px-4 py-2">Telluride gold</td></tr>
-                <tr><td class="px-4 py-2">Pyrrhotite</td><td class="px-4 py-2">Fe₁₋ₓS</td><td class="px-4 py-2">Minor dark matrix</td></tr>
+                  <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein host</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Brassy sulfide, can carry fine gold</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
                 </tbody>
             </table>
             </div>
@@ -360,9 +344,9 @@
             class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition"
           >
           <div>
-            <h2 class="text-3xl font-bold text-stone-900 mb-4">Heavy Red-Black Oxidized Telluride Ore</h2>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Heavy Red-Black Oxidized Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-            Extremely dense, crumbly red-black ore — the classic Tomboy telluride-rich specimen from the oxidized zone. The deep red is hematite/limonite staining from iron-rich sulfides, while the black is massive pyrrhotite and tellurides. The shiny metallic specks are native gold and calaverite/sylvanite — this is the ore that made Tomboy famous for its refractory gold locked in tellurides. At 137g for a 2-inch piece, this is one of the heaviest Tomboy ores per volume due to its sulfide/telluride content.
+              Dense, crumbly red-black ore from the weathered part of a vein. The red and brown are iron oxides (hematite and limonite) left as sulfides broke down; the weight comes from the remaining sulfides and iron oxides. Small metallic specks may be gold or unweathered sulfide.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -376,19 +360,43 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
-                <tr><td class="px-4 py-2">Calaverite</td><td class="px-4 py-2">AuTe₂</td><td class="px-4 py-2">Primary gold telluride — shiny specs</td></tr>
-                <tr><td class="px-4 py-2">Sylvanite</td><td class="px-4 py-2">(Au,Ag)₂Te₄</td><td class="px-4 py-2">Silver-gold telluride</td></tr>
-                <tr><td class="px-4 py-2">Pyrrhotite</td><td class="px-4 py-2">Fe₁₋ₓS</td><td class="px-4 py-2">Black massive sulfide matrix</td></tr>
-                <tr><td class="px-4 py-2">Hematite/Limonite</td><td class="px-4 py-2">Fe₂O₃ / FeO(OH)</td><td class="px-4 py-2">Red oxidation staining</td></tr>
-                <tr><td class="px-4 py-2">Native Gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Visible free gold flecks</td></tr>
-                <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Minor brassy inclusions</td></tr>
-                <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Minor vein remnants</td></tr>
+                  <tr><td class="px-4 py-2">Hematite / limonite</td><td class="px-4 py-2">Fe₂O₃ / FeO(OH)</td><td class="px-4 py-2">Red-brown iron oxides</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Remaining sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Lead sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Native gold</td><td class="px-4 py-2">Au</td><td class="px-4 py-2">Possible fine specks</td></tr>
+                  <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein remnants</td></tr>
                 </tbody>
             </table>
             </div>
           </div>
         </div>
-      </div> <!-- ← THIS WAS THE MISSING ONE -->
+
+        <!-- Green-Purple Altered Volcanic Rock -->
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+          <img data-zoomable src="/ore-reference/greenish-purple-ore.jpg" alt="Green-purple altered volcanic rock from the Tomboy claim" class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition">
+          <div>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Green-Purple Altered Volcanic Rock</h2>
+            <p class="text-lg text-stone-700 leading-relaxed mb-6">
+              Fine-grained green to purplish volcanic rock from around the veins, with scattered sulfides (likely chalcopyrite and pyrite). The green comes from alteration minerals such as chlorite and epidote; the purple tint is typical of iron-stained San Juan volcanic rock. Not identified by lab test.
+            </p>
+            <div class="overflow-x-auto">
+              <table class="min-w-full bg-white border border-stone-300 rounded-lg">
+                <thead class="bg-stone-100"><tr><th class="px-4 py-2 text-left text-sm font-medium text-stone-700">Mineral</th><th class="px-4 py-2 text-left text-sm font-medium text-stone-700">Formula</th><th class="px-4 py-2 text-left text-sm font-medium text-stone-700">Role</th></tr></thead>
+                <tbody class="divide-y divide-stone-200 text-sm">
+                  <tr><td class="px-4 py-2">Altered volcanic rock</td><td class="px-4 py-2">—</td><td class="px-4 py-2">Host rock</td></tr>
+                  <tr><td class="px-4 py-2">Chlorite / epidote</td><td class="px-4 py-2">—</td><td class="px-4 py-2">Green alteration</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Scattered sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Scattered sulfide</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-20 text-center">
+        <router-link to="/shop" class="inline-block bg-copper-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-copper-700">Shop Tomboy ore specimens</router-link>
+        <p class="mt-8 text-sm text-stone-500">Geology source: Colorado Geological Survey Open File 75-00 (Tomboy mine), citing Purington (1896) and Ransome (1901).</p>
+      </div>
     </div>
   </div>
 </template>
