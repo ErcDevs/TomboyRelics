@@ -69,7 +69,7 @@ This is the quartz-sulfide vein style the Tomboy was worked for. A very photogen
     name: 'Gold Concentrates, ¼ lb Bag',
     subtitle: 'Lab-assayed 1,050 g/t gold (30.6 oz/ton)',
     price: 39,
-    stock: 10,
+    stock: 100,
     unit: 'bag',
     weight: '¼ lb (113 g) per bag',
     size: '',

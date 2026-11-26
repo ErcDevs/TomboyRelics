@@ -311,9 +311,9 @@
             class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition"
           >
           <div>
-            <h2 class="text-3xl font-bold text-stone-900 mb-4">Pyrite-Quartz Vein Ore</h2>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Bladed Sulfide Quartz Vein Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-              White quartz vein material studded with brassy pyrite and flecks of chalcopyrite. Pyrite ("fool's gold") often carried fine gold in Telluride-district veins, so this unassuming ore was mined and milled along with the richer quartz.
+              White quartz vein heavily coated with brassy, bladed sulfide crystals, many grown in radiating sprays and rosettes rather than cubes. That habit points to marcasite, the bladed form of iron sulfide, rather than cubic pyrite. Identification is visual and not lab-confirmed.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -328,7 +328,7 @@
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
                   <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein host</td></tr>
-                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Brassy sulfide, can carry fine gold</td></tr>
+                  <tr><td class="px-4 py-2">Marcasite (likely)</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Brassy bladed and radiating sulfide</td></tr>
                   <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
                 </tbody>
             </table>
