@@ -275,9 +275,9 @@
             class="w-full rounded-xl shadow-lg object-cover hover:opacity-90 transition"
           >
           <div>
-            <h2 class="text-3xl font-bold text-stone-900 mb-4">Vein Rock with Green Coatings</h2>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Malachite-Stained Oxidized Vein Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-              Fractured vein rock with green coatings. The green may be light-green fluorite, which the Colorado Geological Survey notes occurs abundantly at the Tomboy and is rare elsewhere in the district, or a green copper or alteration mineral. A quick test: fluorite scratches easily with a steel knife, while quartz does not.
+              Partially oxidized quartz vein ore. As the original sulfides (mainly chalcopyrite and pyrite) weathered, copper leached out and redeposited as green malachite staining, and the iron left rusty brown limonite spots where sulfide grains used to be. Where the sulfides are fully leached away, the quartz is left full of small cavities, known as vuggy or boxwork quartz.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -292,9 +292,10 @@
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
                   <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein host</td></tr>
-                  <tr><td class="px-4 py-2">Fluorite (possible)</td><td class="px-4 py-2">CaF₂</td><td class="px-4 py-2">Light-green, common at the Tomboy</td></tr>
-                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
-                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Common vein sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Malachite</td><td class="px-4 py-2">Cu₂CO₃(OH)₂</td><td class="px-4 py-2">Green copper staining</td></tr>
+                  <tr><td class="px-4 py-2">Limonite / goethite</td><td class="px-4 py-2">FeO(OH)</td><td class="px-4 py-2">Brown spots from oxidized sulfides</td></tr>
+                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Original copper sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Original iron sulfide</td></tr>
                 </tbody>
             </table>
             </div>
