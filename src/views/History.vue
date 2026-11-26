@@ -1,11 +1,11 @@
 <template>
   <div class="mx-auto max-w-4xl px-4 py-12">
-    <h1 class="font-serif text-4xl text-stone-900">The Tomboy Mine</h1>
-    <p class="mt-2 text-stone-500">Savage Basin, San Miguel County, Colorado · about 11,500 ft</p>
+    <h1 class="font-serif text-4xl text-stone-100">The Tomboy Mine</h1>
+    <p class="mt-2 text-stone-400">Savage Basin, San Miguel County, Colorado · about 11,500 ft</p>
 
     <img src="/history-1.jpg" alt="The Tomboy Mine and camp in Savage Basin" class="mt-8 w-full rounded-lg shadow" />
 
-    <div class="mt-10 space-y-6 text-lg text-stone-700 leading-relaxed">
+    <div class="mt-10 space-y-6 text-lg text-stone-300 leading-relaxed">
       <p>
         The Tomboy sits in Savage Basin, a glacial cirque roughly 3,000 feet above Telluride on the road to Imogene Pass.
         Prospectors worked the area from the early 1880s, and the mine began producing gold ore in quantity in 1894.
@@ -30,9 +30,9 @@
 
     <img src="/gallery-1.jpg" alt="Historic Tomboy photograph" class="mt-10 w-full rounded-lg shadow" />
 
-    <p class="mt-10 text-sm text-stone-500">
+    <p class="mt-10 text-sm text-stone-400">
       Sources: F. L. Ransome, USGS Bulletin 182, <em>Economic Geology of the Silverton Quadrangle</em> (1901), pp. 206–211; SAH Archipedia, "Tomboy Mine"; Western Mining History, "Tomboy, Colorado".
     </p>
-    <router-link to="/shop" class="mt-6 inline-block text-copper-600 hover:underline">Shop Tomboy ore →</router-link>
+    <router-link to="/shop" class="mt-6 inline-block text-copper-300 hover:underline">Shop Tomboy ore →</router-link>
   </div>
 </template>

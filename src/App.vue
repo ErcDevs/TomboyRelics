@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-stone-50 text-stone-800">
-    <header class="bg-stone-900 text-stone-100 sticky top-0 z-40 shadow">
+  <div class="min-h-screen flex flex-col bg-stone-950 text-stone-200">
+    <header class="bg-stone-900 text-stone-100 sticky top-0 z-40 shadow border-b border-stone-800">
       <div class="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
         <router-link to="/" class="font-serif text-xl sm:text-2xl tracking-wide text-copper-300">Tomboy Relics</router-link>
 
@@ -25,7 +25,7 @@
 
     <main class="flex-1"><router-view /></main>
 
-    <footer class="bg-stone-900 text-stone-400 text-sm">
+    <footer class="bg-stone-900 text-stone-400 text-sm border-t border-stone-800">
       <div class="mx-auto max-w-6xl px-4 py-10 grid gap-8 sm:grid-cols-3">
         <div>
           <p class="font-serif text-lg text-copper-300">Tomboy Relics</p>
@@ -43,7 +43,7 @@
           <a v-if="SITE.contactEmail" :href="`mailto:${SITE.contactEmail}`" class="mt-1 block hover:text-copper-300">{{ SITE.contactEmail }}</a>
         </div>
       </div>
-      <p class="text-center text-xs text-stone-500 pb-6">© {{ new Date().getFullYear() }} Tomboy Relics</p>
+      <p class="text-center text-xs text-stone-400 pb-6">© {{ new Date().getFullYear() }} Tomboy Relics</p>
     </footer>
   </div>
 </template>
