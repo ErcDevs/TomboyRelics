@@ -277,7 +277,7 @@
           <div>
             <h2 class="text-3xl font-bold text-stone-900 mb-4">Quartz-Sulfide Vein Breccia</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-              Heavy vein breccia: broken fragments of quartz cemented together by dense sulfides. Its weight comes from galena; the brownish sulfide gives a gray-black streak, so it is tarnished galena or possibly tetrahedrite ("gray copper"), a silver-bearing copper sulfide. Thin green malachite staining shows where copper sulfides such as chalcopyrite have started to weather. Breccias like this formed where the vein was repeatedly fractured and re-mineralized.
+              Heavy vein breccia: broken fragments of quartz cemented together by dense sulfides. Its weight comes from fine-grained "steel" galena: the brownish, tarnished sulfide is soft, crumbles to specks rather than breaking into cubes, and leaves a gray-black streak. Thin green malachite staining shows where copper sulfides such as chalcopyrite have started to weather. Breccias like this formed where the vein was repeatedly fractured and re-mineralized.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -292,9 +292,8 @@
                 </thead>
                 <tbody class="divide-y divide-stone-200 text-sm">
                   <tr><td class="px-4 py-2">Quartz</td><td class="px-4 py-2">SiO₂</td><td class="px-4 py-2">Vein fragments and cement</td></tr>
-                  <tr><td class="px-4 py-2">Galena</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Heavy lead sulfide</td></tr>
-                  <tr><td class="px-4 py-2">Tetrahedrite (possible)</td><td class="px-4 py-2">(Cu,Fe)₁₂Sb₄S₁₃</td><td class="px-4 py-2">Gray copper ore, often silver-bearing</td></tr>
-                  <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
+                  <tr><td class="px-4 py-2">Galena (steel galena)</td><td class="px-4 py-2">PbS</td><td class="px-4 py-2">Fine-grained, heavy lead sulfide</td></tr>
+                                    <tr><td class="px-4 py-2">Chalcopyrite</td><td class="px-4 py-2">CuFeS₂</td><td class="px-4 py-2">Copper sulfide</td></tr>
                   <tr><td class="px-4 py-2">Pyrite</td><td class="px-4 py-2">FeS₂</td><td class="px-4 py-2">Iron sulfide</td></tr>
                   <tr><td class="px-4 py-2">Malachite</td><td class="px-4 py-2">Cu₂CO₃(OH)₂</td><td class="px-4 py-2">Green copper staining</td></tr>
                 </tbody>
