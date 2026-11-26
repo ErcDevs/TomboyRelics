@@ -7,10 +7,10 @@
       <div>
         <button @click="openViewer" class="relative block w-full group" aria-label="Zoom photo">
           <img :src="current" :alt="ore.name" class="w-full aspect-square object-cover rounded-lg shadow bg-stone-800 cursor-zoom-in" />
-          <span class="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded opacity-80 group-hover:opacity-100">🔍 Click to zoom</span>
+          <span class="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded opacity-80 group-hover:opacity-100">🔍 Click any photo to zoom</span>
         </button>
         <div class="mt-3 grid grid-cols-5 gap-2">
-          <button v-for="img in gallery" :key="img" @click="current = img"
+          <button v-for="img in gallery" :key="img" @click="current = img; openViewer()"
             :class="['rounded overflow-hidden border-2', img === current ? 'border-copper-600' : 'border-transparent']">
             <img :src="img" :alt="ore.name" class="aspect-square w-full object-cover" loading="lazy" />
           </button>
