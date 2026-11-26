@@ -20,7 +20,7 @@
 
         <div class="mt-6">
           <p v-if="sold" class="text-xl font-bold text-red-700">Sold</p>
-          <template v-else-if="ore.stock">
+          <template v-else-if="ore.unit">
             <div class="flex gap-3">
               <select v-model.number="pick" class="border border-stone-300 rounded-lg px-3" aria-label="Quantity">
                 <option v-for="n in Math.min(cart.left(ore.id), 20)" :key="n" :value="n">{{ n }} {{ ore.unit }}{{ n > 1 ? 's' : '' }}</option>
@@ -31,7 +31,7 @@
           </template>
           <router-link v-else-if="cart.has(ore.id)" to="/cart" class="block text-center w-full bg-stone-800 text-white font-semibold py-4 rounded-lg hover:bg-stone-700">In your cart – View cart</router-link>
           <button v-else @click="cart.add(ore.id)" class="w-full bg-copper-600 text-white font-semibold py-4 rounded-lg hover:bg-copper-700">Add to cart</button>
-          <p class="mt-2 text-xs text-stone-500">{{ ore.stock ? `${cart.left(ore.id)} available.` : 'One-of-a-kind.' }} Plus {{ money(SITE.shippingFlat) }} insured shipping per order.</p>
+          <p class="mt-2 text-xs text-stone-500">{{ ore.unit ? `${cart.left(ore.id)} available.` : 'One-of-a-kind.' }} Plus {{ money(SITE.shippingFlat) }} insured shipping per order.</p>
         </div>
 
         <dl class="mt-8 grid grid-cols-3 gap-y-2 text-sm border-t border-stone-200 pt-6">

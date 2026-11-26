@@ -14,7 +14,7 @@
             <router-link :to="`/shop/ore/${item.id}`" class="font-semibold text-stone-900 hover:underline">{{ item.name }}</router-link>
             <p class="text-sm text-stone-500">{{ item.subtitle }}</p>
           </div>
-          <select v-if="item.stock" :value="item.qty" @change="cart.setQty(item.id, +$event.target.value)" class="border border-stone-300 rounded px-2 py-1 text-sm" aria-label="Quantity">
+          <select v-if="item.unit" :value="item.qty" @change="cart.setQty(item.id, +$event.target.value)" class="border border-stone-300 rounded px-2 py-1 text-sm" aria-label="Quantity">
             <option v-for="n in Math.min(cart.left(item.id), 20)" :key="n" :value="n">{{ n }}</option>
           </select>
           <p class="font-semibold w-20 text-right">{{ money(item.price * item.qty) }}</p>

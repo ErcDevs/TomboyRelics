@@ -56,6 +56,9 @@ This is the quartz-sulfide vein style the Tomboy was worked for. A very photogen
     name: 'Hard Rock Gold Ore',
     subtitle: 'Visible gold flecks in chalcopyrite',
     price: 29,
+    // One test order (Nov 2026) was kept by the owner, so stock is 2 to keep
+    // the real specimen listed. Set back to 1 (or remove) if you relist it.
+    stock: 2,
     weight: '',
     size: '',
     minerals: ['Native gold', 'Chalcopyrite'],
