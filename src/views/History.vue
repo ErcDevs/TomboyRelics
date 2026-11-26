@@ -13,7 +13,7 @@
       <p>
         The vein was located as the Belmont claim in 1880 and the Tomboy claim in 1886, but it was thought to be of little value until the early 1890s.
         The Tomboy Gold Mining Company had it working profitably by April 1895. That year the mine produced nearly $600,000, and nearly $800,000 in 1896.
-        In 1897 the Tomboy was bought for $2 million by the Exploration Company of London, a mining firm backed by the Rothschild banking family, and by about 1900 it was producing roughly $90,000 a month and had produced
+        In 1897 the Rothschild family bought the Tomboy for $2 million through the Exploration Company of London, their mining investment firm, and by about 1900 it was producing roughly $90,000 a month and had produced
         $4 to $5 million in total (at $20 gold). It became one of the three great producers of the Telluride district, alongside the Smuggler-Union
         and the Liberty Bell, and its peak ran from the 1890s through World War I.
       </p>
