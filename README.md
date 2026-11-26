@@ -30,7 +30,8 @@ Set these in Cloudflare → Workers & Pages → tomboyrelics → Settings → Va
 | `SQUARE_ACCESS_TOKEN` (encrypt as Secret) | production access token | sandbox access token |
 
 Get the token and location id at developer.squareup.com → your app → Credentials / Locations.
-Never commit the access token.
+Never commit the access token. Variables only take effect on the next deployment
+(push to `main`, or Deployments → Retry deployment).
 
 Private tools (pricing, eBay listing) are only available locally: `npm run dev`, then
 `/tools/pricing` and `/tools/ebay`. They are not part of the public site.
