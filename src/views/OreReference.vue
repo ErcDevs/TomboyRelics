@@ -23,7 +23,7 @@
           <div>
             <h2 class="text-3xl font-bold text-stone-900 mb-4">Quartz Vein Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-              White to clear quartz veins with visible native gold and brassy sulfides. Free-milling gold like this was recovered in the Tomboy's stamp mill, and it is the most sought-after type of Tomboy specimen.
+              White to clear quartz veins with visible native gold and brassy sulfides. The USGS noted that even the white "bony" quartz, usually barren elsewhere, was rich in gold at the Tomboy and often showed free gold visible to the eye. More than three-quarters of the gold was free-milling and was caught on amalgamation plates in the mill.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -97,7 +97,7 @@
           <div>
             <h2 class="text-3xl font-bold text-stone-900 mb-4">High-Grade Galena Ore</h2>
             <p class="text-lg text-stone-700 leading-relaxed mb-6">
-              High-grade galena ore: heavy, steel-gray to black lead sulfide in a quartz vein. Galena was the main silver carrier in the district's veins: an 1883 shipment of high-grade ore from the neighboring Smuggler vein ran 800 ounces of silver and 18 ounces of gold per ton. Fresh galena shows a bright metallic luster and cubic cleavage.
+              High-grade galena ore: heavy, steel-gray to black lead sulfide in a quartz vein. Galena was the main silver carrier in the district's veins. At the Tomboy, the USGS recorded galena ore on the neighboring Iron vein carrying about 40 ounces of silver per ton (Ransome, 1901), and an 1883 shipment of high-grade ore from the neighboring Smuggler vein ran 800 ounces of silver and 18 ounces of gold per ton. Fresh galena shows a bright metallic luster and cubic cleavage.
             </p>
 
             <!-- Mineral Composition Table -->
@@ -395,7 +395,7 @@
       </div>
       <div class="mt-20 text-center">
         <router-link to="/shop" class="inline-block bg-copper-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-copper-700">Shop Tomboy ore specimens</router-link>
-        <p class="mt-8 text-sm text-stone-500">Geology source: Colorado Geological Survey Open File 75-00 (Tomboy mine), citing Purington (1896) and Ransome (1901); Western Mining History, San Miguel County gold production (Smuggler vein 1883 shipment).</p>
+        <p class="mt-8 text-sm text-stone-500">Geology source: Colorado Geological Survey Open File 75-00 (Tomboy mine), citing Purington (1896) and Ransome (1901); USGS Bulletin 182 (Ransome, 1901), pp. 206–211; Western Mining History, San Miguel County gold production (Smuggler vein 1883 shipment).</p>
       </div>
     </div>
   </div>
