@@ -14,7 +14,10 @@
             <router-link :to="`/shop/ore/${item.id}`" class="font-semibold text-stone-900 hover:underline">{{ item.name }}</router-link>
             <p class="text-sm text-stone-500">{{ item.subtitle }}</p>
           </div>
-          <p class="font-semibold">{{ money(item.price) }}</p>
+          <select v-if="item.stock" :value="item.qty" @change="cart.setQty(item.id, +$event.target.value)" class="border border-stone-300 rounded px-2 py-1 text-sm" aria-label="Quantity">
+            <option v-for="n in Math.min(cart.left(item.id), 20)" :key="n" :value="n">{{ n }}</option>
+          </select>
+          <p class="font-semibold w-20 text-right">{{ money(item.price * item.qty) }}</p>
           <button @click="cart.remove(item.id)" class="ml-2 text-sm text-stone-500 hover:text-red-700">Remove</button>
         </li>
       </ul>
@@ -51,18 +54,14 @@ async function checkout() {
     const r = await fetch('/api/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ids: cart.ids }),
+      body: JSON.stringify({ qty: cart.qty }),
     })
     const data = await r.json().catch(() => ({}))
     if (r.ok && data.url) {
       window.location.href = data.url
       return
     }
-    if (data.sold) {
-      cart.soldIds = data.sold
-      cart.ids = cart.ids.filter((i) => !data.sold.includes(i))
-      cart.save()
-    }
+    if (data.soldQty) cart.applySold(data.soldQty)
     error.value = data.error || 'Checkout is unavailable right now. Please try again shortly.'
   } catch {
     error.value = 'Checkout is unavailable right now. Please try again shortly.'

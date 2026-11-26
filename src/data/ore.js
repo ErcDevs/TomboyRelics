@@ -4,6 +4,8 @@
 // with in the browser.
 //
 // To add an item: copy a block, give it the next id, set price in dollars.
+// One-of-a-kind specimens have no `stock`. For items sold in multiples
+// (like bags of concentrate) set `stock` to how many you have.
 // To mark an item sold by hand: set sold: true. (Paid Square orders are also
 // detected automatically by /api/sold, so you usually don't need to.)
 
@@ -64,19 +66,30 @@ This is the quartz-sulfide vein style the Tomboy was worked for. A very photogen
   },
   {
     id: 4,
-    name: 'Shaker Table Concentrates',
-    subtitle: 'Gravity-separated heavy sulfides',
-    price: 75,
-    weight: '',
+    name: 'Gold Concentrates, ¼ lb Bag',
+    subtitle: 'Lab-assayed 1,050 g/t gold (30.6 oz/ton)',
+    price: 39,
+    stock: 10,
+    unit: 'bag',
+    weight: '¼ lb (113 g) per bag',
     size: '',
-    minerals: ['Chalcopyrite', 'Galena', 'Arsenopyrite', 'Tellurides'],
+    minerals: ['Gold', 'Galena', 'Chalcopyrite', 'Tellurides'],
     image: '/oreImages/gridThumbs/4main.jpeg',
     images: [
       '/oreImages/productImages/4.1.jpeg',
       '/oreImages/productImages/4.2.jpeg',
       '/oreImages/productImages/4.3.jpeg',
     ],
-    desc: `Concentrates from our own shaker table, produced by crushing Tomboy Claim ore and separating the heavy fraction by gravity. Heavy sulfides present include chalcopyrite, galena and arsenopyrite, with tellurides.`,
+    desc: `High-grade gravity concentrates from our own shaker table, made by crushing Tomboy claim ore and keeping the heavy fraction. Sold in ¼ lb (113 g) bags.
+
+Independent lab assay (Hazen Research, Golden, Colorado, report 25H03928, January 2026) on this concentrate:
+• Gold: 1,050 g/t (about 30.6 troy oz per ton)
+• Silver: 240 g/t
+• Lead: 27%
+• Ruthenium: 47 g/t
+• Rhodium: 5 g/t
+
+At that grade each ¼ lb bag carries roughly 0.12 g of gold. Much of the gold is fine-grained in sulfides and tellurides, so expect little visible gold when panning; this is a high-grade concentrate for collectors and small-scale refiners, not panning paydirt. Assay results apply to the lab sample; individual bags will vary.`,
     sold: false,
   },
   {

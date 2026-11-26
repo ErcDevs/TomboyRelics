@@ -16,13 +16,22 @@
       <div>
         <h1 class="font-serif text-3xl sm:text-4xl text-stone-900">{{ ore.name }}</h1>
         <p class="mt-2 text-stone-500">{{ ore.subtitle }}</p>
-        <p class="mt-6 text-3xl font-bold text-amber-700">{{ money(ore.price) }}</p>
+        <p class="mt-6 text-3xl font-bold text-amber-700">{{ money(ore.price) }}<span v-if="ore.unit" class="text-lg font-normal text-stone-500"> per {{ ore.unit }}</span></p>
 
         <div class="mt-6">
           <p v-if="sold" class="text-xl font-bold text-red-700">Sold</p>
+          <template v-else-if="ore.stock">
+            <div class="flex gap-3">
+              <select v-model.number="pick" class="border border-stone-300 rounded-lg px-3" aria-label="Quantity">
+                <option v-for="n in Math.min(cart.left(ore.id), 20)" :key="n" :value="n">{{ n }} {{ ore.unit }}{{ n > 1 ? 's' : '' }}</option>
+              </select>
+              <button @click="cart.add(ore.id, pick)" class="flex-1 bg-amber-500 text-stone-900 font-semibold py-4 rounded-lg hover:bg-amber-400">Add to cart</button>
+            </div>
+            <router-link v-if="cart.has(ore.id)" to="/cart" class="mt-2 block text-sm text-amber-700 underline">{{ cart.qty[ore.id] }} in your cart – view cart</router-link>
+          </template>
           <router-link v-else-if="cart.has(ore.id)" to="/cart" class="block text-center w-full bg-stone-800 text-white font-semibold py-4 rounded-lg hover:bg-stone-700">In your cart – View cart</router-link>
           <button v-else @click="cart.add(ore.id)" class="w-full bg-amber-500 text-stone-900 font-semibold py-4 rounded-lg hover:bg-amber-400">Add to cart</button>
-          <p class="mt-2 text-xs text-stone-500">One-of-a-kind. Plus {{ money(SITE.shippingFlat) }} insured shipping per order.</p>
+          <p class="mt-2 text-xs text-stone-500">{{ ore.stock ? `${cart.left(ore.id)} available.` : 'One-of-a-kind.' }} Plus {{ money(SITE.shippingFlat) }} insured shipping per order.</p>
         </div>
 
         <dl class="mt-8 grid grid-cols-3 gap-y-2 text-sm border-t border-stone-200 pt-6">
@@ -33,7 +42,7 @@
         </dl>
 
         <div class="mt-8 space-y-4 text-stone-700 leading-relaxed">
-          <p v-for="(para, i) in ore.desc.split('\n\n')" :key="i">{{ para }}</p>
+          <p class="whitespace-pre-line" v-for="(para, i) in ore.desc.split('\n\n')" :key="i">{{ para }}</p>
         </div>
       </div>
     </div>
@@ -56,5 +65,6 @@ const ore = computed(() => findOre(route.params.id))
 const sold = computed(() => ore.value && cart.isSold(ore.value.id))
 const gallery = computed(() => (ore.value ? [ore.value.image, ...ore.value.images] : []))
 const current = ref('')
+const pick = ref(1)
 watch(ore, (o) => (current.value = o?.image || ''), { immediate: true })
 </script>

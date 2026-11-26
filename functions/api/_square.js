@@ -27,9 +27,9 @@ export async function squareFetch(env, path, body) {
   return { ok: res.ok, status: res.status, data }
 }
 
-// Ids of ore items that appear in a paid (OPEN or COMPLETED) order.
-export async function paidItemIds(env) {
-  const sold = new Set()
+// { id: quantity } of ore items in paid (OPEN or COMPLETED) orders.
+export async function paidQuantities(env) {
+  const sold = {}
   let cursor
   for (let page = 0; page < 10; page++) {
     const { ok, data } = await squareFetch(env, '/v2/orders/search', {
@@ -43,13 +43,13 @@ export async function paidItemIds(env) {
       for (const li of order.line_items || []) {
         const sku = li.metadata?.sku || ''
         const m = sku.match(/^ore-(\d+)$/)
-        if (m) sold.add(Number(m[1]))
+        if (m) sold[m[1]] = (sold[m[1]] || 0) + Number(li.quantity || 1)
       }
     }
     cursor = data.cursor
     if (!cursor) break
   }
-  return [...sold]
+  return sold
 }
 
 export const json = (obj, status = 200, extra = {}) =>
