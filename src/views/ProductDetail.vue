@@ -3,8 +3,12 @@
     <router-link to="/shop" class="text-sm text-copper-300 hover:underline">← All specimens</router-link>
 
     <div v-if="ore" class="mt-6 grid gap-10 md:grid-cols-2">
+      <ImageLightbox v-model:open="viewerOpen" v-model:index="viewerIndex" :images="gallery" :alt="ore.name" />
       <div>
-        <img :src="current" :alt="ore.name" class="w-full aspect-square object-cover rounded-lg shadow bg-stone-800" />
+        <button @click="openViewer" class="relative block w-full group" aria-label="Zoom photo">
+          <img :src="current" :alt="ore.name" class="w-full aspect-square object-cover rounded-lg shadow bg-stone-800 cursor-zoom-in" />
+          <span class="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded opacity-80 group-hover:opacity-100">🔍 Click to zoom</span>
+        </button>
         <div class="mt-3 grid grid-cols-5 gap-2">
           <button v-for="img in gallery" :key="img" @click="current = img"
             :class="['rounded overflow-hidden border-2', img === current ? 'border-copper-600' : 'border-transparent']">
@@ -58,6 +62,7 @@ import { findOre } from '@/data/ore'
 import { SITE } from '@/data/site'
 import { useCartStore } from '@/stores/cart'
 import { money } from '@/utils/money'
+import ImageLightbox from '@/components/ImageLightbox.vue'
 
 const route = useRoute()
 const cart = useCartStore()
@@ -66,5 +71,11 @@ const sold = computed(() => ore.value && cart.isSold(ore.value.id))
 const gallery = computed(() => (ore.value ? [ore.value.image, ...ore.value.images] : []))
 const current = ref('')
 const pick = ref(1)
+const viewerOpen = ref(false)
+const viewerIndex = ref(0)
+function openViewer() {
+  viewerIndex.value = Math.max(0, gallery.value.indexOf(current.value))
+  viewerOpen.value = true
+}
 watch(ore, (o) => (current.value = o?.image || ''), { immediate: true })
 </script>
