@@ -76,9 +76,7 @@ This is the quartz-sulfide vein style the Tomboy was worked for. A very photogen
       '/oreImages/productImages/4.2.jpeg',
       '/oreImages/productImages/4.3.jpeg',
     ],
-    desc: `Concentrates from our own shaker table, produced by crushing Tomboy Claim ore and separating the heavy fraction by gravity. Heavy sulfides present include chalcopyrite, galena and arsenopyrite, with tellurides.
-
-Note: contains arsenopyrite (an arsenic mineral). Handle with care, wash hands after handling, and keep away from children and pets.`,
+    desc: `Concentrates from our own shaker table, produced by crushing Tomboy Claim ore and separating the heavy fraction by gravity. Heavy sulfides present include chalcopyrite, galena and arsenopyrite, with tellurides.`,
     sold: false,
   },
   {
