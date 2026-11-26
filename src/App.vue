@@ -59,6 +59,7 @@ const links = [
   { to: '/shop', label: 'Shop' },
   { to: '/history', label: 'History' },
   { to: '/ore-reference', label: 'Ore Reference' },
+  { to: '/shipping-returns', label: 'Contact' },
 ]
 onMounted(() => useCartStore().loadSold())
 </script>
