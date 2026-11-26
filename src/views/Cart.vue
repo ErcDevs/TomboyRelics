@@ -3,7 +3,7 @@
     <h1 class="font-serif text-4xl text-stone-900">Your Cart</h1>
 
     <p v-if="!cart.items.length" class="mt-10 text-lg text-stone-600">
-      Your cart is empty. <router-link to="/shop" class="text-amber-700 underline">Browse specimens →</router-link>
+      Your cart is empty. <router-link to="/shop" class="text-copper-600 underline">Browse specimens →</router-link>
     </p>
 
     <div v-else class="mt-8">
@@ -27,7 +27,7 @@
         <div class="flex justify-between text-stone-600"><span>Shipping ({{ SITE.shippingLabel }})</span><span>{{ money(SITE.shippingFlat) }}</span></div>
         <div class="flex justify-between text-xl font-bold pt-2 border-t border-stone-200"><span>Total</span><span>{{ money(cart.subtotal + SITE.shippingFlat) }}</span></div>
 
-        <button @click="checkout" :disabled="busy" class="mt-4 w-full bg-amber-500 text-stone-900 font-semibold py-4 rounded-lg hover:bg-amber-400 disabled:opacity-60">
+        <button @click="checkout" :disabled="busy" class="mt-4 w-full bg-copper-600 text-white font-semibold py-4 rounded-lg hover:bg-copper-700 disabled:opacity-60">
           {{ busy ? 'Opening secure checkout…' : 'Checkout' }}
         </button>
         <p v-if="error" class="text-red-700 text-center">{{ error }}</p>

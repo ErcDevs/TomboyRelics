@@ -30,6 +30,6 @@
     <p class="mt-10 text-sm text-stone-500">
       Sources: SAH Archipedia, "Tomboy Mine"; Western Mining History, "Tomboy, Colorado".
     </p>
-    <router-link to="/shop" class="mt-6 inline-block text-amber-700 hover:underline">Shop Tomboy ore →</router-link>
+    <router-link to="/shop" class="mt-6 inline-block text-copper-600 hover:underline">Shop Tomboy ore →</router-link>
   </div>
 </template>

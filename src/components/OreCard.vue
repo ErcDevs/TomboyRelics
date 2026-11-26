@@ -6,7 +6,7 @@
     <div class="p-4">
       <h3 class="font-semibold text-stone-900 leading-snug">{{ ore.name }}</h3>
       <p class="text-sm text-stone-500 mt-1">{{ ore.subtitle }}</p>
-      <p class="mt-3 text-lg font-bold text-amber-700">{{ money(ore.price) }}<span v-if="ore.unit" class="text-sm font-normal text-stone-500"> / {{ ore.unit }}</span></p>
+      <p class="mt-3 text-lg font-bold text-copper-600">{{ money(ore.price) }}<span v-if="ore.unit" class="text-sm font-normal text-stone-500"> / {{ ore.unit }}</span></p>
     </div>
   </router-link>
 </template>
